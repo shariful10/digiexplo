@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sidebar-shadow {
+   box-shadow: 0 0 30px rgba(0 0 0 / 4%);
+   -webkit-box-shadow: 0 0 30px rgb(0 0 0 / 4%);
+}

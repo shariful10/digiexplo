@@ -1,9 +1,9 @@
 
 const Home = () => {
 	return (
-		<main className="">
+		<div className="">
 			<h1>Digiexplo Multivendor</h1>
-		</main>
+		</div>
 	);
 };
 

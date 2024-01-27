@@ -1,7 +1,15 @@
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
-	return <div>{children}</div>;
+const Layout = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<div>
+			<Navbar />
+			{children}
+			<Footer />
+		</div>
+	);
 };
 
-export default RootLayout;
+export default Layout;

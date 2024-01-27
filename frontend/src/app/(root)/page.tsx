@@ -1,9 +1,11 @@
+import Container from "@/components/Container";
+import Banner from "@/components/HomePage/Banner";
 
 const Home = () => {
 	return (
-		<div className="">
-			<h1>Digiexplo Multivendor</h1>
-		</div>
+		<Container>
+			<Banner />
+		</Container>
 	);
 };
 

@@ -38,7 +38,7 @@ const items = [
 
 const Sidebar = () => {
 	return (
-		<div className="max-w-[270px] w-full h-screen bg-white sidebar-shadow">
+		<div className="hidden md:block max-w-[270px] w-full h-screen bg-white sidebar-shadow">
 			<div className="px-[30px] py-[25px]">
 				<Link href="/">
 					<Image src={logo} className="w-[100px]" alt="logo" />

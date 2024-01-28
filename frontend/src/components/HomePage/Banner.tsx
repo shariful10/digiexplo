@@ -101,11 +101,11 @@ const Banner = () => {
 		<div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-14 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden">
 			<div className="absolute -top-20 -right-20 hidden md:grid grid-cols-3 gap-5 rotate-45">
 				{images.map(({ id, image }) => (
-					<div key={id} className="w-[180px] h-[135px] rounded-2xl">
+					<div key={id} className="w-[180px] h-[135px] rounded-2xl hover:scale-110 duration-300 overflow-hidden">
 						<Link href="#">
 							<Image
 								src={image}
-								className="w-full h-full rounded-2xl hover:scale-110 transition-all ease-in-out duration-300"
+								className="w-full h-full rounded-2xl"
 								alt=""
 							/>
 						</Link>

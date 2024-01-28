@@ -8,7 +8,7 @@ import { LuImagePlus } from "react-icons/lu";
 import { MdOutlineQueueMusic } from "react-icons/md";
 import { HiOutlineColorSwatch } from "react-icons/hi";
 
-const items = [
+export const items = [
 	{
 		id: "1",
 		title: "home",

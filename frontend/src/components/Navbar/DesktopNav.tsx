@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import Container from "../Container";
 import { LuUser2 } from "react-icons/lu";

@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import Banner from "@/components/HomePage/Banner";
+import RecentBlogs from "@/components/HomePage/RecentBlogs";
 import LatestItems from "@/components/HomePage/LatestItems";
 import FeaturedItems from "@/components/HomePage/FeaturedItems";
 import SubscribeBanner from "@/components/HomePage/SubscribeBanner";
@@ -13,6 +14,7 @@ const Home = () => {
          <FeaturedItems />
          <SubscribeBanner />
          <LatestItems />
+         <RecentBlogs />
 		</Container>
 	);
 };

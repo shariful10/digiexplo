@@ -11,9 +11,11 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<div className="flex gap-2">
-			<Sidebar />
-			<div className="w-full bg-[#FEFFFF] mr-auto">
+		<div className="flex">
+			<div>
+				<Sidebar /> 
+			</div>
+			<div className="bg-[#FEFFFF] px-10">
 				<Navbar />
 				{children}
 				<Footer />

@@ -76,9 +76,9 @@ const ImageCard = ({ className }: {className?: string}) => {
 				<div key={id} className="cursor-pointer">
 					<Image
 						src={image}
-						width={500}
+						width={100}
 						height={500}
-						className="rounded-xl"
+						className="rounded-xl w-full"
 						alt="image"
 					/>
 					<div className="mt-5 text-textColor">

@@ -11,7 +11,7 @@ const LatestItems = () => {
 			<SectionTitle title="Latest" subtitle="Items" />
 			<SectionDesc description="Browse All Latest Charms" />
 			<Tabs />
-         <ImageCard />
+         <ImageCard className="lg:grid-cols-4" />
 		</div>
 	);
 };

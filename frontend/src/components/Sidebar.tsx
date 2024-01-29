@@ -40,7 +40,7 @@ export const items = [
       url: "/",
 	},
 	{
-		id: "5",
+		id: "6",
 		title: "blogs",
 		Icon: MdOutlineQueueMusic,
       url: "/blogs"

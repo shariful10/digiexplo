@@ -1,9 +1,7 @@
 import React from "react";
-import SectionDesc from "../SectionDesc";
-import SectionTitle from "../SectionTitle";
 import { FaAngleRight } from "react-icons/fa";
 
-export const blogs = [
+const blogs = [
 	{
 		id: 1,
 		title: "Back sleep that back for our girl I but rather",
@@ -42,33 +40,29 @@ export const blogs = [
 	},
 ];
 
-const RecentBlogs = () => {
+const BlogCards = () => {
 	return (
-		<div className="mt-10 mb-12">
-			<SectionTitle title="Recent" subtitle="Blogs" />
-			<SectionDesc description="Be Connected with Us By Read these article" />
-			<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-				{blogs.map(({ id, title, desc, author, category, bg_img }) => (
-					<div
-						key={id}
-						className="p-5 md:p-10 rounded-2xl bg-gray-100 flex flex-col justify-between items-start"
-					>
-						<div className="mb-5 flex flex-col justify-between">
-							<h2 className="text-2xl text-black">{title}</h2>
-							<p className="mt-3 mb-5 text-descColor">
-								by <span className="font-medium">{author}</span> in{" "}
-								<span className="font-medium">{category}</span>
-							</p>
-							<p className="text-black">{desc}</p>
-						</div>
-						<button className="hover:text-primary duration-500 transition-all ease-in-out flex items-center gap-[2px] hover:gap-2">
-							Read More <FaAngleRight />
-						</button>
+		<>
+			{blogs.map(({ id, title, desc, author, category, bg_img }) => (
+				<div
+					key={id}
+					className="p-5 md:p-10 rounded-2xl bg-gray-100 flex flex-col justify-between items-start"
+				>
+					<div className="mb-5 flex flex-col justify-between">
+						<h2 className="text-2xl text-black">{title}</h2>
+						<p className="mt-3 mb-5 text-descColor">
+							by <span className="font-medium">{author}</span> in{" "}
+							<span className="font-medium">{category}</span>
+						</p>
+						<p className="text-black">{desc}</p>
 					</div>
-				))}
-			</div>
-		</div>
+					<button className="hover:text-primary duration-500 transition-all ease-in-out flex items-center gap-[2px] hover:gap-2">
+						Read More <FaAngleRight />
+					</button>
+				</div>
+			))}
+		</>
 	);
 };
 
-export default RecentBlogs;
+export default BlogCards;

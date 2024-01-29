@@ -69,9 +69,9 @@ const images = [
 	},
 ];
 
-const ImageCard = () => {
+const ImageCard = ({ className }: {className?: string}) => {
 	return (
-		<div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+		<div className={`mt-10 grid md:grid-cols-2 ${className} gap-6`}>
 			{images.map(({ id, image, title, price, vendor_name, category }) => (
 				<div key={id} className="cursor-pointer">
 					<Image

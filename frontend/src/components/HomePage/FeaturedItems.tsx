@@ -9,7 +9,7 @@ const FeaturedItems = () => {
 		<div className="mt-10 mb-11">
 			<SectionTitle title="Featured" subtitle="Items" />
 			<SectionDesc description="These Items are Extraordinary" />
-         <ImageCard />
+         <ImageCard className="lg:grid-cols-3 xl:grid-cols-4" />
 		</div>
 	);
 };

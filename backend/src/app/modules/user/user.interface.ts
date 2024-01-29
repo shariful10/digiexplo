@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { USER_ROLE } from "./user.constant";
 
 export interface IName {
@@ -9,6 +9,7 @@ export interface IName {
 }
 
 export interface IUser {
+  _id: Types.ObjectId;
   name: IName;
   username: string;
   email: string;

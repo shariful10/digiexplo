@@ -3,11 +3,11 @@ import { z } from "zod";
 const createUserNameZodSchema = z.object({
   firstName: z
     .string()
-    .min(5, { message: "First name should be more than 5 characters" }),
+    .min(2, { message: "First name should be more than 2 characters" }),
   middleName: z.string().optional(),
   lastName: z
     .string()
-    .min(5, { message: "Last name should be more than 5 characters" }),
+    .min(2, { message: "Last name should be more than 2 characters" }),
 });
 
 const CreateUserZodSchema = z.object({

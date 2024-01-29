@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
 
 const SingleBlogBanner = () => {
 	const image =
@@ -19,11 +18,11 @@ const SingleBlogBanner = () => {
 					Know point startup reached concise.
 				</h3>
 				<p className="">
-					in{" "}
+					in
 					<Link href={"#"} className="font-medium">
 						Classic Music
-					</Link>{" "}
-					on{" "}
+					</Link>
+					on
 					<Link href={"#"} className="font-medium">
 						June 11, 2023
 					</Link>

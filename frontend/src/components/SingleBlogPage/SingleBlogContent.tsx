@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
 import RightBar from "../RightBar";
 import Tags from "../Tags";
+import { blogs } from "../HomePage/RecentBlogs";
+import { useParams } from "next/navigation";
 
 const description = [
    {
@@ -22,6 +24,9 @@ const description = [
 ]
 
 const SingleBlogContent = () => {
+   const {id} = useParams();
+   console.log(id)
+
 	return (
 		<div className="grid md:grid-cols-3 gap-8 mb-5 md:mb-10">
 			<div className="md:col-span-2 mt-5 md:mt-10">

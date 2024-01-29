@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="flex gap-2">
 			<Sidebar />
-			<div className="w-full bg-[#FEFFFF] ms-auto">
+			<div className="w-full bg-[#FEFFFF] mr-auto">
 				<Navbar />
 				{children}
 				<Footer />

@@ -2,6 +2,7 @@ import React from 'react'
 import { Metadata } from 'next';
 import BlogBanner from '@/components/BlogPage/BlogBanner'
 import BlogContent from '@/components/BlogPage/BlogContent';
+import Container from '@/components/Container';
 
 export const metadata: Metadata = {
 	title: "Blog | Digi Expo",
@@ -10,10 +11,10 @@ export const metadata: Metadata = {
 
 const BlogPage = () => {
    return (
-      <>
+      <Container>
          <BlogBanner />
          <BlogContent />
-      </>
+      </Container>
    )
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa";
 
 const blogs = [
@@ -51,14 +51,17 @@ const BlogCards = () => {
 					<div className="mb-5 flex flex-col justify-between">
 						<h2 className="text-2xl text-black">{title}</h2>
 						<p className="mt-3 mb-5 text-descColor">
-							by <span className="font-medium">{author}</span> in{" "}
+							by <span className="font-medium">{author}</span> in
 							<span className="font-medium">{category}</span>
 						</p>
 						<p className="text-black">{desc}</p>
 					</div>
-					<button className="hover:text-primary duration-500 transition-all ease-in-out flex items-center gap-[2px] hover:gap-2">
+					<Link
+						href={`/${id}`}
+						className="hover:text-primary duration-500 transition-all ease-in-out flex items-center gap-[2px] hover:gap-2"
+					>
 						Read More <FaAngleRight />
-					</button>
+					</Link>
 				</div>
 			))}
 		</>

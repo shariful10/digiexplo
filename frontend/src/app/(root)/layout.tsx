@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar/Navbar";
 

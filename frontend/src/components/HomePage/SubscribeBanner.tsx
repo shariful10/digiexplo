@@ -12,15 +12,15 @@ const SubscribeBanner = () => {
 				<p className="text-base md:text-lg text-white my-5">
 					We Don’t send spam email. No need to worried about that.
 				</p>
-				<div className="relative w-full md:w-[35%]">
+				<div className=" w-full md:w-2/3 lg:w-[35%]">
 					<input
 						type="email"
-						className="rounded-[12px] text-textColor px-5 py-[13px] border-2 border-[#c2c7cc] focus:outline-none focus:border-primary placeholder:text-textColor w-full"
+						className="relative rounded-[12px] text-textColor px-5 py-[13px] border-2 border-[#c2c7cc] focus:outline-none focus:border-primary placeholder:text-textColor w-full"
 						placeholder="Enter Email Address"
 						name=""
 						id=""
 					/>
-					<button className="bg-primary px-5 py-2 rounded-lg absolute top-[10px] left-[227px] md:left-[432px]">
+					<button className="bg-primary px-5 py-2 rounded-lg absolute bottom-[3.8rem] left-[250px] sm:left-[515px] md:left-[425px] lg:left-[310px] 2xl:left-[492px]">
 						<GoArrowRight className="text-[17px] text-white" />
 					</button>
 				</div>

@@ -12,13 +12,12 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 interface Props {
 	show: boolean;
-   showCart: boolean;
+	showCart: boolean;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
-   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
+	setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
-
 	return (
 		<div className="md:px-10 py-3 bg-white">
 			<Container>
@@ -36,11 +35,18 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 						</button>
 					</div>
 					<Link href="/" className="md:hidden">
-						<Image src={logo} className="w-[70px] rounded-md" alt="logo" />
+						<Image
+							src={logo}
+							className="w-[70px] rounded-md"
+							alt="logo"
+						/>
 					</Link>
 					<div className="flex items-center gap-4">
 						<div className="flex items-center gap-4">
-							<div onClick={() => setShowCart(true)} className="relative cursor-pointer">
+							<div
+								onClick={() => setShowCart(true)}
+								className="relative cursor-pointer"
+							>
 								<IoMdCart className="text-2xl" />
 								<div className="bg-primary rounded-full p-0.5 h-4 w-4 flex justify-center items-center text-white text-[10px] absolute -top-1 -right-1">
 									0
@@ -65,7 +71,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 					</div>
 				</div>
 			</Container>
-         <CartPage showCart={showCart} setShowCart={setShowCart} />
+			<CartPage showCart={showCart} setShowCart={setShowCart} />
 		</div>
 	);
 };

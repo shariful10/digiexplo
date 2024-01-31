@@ -9,7 +9,7 @@ const DesktopNav = () => {
 		<div className="py-3 sticky top-0">
 			<Container>
 				<div className="flex justify-between items-center">
-					<div className="hidden md:flex items-center gap-2">
+					<div className="hidden md:flex items-center gap-1">
 						<input
 							type="search"
 							className="border border-textColor outline-none py-2 px-4 rounded-lg"

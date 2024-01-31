@@ -98,7 +98,7 @@ const images = [
 
 const Banner = () => {
 	return (
-		<div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-14 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden">
+		<div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-12 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden">
 			<div className="absolute -top-20 -right-20 hidden md:grid grid-cols-3 gap-5 rotate-45 rounded-2xl">
 				{images.map(({ id, image }) => (
 					<div key={id} className="w-[180px] h-[135px] rounded-2xl overflow-hidden">
@@ -113,7 +113,7 @@ const Banner = () => {
 				))}
 			</div>
 			<div className="">
-				<h1 className="text-[40px] leading-[55px] md:text-[72px] font-bold md:w-[60%] md:leading-[82px] uppercase">
+				<h1 className="text-3xl sm:text-[45px] leading-[55px] lg:text-[72px] font-bold md:w-[60%] md:leading-[82px] uppercase">
 					Lorem ipsum dolor sit amet.
 				</h1>
 				<p className="text-base md:text-lg my-5 md:w-1/2">

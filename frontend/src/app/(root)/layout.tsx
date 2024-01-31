@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 			<div>
 				<Sidebar /> 
 			</div>
-			<div className="bg-[#FEFFFF] px-10">
+			<div className="bg-[#FEFFFF] md:px-10">
 				<Navbar />
 				{children}
 				<Footer />

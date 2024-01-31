@@ -1,19 +1,24 @@
 "use client";
-import logo from "@/images/logo.webp";
-import Image from "next/image";
 import Link from "next/link";
-import { IoMdCart } from "react-icons/io";
+import Image from "next/image";
+import { useState } from "react";
+import CartPage from "./CartPage";
+import Container from "./Container";
+import logo from "@/images/logo.webp";
 import { LuUser2 } from "react-icons/lu";
+import { IoMdCart } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
-import Container from "./Container";
 
 interface Props {
 	show: boolean;
+   showCart: boolean;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Navbar = ({ show, setShow }: Props) => {
+const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
+
 	return (
 		<div className="md:px-10 py-3 bg-white">
 			<Container>
@@ -35,8 +40,8 @@ const Navbar = ({ show, setShow }: Props) => {
 					</Link>
 					<div className="flex items-center gap-4">
 						<div className="flex items-center gap-4">
-							<div className="relative">
-								<IoMdCart className="text-2xl" />
+							<div className="relative cursor-pointer">
+								<IoMdCart onClick={() => setShowCart(true)} className="text-2xl" />
 								<div className="bg-primary rounded-full p-0.5 h-4 w-4 flex justify-center items-center text-white text-[10px] absolute -top-1 -right-1">
 									0
 								</div>
@@ -60,6 +65,7 @@ const Navbar = ({ show, setShow }: Props) => {
 					</div>
 				</div>
 			</Container>
+         <CartPage showCart={showCart} setShowCart={setShowCart} />
 		</div>
 	);
 };

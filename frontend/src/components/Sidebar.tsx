@@ -2,14 +2,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CgClose } from "react-icons/cg";
 import logo from "@/images/logo.webp";
+import { CgClose } from "react-icons/cg";
 import { TbVideo } from "react-icons/tb";
 import { VscHome } from "react-icons/vsc";
 import { LuImagePlus } from "react-icons/lu";
+import { usePathname } from "next/navigation";
 import { MdOutlineQueueMusic } from "react-icons/md";
 import { HiOutlineColorSwatch } from "react-icons/hi";
-import { usePathname } from "next/navigation";
 
 export const items = [
 	{

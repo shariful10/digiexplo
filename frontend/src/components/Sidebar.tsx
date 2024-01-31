@@ -23,7 +23,7 @@ export const items = [
   },
   {
     id: "3",
-    title: "photography",
+    title: "photos",
     Icon: LuImagePlus,
     url: "/",
   },

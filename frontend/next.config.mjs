@@ -3,7 +3,7 @@ const nextConfig = {
 	images: {
 		domains: [
          "dummyimage.com",
-         "mayosis.themepreview.xyz"
+         "mayosis.themepreview.xyz",
       ],
 	},
 };

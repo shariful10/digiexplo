@@ -98,7 +98,7 @@ const images = [
 
 const Banner = () => {
 	return (
-		<div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-12 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden">
+		<div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-12 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden z-0">
 			<div className="absolute -top-20 -right-20 hidden md:grid grid-cols-3 gap-5 rotate-45 rounded-2xl">
 				{images.map(({ id, image }) => (
 					<div key={id} className="w-[180px] h-[135px] rounded-2xl overflow-hidden">

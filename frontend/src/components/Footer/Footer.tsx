@@ -7,7 +7,7 @@ import FooterCol from "./FooterCol";
 
 const Footer = () => {
 	return (
-		<footer className="bg-[#EFF4F7]">
+		<footer className="bg-[#EFF4F7] md:px-10">
 			<Container>
 				<div className="pt-20 pb-[60px]">
 					<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">

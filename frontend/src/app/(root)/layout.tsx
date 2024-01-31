@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	const [show, setShow] = useState<boolean>(false);
-   const [showCart, setShowCart] = useState<boolean>(false)
+	const [showCart, setShowCart] = useState<boolean>(false);
 
 	return (
 		<div className={`flex`}>
@@ -14,8 +14,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 				<Sidebar show={show} setShow={setShow} />
 			</div>
 			<div className={`relative`}>
-				<Navbar show={show} setShow={setShow} showCart={showCart} setShowCart={setShowCart} />
-				<div className={`bg-[#FEFFFF] md:px-10 ${showCart && "overflow-hidden"}`}>
+				<Navbar
+					show={show}
+					setShow={setShow}
+					showCart={showCart}
+					setShowCart={setShowCart}
+				/>
+				<div
+					className={`bg-[#FEFFFF] md:px-10 ${
+						showCart && "overflow-hidden"
+					}`}
+				>
 					{children}
 				</div>
 				<Footer />

@@ -1,5 +1,8 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import Container from "../Container";
+import logo from "@/images/logo.webp";
 import { LuUser2 } from "react-icons/lu";
 import { IoMdCart } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
@@ -20,6 +23,9 @@ const DesktopNav = () => {
 						<button className="bg-primary text-white py-[10px] px-4 rounded-lg">
 							<RiSearchLine size={20} />
 						</button>
+						<Link href="/" className="md:hidden">
+							<Image src={logo} className="w-[100px]" alt="logo" />
+						</Link>
 					</div>
 					<div className="flex items-center gap-4">
 						<div className="relative">

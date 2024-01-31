@@ -12,6 +12,7 @@ const config: Config = {
 				primary: "#3239e5",
 				secondary: "#EFF4F7",
             textColor: "#222b4f",
+            darkBlue: "#140F44",
             descColor: "rgba(34, 43, 79, 0.63)",
 			},
 		},

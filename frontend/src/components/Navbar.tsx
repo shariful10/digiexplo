@@ -1,24 +1,21 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import Container from "../Container";
 import logo from "@/images/logo.webp";
-import { LuUser2 } from "react-icons/lu";
-import { CgClose } from "react-icons/cg";
+import Image from "next/image";
+import Link from "next/link";
 import { IoMdCart } from "react-icons/io";
+import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
-import MobileNav from "./MobileNav";
+import Container from "./Container";
 
 interface Props {
-   show: boolean,
-   setShow: React.Dispatch<React.SetStateAction<boolean>>
+	show: boolean;
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DesktopNav = ({ show, setShow }: Props) => {
+const Navbar = ({ show, setShow }: Props) => {
 	return (
-		<div className="py-3 sticky top-0">
+		<div className="md:px-10 py-3 bg-white">
 			<Container>
 				<div className="flex justify-between items-center">
 					<div className="hidden md:flex items-center gap-1">
@@ -34,7 +31,7 @@ const DesktopNav = ({ show, setShow }: Props) => {
 						</button>
 					</div>
 					<Link href="/" className="md:hidden">
-						<Image src={logo} className="w-[80px]" alt="logo" />
+						<Image src={logo} className="w-[70px] rounded-md" alt="logo" />
 					</Link>
 					<div className="flex items-center gap-4">
 						<div className="flex items-center gap-4">
@@ -52,11 +49,14 @@ const DesktopNav = ({ show, setShow }: Props) => {
 								Login
 							</button>
 						</div>
-						{show ? (
-							<CgClose onClick={() => setShow(false)} size={24} />
-						) : (
-							<RxHamburgerMenu onClick={() => setShow(true)} size={24} />
-						)}
+						<div className="md:hidden">
+							{!show && (
+								<RxHamburgerMenu
+									onClick={() => setShow(true)}
+									size={24}
+								/>
+							)}
+						</div>
 					</div>
 				</div>
 			</Container>
@@ -64,4 +64,4 @@ const DesktopNav = ({ show, setShow }: Props) => {
 	);
 };
 
-export default DesktopNav;
+export default Navbar;

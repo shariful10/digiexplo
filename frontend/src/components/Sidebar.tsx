@@ -6,10 +6,10 @@ import logo from "@/images/logo.webp";
 import { CgClose } from "react-icons/cg";
 import { TbVideo } from "react-icons/tb";
 import { VscHome } from "react-icons/vsc";
-import { LuImagePlus } from "react-icons/lu";
 import { usePathname } from "next/navigation";
-import { MdOutlineQueueMusic } from "react-icons/md";
 import { HiOutlineColorSwatch } from "react-icons/hi";
+import { LuImagePlus, LuUser2 } from "react-icons/lu";
+import { MdOutlineQueueMusic } from "react-icons/md";
 
 export const items = [
 	{
@@ -82,11 +82,12 @@ const Sidebar = ({ show, setShow }: Props) => {
 						size={24}
 					/>
 				</div>
-				<div className="mt-[30px]">
+				<div className="my-[30px]">
 					<div className="">
 						{items.map(({ id, title, Icon, url }) => (
 							<ul key={id}>
 								<li
+                           onClick={() => setShow(false)}
 									className={`flex items-center gap-4 px-5 py-[13px] cursor-pointer ${
 										pathName === url && "text-primary"
 									} hover:text-primary capitalize text-lg font-medium`}
@@ -98,6 +99,19 @@ const Sidebar = ({ show, setShow }: Props) => {
 						))}
 					</div>
 				</div>
+            <div className="flex flex-col gap-2 mx-5 lg:hidden">
+               <Link href="#" onClick={() => setShow(false)}>
+                  <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2.5 px-5 rounded-md font-semibold text-white w-full">
+                     Became a Vendor
+                  </button>
+               </Link>
+               <Link href="/login" onClick={() => setShow(false)}>
+                  <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-700 py-2 px-5 rounded-md font-semibold text-white flex justify-center items-center gap-2 w-full">
+                     <LuUser2 />
+                     Login
+                  </button>
+               </Link>
+            </div>
 			</div>
 		</div>
 	);

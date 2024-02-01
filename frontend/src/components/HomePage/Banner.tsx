@@ -120,7 +120,7 @@ const Banner = () => {
 					Have the to of lose he least unmolested receive fixed is the of
 					moving by we monstrous in holding you at its little you attempt.
 				</p>
-				<button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 font-medium text-white py-3 px-8 rounded-lg mt-5">
+				<button className="bg-primary hover:bg-white border-2 border-transparent hover:border-primary transition-all ease-in-out duration-500 font-medium text-white hover:text-primary py-3 px-8 rounded-lg mt-5">
 					Explore Now
 				</button>
 			</div>

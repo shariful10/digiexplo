@@ -1,4 +1,4 @@
-import Tags from "./Tags";
+import Tags from "../Tags";
 import Link from "next/link";
 import { IoMdSearch } from "react-icons/io";
 import { FaRegFolder } from "react-icons/fa";
@@ -20,7 +20,7 @@ const RightBar = () => {
 				</button>
 			</div>
 			<div className=" bg-secondary p-5 md:p-10 mt-5 rounded-2xl">
-				<h3 className="flex justify-center items-center gap-2 text-base font-bold">
+				<h3 className="flex lg:justify-center items-center gap-2 text-base font-bold">
 					<FaRegFolder className="text-xl" /> CATEGORIES
 				</h3>
 				<div className="flex flex-col gap-2 hover:text-primary mt-5">
@@ -29,8 +29,8 @@ const RightBar = () => {
 					<Link href="">Pop Music (2)</Link>
 				</div>
 			</div>
-			<div className=" bg-secondary p-5 xl:p-10 mt-5 rounded-2xl">
-				<h3 className="flex justify-center items-center gap-2 text-base font-bold">
+			<div className=" bg-secondary p-5 md:p-10 mt-5 rounded-2xl">
+				<h3 className="flex lg:justify-center items-center gap-2 text-base font-bold">
 					<AiOutlineTags className="text-xl" />
 					BLOG TAGS
 				</h3>

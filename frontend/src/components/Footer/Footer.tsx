@@ -10,7 +10,7 @@ const Footer = () => {
 		<footer className="bg-[#EFF4F7] md:px-10">
 			<Container>
 				<div className="pt-20 pb-[60px]">
-					<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+					<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12">
 						<div>
 							<Link href="/" className="mb-5">
 								<Image src={logo} className="w-[100px]" alt="logo" />

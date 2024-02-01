@@ -55,10 +55,12 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 							<button className="hidden md:block bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2 px-5 rounded-lg font-semibold text-white">
 								Became a Vendor
 							</button>
-							<button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white md:flex items-center gap-2">
-								<LuUser2 />
-								Login
-							</button>
+							<Link href="/login">
+                        <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white md:flex items-center gap-2">
+                           <LuUser2 />
+                           Login
+                        </button>
+                     </Link>
 						</div>
 						<div className="md:hidden">
 							{!show && (

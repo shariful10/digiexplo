@@ -98,25 +98,45 @@ const signUp = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block font-medium text-gray-400 text-xs md:mb-2"
-              >
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
-                  <IoIosLock size={15} />
+            <div className="md:flex gap-5 items-center">
+              <div className="w-full mb-5">
+                <label
+                  htmlFor="password"
+                  className="block font-medium text-gray-400 text-xs md:mb-2"
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                    <IoIosLock size={15} />
+                  </div>
+                  <input
+                    type="password"
+                    id="password-icon"
+                    className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
+                    placeholder="Type your password"
+                    required
+                  />
                 </div>
-                <input
-                  type="password"
-                  id="password-icon"
-                  className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
-                  placeholder="Type your password"
-                  required
-                />
               </div>
+
+              {/* File input */}
+              <div className="w-full border-b-2 border-gray-300 py-4">
+                <div className="flex items-center">
+                  <input type="file" id="custom-input" hidden />
+                  <label
+                    htmlFor="custom-input"
+                    className="block text-sm mr-4 py-2 px-4
+            rounded-md border-0 font-semibold bg-pink-50
+            text-pink-700 hover:bg-pink-100 cursor-pointer"
+                  >
+                    Choose file
+                  </label>
+                  <label className="text-sm text-slate-500">Photo</label>
+                </div>
+              </div>
+
+              {/* File input End */}
             </div>
             <div className="text-right mt-1.5">
               <Link
@@ -136,9 +156,12 @@ const signUp = () => {
               <p>Already have an account?</p>
               <div className="outline outline-4 outline-gray-300 hover:outline-0 -outline-offset-4 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 group p-1 flex justify-center items-center w-fit mx-auto rounded-full">
                 <div className="w-full h-full bg-white rounded-full">
-                  <button className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 ">
+                  <Link
+                    href="/login"
+                    className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 "
+                  >
                     Log in
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -71,9 +71,12 @@ const login = () => {
               <p>Don't have an account?</p>
               <div className="outline outline-4 outline-gray-300 hover:outline-0 -outline-offset-4 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 group p-1 flex justify-center items-center w-fit mx-auto rounded-full">
                 <div className="w-full h-full bg-white rounded-full">
-                  <button className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 ">
+                  <Link
+                    href="/signup"
+                    className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 "
+                  >
                     Sign Up
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

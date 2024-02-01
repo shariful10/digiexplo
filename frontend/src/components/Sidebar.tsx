@@ -51,28 +51,46 @@ export const items = [
 ];
 
 interface Props {
-   show: boolean,
-   setShow: React.Dispatch<React.SetStateAction<boolean>>
+	show: boolean;
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Sidebar = ({ show, setShow }: Props) => {
-   const pathName = usePathname()
-   console.log(show)
+	const pathName = usePathname();
+	console.log(show);
 
 	return (
 		<div className="md:w-[270px]">
-			<div className={`fixed top-0 sidebar-shadow h-screen w-[270px] z-50 ${show ? "left-0 duration-500 bg-darkBlue text-white" : "-left-[300px] md:left-0 duration-500 bg-white"}`}>
+			<div
+				className={`fixed top-0 sidebar-shadow h-screen w-[270px] z-50 ${
+					show
+						? "left-0 duration-500 bg-darkBlue text-white"
+						: "-left-[300px] md:left-0 duration-500 bg-white"
+				}`}
+			>
 				<div className="px-[20px] md:px-[30px] py-[15px] md:py-[25px] flex justify-between">
 					<Link href="/">
-						<Image src={logo} className="w-[70px] md:w-[100px] rounded-md" alt="logo" />
+						<Image
+							src={logo}
+							className="w-[70px] md:w-[100px] rounded-md"
+							alt="logo"
+						/>
 					</Link>
-               <CgClose className="md:hidden" onClick={() => setShow(false)} size={24} />
+					<CgClose
+						className="md:hidden"
+						onClick={() => setShow(false)}
+						size={24}
+					/>
 				</div>
 				<div className="mt-[30px]">
 					<div className="">
 						{items.map(({ id, title, Icon, url }) => (
 							<ul key={id}>
-								<li className={`flex items-center gap-4 px-5 py-[13px] cursor-pointer ${pathName === url && "text-primary"} hover:text-primary capitalize text-lg font-medium`}>
+								<li
+									className={`flex items-center gap-4 px-5 py-[13px] cursor-pointer ${
+										pathName === url && "text-primary"
+									} hover:text-primary capitalize text-lg font-medium`}
+								>
 									<Icon className="text-2xl" />
 									<Link href={`${url ? url : ""}`}>{title}</Link>
 								</li>

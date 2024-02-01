@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import logo from "@/images/logo.webp";

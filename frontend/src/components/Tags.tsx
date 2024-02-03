@@ -6,6 +6,7 @@ type PropsType = {
 	bg: boolean;
 	title: string;
 	tags: string[];
+<<<<<<< HEAD
 	icon?: boolean;
 	center?: boolean;
    colon?: boolean;
@@ -22,6 +23,25 @@ const Tags = ({ icon, tags, title, bg, center, colon }: PropsType) => {
 				>
 					{icon && <CgTag size={20} className="text-xl -rotate-45" />}
 					{title}{colon && <span>:</span>}
+=======
+};
+
+const Tags = ({ tags, title, bg }: PropsType) => {
+	return (
+		<>
+			<div
+				className={`${bg && "bg-secondary"} rounded-xl ${
+					bg && "py-3 md:p-8"
+				}`}
+			>
+				<h4
+					className={`flex ${
+						bg ? "lg:justify-center uppercase" : "justify-start"
+					} items-center gap-2.5 text-base font-bold mb-8`}
+				>
+					<CgTag size={20} className="text-xl -rotate-45" />
+					{title}
+>>>>>>> development
 				</h4>
 				{tags?.map((tag, index) => (
 					<Link href="#" key={index}>

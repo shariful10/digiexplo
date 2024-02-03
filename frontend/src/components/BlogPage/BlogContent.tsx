@@ -1,7 +1,6 @@
 import React from "react";
-import RightBar from "../SingleBlogPage/RightBar";
-import Container from "../Container";
 import ImageCard from "../ImageCard";
+import RightBar from "../SingleBlogPage/RightBar";
 
 const BlogContent = () => {
 	return (

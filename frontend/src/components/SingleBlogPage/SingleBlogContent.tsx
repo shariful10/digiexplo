@@ -45,7 +45,7 @@ const SingleBlogContent = () => {
             </button>
           </div>
           <div className="mt-3">
-            <Tags tags={tags.slice(0, 45)} title={"Tags"} bg={false} />
+            <Tags tags={tags.slice(0, 45)} title="Tags" bg={false} icon={false} colon={true} />
           </div>
         </div>
       </div>

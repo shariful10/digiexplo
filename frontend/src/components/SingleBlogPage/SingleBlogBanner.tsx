@@ -25,7 +25,7 @@ const SingleBlogBanner = () => {
 					</Link>
 					on {""}
 					<Link href={"#"} className="font-medium">
-						June 11, 2023
+						June 11, 2023w
 					</Link>
 				</p>
 			</div>

@@ -24,7 +24,7 @@ export type ProductTypes = {
   className: string;
 };
 
-const ImageCard: React.FC<ProductTypes> = ({ product, className }) => {
+const ImageCard = ({ product, className }: ProductTypes) => {
   if (!product) {
     return null; // or handle this case in a way that makes sense for your application
   }

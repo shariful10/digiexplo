@@ -19,7 +19,7 @@ const RightBar = () => {
           <IoMdSearch className="text-xl text-white" />
         </button>
       </div>
-      <div className=" bg-secondary p-5 md:p-10 mt-5 rounded-2xl">
+      <div className=" bg-secondary px-5 py-8 md:p-10 mt-5 rounded-2xl">
         <h3 className="flex lg:justify-center items-center gap-2 text-base font-bold">
           <FaRegFolder className="text-xl" /> CATEGORIES
         </h3>

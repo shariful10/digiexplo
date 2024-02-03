@@ -1,9 +1,23 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import { IoMail } from "react-icons/io5";
 import { IoIosLock } from "react-icons/io";
+import useAuth from "@/hooks/useAuth";
+import toast from 'react-hot-toast';
 
 const Login = () => {
+   const { loginUser } = useAuth();
+
+   const handleSubmit = (e: any) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      loginUser({email, password});
+   }
+
+   console.log("success:", loginUser)
+
 	return (
 		<div className="h-screen bg-gradient-to-tr from-cyan-400 to-fuchsia-500 flex justify-center items-center">
 			<div className="py-10 md:py-12 xl:py-20 px-5 lg:px-0 flex justify-center items-center w-full">
@@ -12,7 +26,7 @@ const Login = () => {
 						Login
 					</h2>
 
-					<form className="mt-10 ">
+					<form onSubmit={handleSubmit} className="mt-10 ">
 						<div className="mb-5">
 							<label
 								htmlFor="email"
@@ -26,6 +40,7 @@ const Login = () => {
 								</div>
 								<input
 									type="email"
+                           name="email"
 									id="email-address-icon"
 									className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
 									placeholder="example@email.com"
@@ -46,6 +61,7 @@ const Login = () => {
 								</div>
 								<input
 									type="password"
+                           name="password"
 									id="password-icon"
 									className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
 									placeholder="Type your password"
@@ -62,7 +78,7 @@ const Login = () => {
 							</Link>
 						</div>
 						<div className="mt-7">
-							<button className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 rounded-full py-2 px-8 w-full text-lg font-semibold text-white transition-colors duration-500">
+							<button type="submit" className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 rounded-full py-2 px-8 w-full text-lg font-semibold text-white transition-colors duration-500">
 								Login
 							</button>
 						</div>

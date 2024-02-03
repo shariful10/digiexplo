@@ -57,7 +57,6 @@ interface Props {
 
 const Sidebar = ({ show, setShow }: Props) => {
 	const pathName = usePathname();
-	console.log(show);
 
 	return (
 		<div className="md:w-[270px]">

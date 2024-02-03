@@ -12,7 +12,7 @@ const IName = new Schema<IName>({
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
-    _id: { type: Schema.Types.ObjectId },
+   //  _id: { type: Schema.Types.ObjectId },
     name: IName,
     username: {
       type: String,

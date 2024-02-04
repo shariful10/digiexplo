@@ -1,16 +1,15 @@
 "use client";
-import toast from "react-hot-toast";
-import React, {
-  createContext,
-  useContext,
-  useReducer,
+import {
   ReactNode,
+  createContext,
   useEffect,
+  useReducer,
+  useState,
 } from "react";
+import toast from "react-hot-toast";
 
 // Create a context for the API provider
 export const AuthContext = createContext<any>(null);
-
 // Initial state for the reducer
 const initialState = {
   user: null,
@@ -40,6 +39,7 @@ const apiReducer = (state: any, action: any) => {
 // API provider component
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(apiReducer, initialState);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -58,12 +58,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
               },
             }
           );
+          setLoading(true);
 
           const data = await response.json();
 
           if (response.ok && data.success) {
             // If token is valid, update user data in the state
             dispatch({ type: SET_USER, payload: data.data.user });
+            setLoading(false);
           } else {
             // If token is not valid, log the user out
             dispatch({ type: LOGOUT });
@@ -143,6 +145,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         // Update state with user data
         dispatch({ type: SET_USER, payload: data.data.user });
         toast.success(data.message);
+        window.location.href = "/user";
       } else {
         dispatch({ type: SET_ERROR, payload: data.errorMessage });
         toast.error(data.errorMessage);
@@ -161,8 +164,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: LOGOUT });
   };
 
-  console.log("state", state.user);
-
   return (
     <AuthContext.Provider
       value={{
@@ -171,6 +172,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         registerUser,
         loginUser,
         logoutUser,
+        loading,
       }}
     >
       {children}

@@ -4,13 +4,16 @@ import useAuth from "@/hooks/useAuth";
 import React, { useMemo } from "react";
 
 const page = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  const memoizedUser = useMemo(() => user, [user]);
+  console.log(user);
 
-  console.log(memoizedUser);
-
-  return <div>Hello Users</div>;
+  return (
+    <div>
+      <h2>{loading ? "Loading" : user?.name.firstName}</h2>
+      <p>{loading ? "Loading" : user?.username}</p>
+    </div>
+  );
 };
 
 export default page;

@@ -63,7 +63,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                   onClick={() => setOpen(!open)}
                   className="p-5 rounded-full bg-primary"
                 >
-                  <ProfileMenu open={open} />
+                  <ProfileMenu open={open} user={user} />
                 </button>
               ) : (
                 <Link href="/login">

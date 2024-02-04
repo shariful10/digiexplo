@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileMenu = ({ open }) => {
+const ProfileMenu = ({ open, user }) => {
   return (
     <div
       className={`fixed  right-10 ${

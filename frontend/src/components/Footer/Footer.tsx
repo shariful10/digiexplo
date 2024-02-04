@@ -4,6 +4,8 @@ import Image from "next/image";
 import Container from "../Container";
 import logo from "@/images/logo.webp";
 import FooterCol from "./FooterCol";
+import { RiInstagramFill } from "react-icons/ri";
+import { FaSquareFacebook, FaSquareXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
 	return (
@@ -22,13 +24,6 @@ const Footer = () => {
 							</p>
 						</div>
 						<FooterCol
-							title="Categories"
-							item1="Web Template"
-							item2="HTML Template"
-							item3="WordPress Theme"
-							item4="Shopify Theme"
-						/>
-						<FooterCol
 							title="Company"
 							item1="About Us"
 							item2="Blog"
@@ -42,6 +37,34 @@ const Footer = () => {
 							item3="Terms & Condition"
 							item4="Privacy Policy"
 						/>
+						<div className="flex flex-col gap-6">
+							<div className="">
+								<h4 className="text-2xl font-semibold mb-5">
+									Want to contribute?
+								</h4>
+								<Link href="#">
+									<button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2 px-5 rounded-lg font-semibold text-white">
+										Became a Vendor
+									</button>
+								</Link>
+							</div>
+							<div className="">
+								<h4 className="text-2xl font-semibold mb-5">
+									Follow us on
+								</h4>
+								<div className="flex items-center gap-4">
+									<Link href="#">
+										<FaSquareFacebook className="text-2xl hover:text-primary duration-300" />
+									</Link>
+									<Link href="#">
+										<FaSquareXTwitter className="text-2xl hover:text-primary duration-300" />
+									</Link>
+									<Link href="#">
+										<RiInstagramFill className="text-[26px] hover:text-primary duration-300" />
+									</Link>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</Container>

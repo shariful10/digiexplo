@@ -10,7 +10,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (user) {
-			window.location.href = "/user"; // Replace '/dashboard' with the desired page
+			window.location.href = "/"; // Replace '/dashboard' with the desired page
 		}
 	}, [user]);
 

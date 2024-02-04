@@ -1,13 +1,18 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import { IoMail } from "react-icons/io5";
-import { IoIosLock } from "react-icons/io";
 import useAuth from "@/hooks/useAuth";
-import toast from "react-hot-toast";
+import Link from "next/link";
+import { useEffect } from "react";
+import { IoIosLock } from "react-icons/io";
+import { IoMail } from "react-icons/io5";
 
 const Login = () => {
-  const { loginUser } = useAuth();
+  const { loginUser, user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      window.location.href = "/user"; // Replace '/dashboard' with the desired page
+    }
+  }, [user]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

@@ -8,6 +8,9 @@ import { LuUser2 } from "react-icons/lu";
 import { IoMdCart } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
+import useAuth from "@/hooks/useAuth";
+import ProfileMenu from "@/components/ProfileMenu";
+import { useState } from "react";
 
 interface Props {
   show: boolean;
@@ -17,6 +20,9 @@ interface Props {
 }
 
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
+  const { user, loading } = useAuth();
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="md:px-10 py-5 bg-white">
       <Container>
@@ -52,12 +58,21 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                   Became a Vendor
                 </button>
               </Link>
-              <Link href="/login">
-                <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">
-                  <LuUser2 />
-                  Login
+              {!loading && user ? (
+                <button
+                  onClick={() => setOpen(!open)}
+                  className="p-5 rounded-full bg-primary"
+                >
+                  <ProfileMenu open={open} />
                 </button>
-              </Link>
+              ) : (
+                <Link href="/login">
+                  <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">
+                    <LuUser2 />
+                    Login
+                  </button>
+                </Link>
+              )}
             </div>
             <div className="md:hidden">
               {!show && (

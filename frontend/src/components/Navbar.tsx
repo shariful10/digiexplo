@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
-  const { user, loading } = useAuth();
+  const { user, loading, logoutUser } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -63,7 +63,11 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                   onClick={() => setOpen(!open)}
                   className="p-5 rounded-full bg-primary"
                 >
-                  <ProfileMenu open={open} user={user} />
+                  <ProfileMenu
+                    open={open}
+                    user={user}
+                    logoutUser={logoutUser}
+                  />
                 </button>
               ) : (
                 <Link href="/login">

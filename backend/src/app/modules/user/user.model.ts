@@ -6,13 +6,11 @@ import { AppError } from "../../errors/AppError";
 
 const IName = new Schema<IName>({
   firstName: { type: String },
-  middleName: { type: String },
   lastName: { type: String },
 });
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
-   //  _id: { type: Schema.Types.ObjectId },
     name: IName,
     username: {
       type: String,

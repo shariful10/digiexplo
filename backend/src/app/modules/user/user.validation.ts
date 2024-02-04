@@ -4,7 +4,6 @@ const createUserNameZodSchema = z.object({
   firstName: z
     .string()
     .min(2, { message: "First name should be more than 2 characters" }),
-  middleName: z.string().optional(),
   lastName: z
     .string()
     .min(2, { message: "Last name should be more than 2 characters" }),
@@ -20,7 +19,7 @@ const CreateUserZodSchema = z.object({
         invalid_type_error: "Password must be a valid string",
       })
       .max(30, { message: "Password cannot be more than 30 characters" }),
-    phone: z.string(),
+    phone: z.string().optional(),
     profileImg: z.string().optional(),
     verificationID: z.string().optional(),
     role: z.enum(["Admin", "Vendor", "User"]).optional(),

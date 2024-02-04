@@ -6,7 +6,6 @@ import { AppError } from "../../errors/AppError";
 
 const IName = new Schema<IName>({
   firstName: { type: String },
-  middleName: { type: String },
   lastName: { type: String },
 });
 

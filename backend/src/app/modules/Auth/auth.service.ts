@@ -4,11 +4,13 @@ import { AppError } from "../../errors/AppError";
 import { User } from "../user/user.model";
 import { ILoginUser } from "./auth.interface";
 import { CreateToken } from "./auth.utils";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const loginUser = async (payload: ILoginUser) => {
   // check if the user exists
   // const isUserExist = await User.findOne({ id: payload?.id });
   const isUserExist = await User.userExists(payload?.email);
+  const user = await User.findOne({ email: payload?.email });
 
   if (!isUserExist) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found !");
@@ -43,9 +45,28 @@ const loginUser = async (payload: ILoginUser) => {
   // Access Granted: Send AccessToken, RefreshToken
   return {
     accessToken,
+    user,
   };
+};
+
+const validateUser = async (token: string) => {
+  // checking if the given token is valid | verify the received token
+  const decoded = jwt.verify(
+    token,
+    config.jwt_access_secret as string
+  ) as JwtPayload;
+
+  const { _id, username, role } = decoded;
+  const isUserExist = await User.findById(_id);
+
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found !");
+  }
+
+  return { user: isUserExist };
 };
 
 export const AuthServices = {
   loginUser,
+  validateUser,
 };

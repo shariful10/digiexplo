@@ -4,7 +4,6 @@ import { USER_ROLE } from "./user.constant";
 
 export interface IName {
   firstName: string;
-  middleName?: string;
   lastName: string;
 }
 

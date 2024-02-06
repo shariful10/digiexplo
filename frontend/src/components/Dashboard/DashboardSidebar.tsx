@@ -10,10 +10,25 @@ import { BsPersonGear } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import { HiOutlineLogout } from "react-icons/hi";
 
-const dashboardItems = [
+const dashboardUserItems = [
 	{
 		id: 1,
 		title: "User Profile",
+		url: "/dashboard",
+		Icon: LuUser2,
+	},
+	{
+		id: 2,
+		title: "My Order Items",
+		url: "/dashboard/my-order-items",
+		Icon: VscHome,
+	},
+];
+
+const dashboardVendorItems = [
+	{
+		id: 1,
+		title: "Vendor Profile",
 		url: "/dashboard",
 		Icon: LuUser2,
 	},
@@ -25,15 +40,15 @@ const dashboardItems = [
    },
 	{
 		id: 3,
-		title: "My Product",
-		url: "/dashboard/my-product",
+		title: "My Order Items",
+		url: "/dashboard/my-order-items",
 		Icon: VscHome,
 	},
 ];
 
 const DashboardSidebar = () => {
 	const pathName = usePathname();
-   const { logoutUser } = useAuth();
+   const { user, logoutUser } = useAuth();
 
 	return (
 		<div className="bg-blue-700 h-screen w-64 py-10 hidden md:flex flex-col justify-between">
@@ -41,8 +56,8 @@ const DashboardSidebar = () => {
             <Link href="/" className="">
                <Image src={logo} className="w-[70%] rounded-md px-10" alt="logo" />
             </Link>
-            <div className="flex flex-col gap-2 mt-10 px-5">
-               {dashboardItems.map(({ id, title, url, Icon }) => (
+            {user?.role === "User" && <div className="flex flex-col gap-2 mt-10 px-5">
+               {dashboardUserItems.map(({ id, title, url, Icon }) => (
                   <Link
                      href={url}
                      key={id}
@@ -55,7 +70,7 @@ const DashboardSidebar = () => {
                      <span className="">{title}</span>
                   </Link>
                ))}
-            </div>
+            </div>}
          </div>
          <div>
             <div className="px-5">

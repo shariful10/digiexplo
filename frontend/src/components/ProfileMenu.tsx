@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 
 const ProfileMenu = ({ open, user, logoutUser }) => {
+   console.log(user);
+   console.log(logoutUser);
 	return (
 		<div
 			className={`fixed  right-[10rem] ${

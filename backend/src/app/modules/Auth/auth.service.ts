@@ -57,7 +57,12 @@ const validateUser = async (token: string) => {
   ) as JwtPayload;
 
   const { _id, username, role } = decoded;
-  const isUserExist = await User.findById(_id);
+  const isUserExist = await User.findOne({
+    _id: _id,
+    username: username,
+    role: role,
+  }).select("-isDeleted -createdAt -updatedAt -__v");
+  console.log(isUserExist);
 
   if (!isUserExist) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found !");

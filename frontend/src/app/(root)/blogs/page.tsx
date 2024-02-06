@@ -13,7 +13,7 @@ const BlogPage = () => {
   return (
     <Container>
       <BlogBanner />
-      {/* <BlogContent /> */}
+      <BlogContent />
     </Container>
   );
 };

@@ -1,12 +1,34 @@
 import Link from "next/link";
 import React from "react";
 
-const ProfileMenu = ({ open, user, logoutUser }) => {
-   console.log(user);
-   console.log(logoutUser);
+interface Name {
+   lastName: string;
+   firstName: string;
+}
+
+interface User {
+	name: Name;
+	_id: string;
+	email: string;
+	phone: string;
+	role?: string;
+	username: string;
+	profileImg: string;
+}
+
+interface ProfileMenuProps {
+   user: User;
+	open: boolean;
+	logoutUser: () => void;
+	setOpen: (open: boolean) => void;
+}
+
+const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
+	console.log(user);
+	console.log(logoutUser);
 	return (
 		<div
-			className={`fixed  right-[10rem] ${
+			className={`fixed  right-10 ${
 				open ? "top-16 z-20" : "-top-10 -z-40"
 			} duration-500`}
 		>
@@ -24,17 +46,23 @@ const ProfileMenu = ({ open, user, logoutUser }) => {
 					className="py-2 text-sm text-gray-700 text-start"
 					aria-labelledby="dropdownUserAvatarButton"
 				>
-					<li>
-						<Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-100">
+					<li onClick={() => setOpen(false)}>
+						<Link
+							href="/dashboard"
+							className="block px-4 py-2 hover:bg-gray-100"
+						>
 							Dashboard
 						</Link>
 					</li>
-					<li>
-						<Link href="/dashboard/settings" className="block px-4 py-2 hover:bg-gray-100">
+					<li onClick={() => setOpen(false)}>
+						<Link
+							href="/dashboard/settings"
+							className="block px-4 py-2 hover:bg-gray-100"
+						>
 							Settings
 						</Link>
 					</li>
-					<li>
+					<li onClick={() => setOpen(false)}>
 						<Link href="#" className="block px-4 py-2 hover:bg-gray-100">
 							Earnings
 						</Link>

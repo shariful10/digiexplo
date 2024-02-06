@@ -35,7 +35,7 @@ const RightBar = () => {
 					</Link>
 				</div>
 			</div>
-			<div className=" bg-secondary p-5 md:p-10 mt-5 rounded-2xl">
+			<div className="mt-5 rounded-2xl">
 				<Tags tags={tags.slice(45, 65)} title={"Blog Tags"} bg={true} />
 			</div>
 		</div>

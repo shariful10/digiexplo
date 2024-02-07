@@ -26,8 +26,14 @@ const UserSchema = new Schema<IUser, UserModel>(
     status: {
       type: String,
       enum: ["Active", "Pending"],
+      default:"Active"
     },
     isDeleted: { type: Boolean, default: false },
+    vendor: {
+      type: Schema.Types.ObjectId,
+      ref:'Vendor',
+      unique:true
+    }
   },
   {
     timestamps: true,

@@ -17,8 +17,9 @@ export interface IUser {
   profileImg: string;
   verificationID?: string;
   role?: "Admin" | "Vendor" | "User";
-  status?: "Active" | "Blocked";
+  status: "Active" | "Blocked" ;
   isDeleted: boolean;
+  vendor: Types.ObjectId
 }
 
 // Custom static methods:

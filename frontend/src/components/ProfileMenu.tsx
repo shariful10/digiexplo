@@ -59,7 +59,7 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
 							href="/dashboard/settings"
 							className="block px-4 py-2 hover:bg-gray-100"
 						>
-							Settings
+							Setting
 						</Link>
 					</li>
 					<li onClick={() => setOpen(false)}>

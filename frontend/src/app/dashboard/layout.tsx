@@ -6,7 +6,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 		<div className="relative min-h-screen md:flex">
 			<DashboardSidebar />
 			<div className="flex-1">
-				<div className="p-5">{children}</div>
+				<div className="lg:p-10">{children}</div>
 			</div>
 		</div>
 	);

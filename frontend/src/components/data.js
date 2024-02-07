@@ -741,3 +741,47 @@ export const products = [
 		],
 	},
 ];
+
+
+export const myOrderItems = [
+   {
+      id: 1,
+      image: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Software Development Bundle: Mastering Frameworks",
+      vendor: "MelodyMaestro456",
+      price: 120,
+      date: "2024-03-09",
+   },
+   {
+      id: 2,
+      image: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Software Development Bundle: Mastering Frameworks",
+      vendor: "MelodyMaestro456",
+      price: 120,
+      date: "2024-04-14",
+   },
+   {
+      id: 3,
+      image: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Software Development Bundle: Mastering Frameworks",
+      vendor: "MelodyMaestro456",
+      price: 12.50,
+      date: "2024-03-22",
+   },
+   {
+      id: 4,
+      image: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Software Development Bundle: Mastering Frameworks",
+      vendor: "MelodyMaestro456",
+      price: 16.99,
+      date: "2024-02-14",
+   },
+   {
+      id: 5,
+      image: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Software Development Bundle: Mastering Frameworks",
+      vendor: "MelodyMaestro456",
+      price: 120,
+      date: "2024-03-18",
+   }
+]

@@ -51,8 +51,8 @@ const DashboardSidebar = () => {
   const { user, logoutUser } = useAuth();
 
   return (
-    <div className="w-64">
-      <div className="fixed top-0 bg-blue-700  h-screen w-64 py-10 hidden z-20 md:flex flex-col justify-between">
+    <div className="w-56 lg:w-64 hidden lg:block">
+      <div className="fixed top-0 bottom-0 bg-blue-700  h-screen w-56 lg:w-64 py-10 z-20 flex flex-col justify-between">
         <div>
           <Link href="/" className="">
             <Image src={logo} className="w-[70%] rounded-md px-10" alt="logo" />

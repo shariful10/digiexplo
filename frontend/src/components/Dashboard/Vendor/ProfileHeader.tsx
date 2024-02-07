@@ -20,57 +20,64 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
           </a>
         </div>
       </div>
-      <div className="p-8 rounded-lg box-shadow border relative border-shadowBorder">
-        <div className="sm:flex gap-5">
+      <div className="p-8 rounded-lg box-shadow border border-shadowBorder w-full relative">
+        <div className="sm:flex gap-5 w-full">
           {/* Vendor Image */}
           <Image
             src="https://cdn.pixabay.com/photo/2017/08/01/08/29/woman-2563491_960_720.jpg"
             alt="Vendor Profile Pic"
             width={160}
             height={160}
-            className="rounded-lg max-w-[160px] bg-cover bg-center"
+            className="rounded-lg w-full mb-2.5 sm:mb-0 sm:max-w-[160px] bg-cover bg-center"
           />
           {/* Vendor Image End */}
-          <div>
-            {/* Vendor Name */}
-            <div className="flex items-center gap-2 ">
-              <h4 className="text-lg lg:text-xl font-semibold hover:text-primary">
-                Shane Watson
-              </h4>
-              {vendorStatus !== "Approved" ? (
-                <div className="relative inline-block group">
-                  <div className="text-amber-500 cursor-pointer">
-                    <IoWarningOutline className="hover:opacity-75" />
-                  </div>
-                  <div className="absolute z-10 w-[250px] bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible text-center">
-                    Your profile is under review
-                  </div>
+          <div className="w-full">
+            <div className="sm:flex justify-between w-full">
+              <div className="mb-5 sm:mb-0">
+                {/* Vendor Name */}
+                <div className="flex items-center gap-2 ">
+                  <h4 className="text-lg lg:text-xl font-semibold hover:text-primary">
+                    Shane Watson
+                  </h4>
+                  {vendorStatus !== "Approved" ? (
+                    <div className="relative inline-block group">
+                      <div className="text-amber-500 cursor-pointer">
+                        <IoWarningOutline className="hover:opacity-75" />
+                      </div>
+                      <div className="absolute z-10 w-[250px] bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible text-center">
+                        Your profile is under review
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-blue-400">
+                      <RiVerifiedBadgeFill size={22} />{" "}
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="text-blue-400">
-                  <RiVerifiedBadgeFill size={22} />{" "}
+                {/* Vendor Name End*/}
+                {/* vendor location */}
+                <div className="flex gap-x-5 gap-y-1 items-center flex-wrap">
+                  <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
+                    <FaUserCircle size={14} /> Photographer
+                  </p>
+                  <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
+                    <FaLocationDot /> California, USA
+                  </p>
+                  <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
+                    <IoMailUnread /> shanewatson@photography.com
+                  </p>
                 </div>
-              )}
+                {/* vendor location End*/}
+              </div>
+              <button className="bg-primary text-sm px-3 py-2 lg:py-2 text-white rounded-md max-w-[105px] w-full">
+                View Profile
+              </button>
             </div>
-            {/* Vendor Name End*/}
-            {/* vendor location */}
-            <div className="flex gap-x-5 gap-y-1 items-center flex-wrap">
-              <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
-                <FaUserCircle size={14} /> Photographer
-              </p>
-              <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
-                <FaLocationDot /> California, USA
-              </p>
-              <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
-                <IoMailUnread /> shanewatson@photography.com
-              </p>
-            </div>
-            {/* vendor location End*/}
 
             {/*  Vendor Stats */}
-            <div className="mt-5 flex gap-x-4 items-center">
-              <div className="border rounded-lg p-3 max-w-[125px] w-full">
-                <div className="flex items-center gap-2">
+            <div className="mt-5 lg:flex gap-x-4 items-center space-y-3">
+              <div className="border rounded-lg p-3 sm:max-w-[125px] w-full text-center">
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
                   <MdKeyboardDoubleArrowUp
                     className="text-green-500"
                     size={15}
@@ -80,8 +87,8 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                 <p className="text-[12px] text-neutral-400">Earnings</p>
               </div>
 
-              <div className="border rounded-lg p-3 max-w-[125px] w-full">
-                <div className="flex items-center gap-2">
+              <div className="border rounded-lg p-3 sm:max-w-[125px] w-full text-center">
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
                   <MdKeyboardDoubleArrowUp
                     className="text-green-500"
                     size={15}
@@ -91,8 +98,8 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                 <p className="text-[12px] text-neutral-400">Products</p>
               </div>
 
-              <div className="border rounded-lg p-3 max-w-[125px] w-full">
-                <div className="flex items-center gap-2">
+              <div className="border rounded-lg p-3 sm:max-w-[125px] w-full text-center">
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
                   <MdKeyboardDoubleArrowUp
                     className="text-green-500"
                     size={15}
@@ -105,10 +112,6 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
             {/*  Vendor Stats End */}
           </div>
         </div>
-
-        <button className="bg-primary text-sm px-3 py-2 text-white rounded-md absolute top-8 right-8">
-          View Profile
-        </button>
       </div>
     </>
   );

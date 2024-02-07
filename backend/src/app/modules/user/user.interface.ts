@@ -16,10 +16,10 @@ export interface IUser {
   phone: string;
   profileImg: string;
   verificationID?: string;
-  role?: "Admin" | "Vendor" | "User";
-  status: "Active" | "Blocked" ;
+  role?: "ADMIN" | "VENDOR" | "USER";
+  status: "Active" | "Blocked";
   isDeleted: boolean;
-  vendor: Types.ObjectId
+  vendor: Types.ObjectId;
 }
 
 // Custom static methods:

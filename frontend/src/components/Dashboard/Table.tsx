@@ -1,20 +1,9 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { FaEye } from "react-icons/fa";
 import FormattedPrice from "../FormattedPrice";
 import { myOrderItems } from "@/components/data";
-import Link from "next/link";
-
-interface Props {
-	items: {
-		id: number;
-		image: string;
-		title: string;
-		vendor: string;
-		price: number;
-		date: string;
-	}[];
-}
 
 const Table = () => {
 	return (
@@ -73,7 +62,7 @@ const Table = () => {
 									href="#"
 									className="font-medium hover:text-blue-600"
 								>
-									<FaEye />
+									<FaEye size={20} />
 								</Link>
 							</td>
 						</tr>

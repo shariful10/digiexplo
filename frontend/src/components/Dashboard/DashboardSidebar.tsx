@@ -4,24 +4,26 @@ import Link from "next/link";
 import Image from "next/image";
 import useAuth from "@/hooks/useAuth";
 import logo from "@/images/logo.webp";
+import { GoGear } from "react-icons/go";
 import { LuUser2 } from "react-icons/lu";
 import { VscHome } from "react-icons/vsc";
 import { BsPersonGear } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import { HiOutlineLogout } from "react-icons/hi";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 const dashboardUserItems = [
-	{
-		id: 1,
-		title: "User Profile",
-		url: "/dashboard",
-		Icon: LuUser2,
-	},
+   {
+      id: 1,
+      title: "My Order Items",
+      url: "/dashboard/my-order-items",
+      Icon: MdOutlineShoppingCart,
+   },
 	{
 		id: 2,
-		title: "My Order Items",
-		url: "/dashboard/my-order-items",
-		Icon: VscHome,
+		title: "Change Password",
+		url: "/dashboard/change-password",
+		Icon: GoGear,
 	},
 ];
 

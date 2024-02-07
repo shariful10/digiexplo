@@ -6,7 +6,7 @@ import { VendorController } from "./vendor.controller";
 const router = express.Router();
 
 router.post(
-  "/become-vendor",
+  "/become-vendor/:userId",
   validateRequest(VendorValidation.BecomeVendorZodValidation),
   VendorController.becomeVendor
 );

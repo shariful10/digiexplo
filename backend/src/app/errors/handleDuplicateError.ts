@@ -14,7 +14,6 @@ export const handleDuplicateError = (err: any): IGenericErrorResponse => {
       message: `${extracted_message} already exists`,
     },
   ];
-
   const errorMessage = [`${extracted_message} already exists`].join('');
 
   const statusCode = 400;

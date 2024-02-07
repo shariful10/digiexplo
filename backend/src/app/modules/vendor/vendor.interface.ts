@@ -6,6 +6,6 @@ export interface IVendor {
   ownerName: string;
   website: string;
   verificationId: string;
-  addresses: string;
-  status?: "Pending" | "Approved";
+  address: string;
+  status?: "Pending" | "Approved" | "Cancel" | "Restrict";
 }

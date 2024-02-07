@@ -10,7 +10,6 @@ import { LuUser2 } from "react-icons/lu";
 import { IoMdCart } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { HiOutlineLogout } from "react-icons/hi";
 import ProfileMenu from "@/components/ProfileMenu";
 
 interface Props {
@@ -59,25 +58,17 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 								</div>
 							</div>
 							{!loading && user ? (
-								<div className="flex items-center gap-2">
-									<button
-										onClick={() => setOpen(!open)}
-										className="p-5 rounded-full bg-primary"
-									>
-										<ProfileMenu
-											open={open}
-											user={user}
-											logoutUser={logoutUser}
-										/>
-									</button>
-									<button
-										onClick={logoutUser}
-										className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2"
-									>
-										<HiOutlineLogout />
-										Logout
-									</button>
-								</div>
+								<button
+									onClick={() => setOpen(!open)}
+									className="p-5 rounded-full bg-primary"
+								>
+									<ProfileMenu
+										open={open}
+										user={user}
+										setOpen={setOpen}
+										logoutUser={logoutUser}
+									/>
+								</button>
 							) : (
 								<Link href="/login">
 									<button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">

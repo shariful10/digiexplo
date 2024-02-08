@@ -7,7 +7,8 @@ import config from "../config";
 import { TUserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
 import { USER_ROLE } from "../modules/user/user.constant";
-const auth = (requiredRoles: typeof USER_ROLE[keyof typeof USER_ROLE]) => {
+type TRequreRole = Array<typeof USER_ROLE[keyof typeof USER_ROLE]>
+const auth = (...requiredRoles: TRequreRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 

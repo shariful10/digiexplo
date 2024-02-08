@@ -7,7 +7,7 @@ const router = Router();
 
 router.get(
   "/get-pending-vendor-request",
-  auth(USER_ROLE.ADMIN),
+  // auth(USER_ROLE.ADMIN),
   AdminController.getPendingVendorRequest
 );
 router.patch(

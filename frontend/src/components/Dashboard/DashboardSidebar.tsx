@@ -54,21 +54,21 @@ const DashboardSidebar = () => {
 
   return (
     <div className="w-64">
-      <div className="fixed top-0 bg-blue-700  h-screen w-64 py-10 hidden z-20 md:flex flex-col justify-between">
+      <div className="fixed top-0 bg-sidebar  h-screen w-64 py-10 hidden z-20 md:flex flex-col justify-between">
         <div>
           <Link href="/" className="">
             <Image src={logo} className="w-[70%] rounded-md px-10" alt="logo" />
           </Link>
           {user?.role === "User" && (
-            <div className="flex flex-col gap-2 mt-10 px-5">
+            <div className="flex flex-col gap-2 mt-10">
               {dashboardUserItems.map(({ id, title, url, Icon }) => (
                 <Link
                   href={url}
                   key={id}
-                  className={`flex items-center gap-2 hover:bg-white hover:text-primary py-2 px-5 w-full rounded-md ${
+                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 px-5 w-full ${
                     pathName === url
-                      ? "bg-white text-primary py-2 px-5 w-full rounded-md"
-                      : "text-white"
+                      ? "bg-[#53535f] text-[#f5f5f5] py-2 px-5 w-full"
+                      : "text-[#9a9cae]"
                   }`}
                 >
                   <Icon className="text-xl" />
@@ -85,7 +85,7 @@ const DashboardSidebar = () => {
           <div className="flex flex-col gap-2 mt-5 px-5">
             <Link
               href="/"
-              className="flex items-center gap-2 text-white hover:bg-white hover:text-blue-700 py-2 px-5 w-full rounded-md"
+              className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
             >
               <VscHome className="text-xl" />
               <span className="">Home</span>
@@ -93,7 +93,7 @@ const DashboardSidebar = () => {
             <Link href="/">
               <button
                 onClick={logoutUser}
-                className="flex items-center gap-2 text-white hover:bg-white hover:text-blue-700 py-2 px-5 w-full rounded-md"
+                className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
               >
                 <HiOutlineLogout className="text-xl" />
                 <span className="">Logout</span>

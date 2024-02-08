@@ -17,7 +17,7 @@ const InputField = ({ title, name }: InputFieldProps) => {
          <input
             type="password"
             name={name}
-            className="bg-white border-2 border-gray-300 text-gray-600 focus:outline-none focus:border-primary w-full ps-5 p-2.5 rounded-md"
+            className="bg-white border-2 border-gray-300 text-gray-600 focus:outline-none focus:border-gray-400 w-full ps-5 p-2.5 rounded-md"
             placeholder="******"
             required
          />

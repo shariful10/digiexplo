@@ -31,7 +31,7 @@ const Table = () => {
 							key={item?.id}
 							className="bg-white border-b last:border-none hover:bg-gray-50"
 						>
-							<td className="flex items-center mr-14 px-6 py-4 text-gray-900 whitespace-nowrap">
+							<td className="flex items-center mr-14 px-6 py-4 text-gray-600 whitespace-nowrap">
 								<Image
 									className="w-10 h-10 rounded-md"
 									src={item?.image!}
@@ -40,19 +40,24 @@ const Table = () => {
 									alt="Jese image"
 								/>
 								<div className="ps-3">
-									<div className="text-base font-semibold md:hidden">
+									<p className="text-base font-semibold md:hidden">
 										{item?.title.slice(0, 20)}...
-									</div>
-									<div className="text-base font-semibold hidden md:block">
+									</p>
+									<p className="text-base font-semibold hidden md:block">
 										{item?.title}
-									</div>
-									<div className="font-normal text-gray-500">
+									</p>
+									<p className="font-normal text-gray-500">
 										{item?.vendor}
-									</div>
+									</p>
 								</div>
 							</td>
-							<td className="px-6 py-4 text-primary font-semibold whitespace-nowrap">
-								<FormattedPrice amount={item?.price} />
+							<td className="px-6 py-4 font-semibold whitespace-nowrap">
+								<div className="text-green-500 bg-green-100 px-1.5 py-1 rounded-md">
+									<FormattedPrice
+										amount={item?.price}
+										className="text-center"
+									/>
+								</div>
 							</td>
 							<td className="px-6 py-4 w-full whitespace-nowrap">
 								{item?.date}

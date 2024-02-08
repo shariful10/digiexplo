@@ -5,13 +5,14 @@ import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-
+import cookieParser from "cookie-parser";
+import config from "./app/config";
 const app: Application = express();
 
 // Parser
 app.use(express.json());
 app.use(cors());
-
+app.use(cookieParser())
 // application routes
 app.use("/api/v1", router);
 

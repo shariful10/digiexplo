@@ -19,8 +19,8 @@ const CreateUserZodSchema = z.object({
         invalid_type_error: "Password must be a valid string",
       })
       .max(30, { message: "Password cannot be more than 30 characters" }),
-    phone: z.string().optional(),
-    profileImg: z.string().optional(),
+    phone: z.string(),
+    profileImg: z.string(),
     verificationID: z.string().optional(),
     role: z.enum(["Admin", "Vendor", "User"]).optional(),
     status: z.enum(["Active", "Pending"]).optional(),

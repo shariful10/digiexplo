@@ -19,7 +19,14 @@ const VendorSchema = new Schema <IVendor>({
     type:String,
     enum : ['Approved',"Pending","Cancel","Restrict"],
     default:"Pending"
-  }
+  },
+  products: [
+    {
+      type:  Schema.Types.ObjectId,
+      ref: 'product',
+      unique:true
+    }
+  ]
 });
 
 export const VendorModel = model<IVendor>("Vendor", VendorSchema);

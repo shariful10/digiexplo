@@ -15,8 +15,8 @@ export interface IUser {
   password: string;
   phone: string;
   profileImg: string;
-  verificationID?: string;
-  role?: "ADMIN" | "VENDOR" | "USER";
+  // verificationID?: string;
+  role?: "Admin" | "Vendor" | "User";
   status: "Active" | "Blocked";
   isDeleted: boolean;
   vendor: Types.ObjectId;

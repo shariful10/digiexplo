@@ -15,7 +15,6 @@ const loginUser = async (payload: ILoginUser) => {
 	if (!isUserExist) {
 		throw new AppError(httpStatus.NOT_FOUND, "User not found !");
 	}
-
 	// throw error if password not matches:
 	if (!payload?.password || !isUserExist?.password) {
 		throw new AppError(httpStatus.BAD_REQUEST, "Password is required");

@@ -1,4 +1,5 @@
 "use client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
 	ReactNode,
 	createContext,
@@ -7,6 +8,15 @@ import {
 	useState,
 } from "react";
 import toast from "react-hot-toast";
+
+interface PostData {
+	title: string;
+	content: string;
+}
+
+interface PostResponse {
+	id: string;
+}
 
 // Create a context for the API provider
 export const AuthContext = createContext<any>(null);
@@ -78,7 +88,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 		checkAuthentication();
 	}, []); // Run only once when the component mounts
-
 	// Function to handle user registration
 	const registerUser = async (userData: {
 		userData: {

@@ -35,6 +35,9 @@ const validateUser = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
 export const AuthControllers = {
   loginUser,
   validateUser,

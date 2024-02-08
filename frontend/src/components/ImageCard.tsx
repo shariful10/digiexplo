@@ -1,7 +1,8 @@
-import Image from "next/image";
 import React from "react";
-import FormattedPrice from "./FormattedPrice";
 import Link from "next/link";
+import Image from "next/image";
+import FormattedPrice from "./FormattedPrice";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 export interface ProductInterface {
 	id: number;
@@ -17,6 +18,7 @@ export interface ProductInterface {
 	price: number;
 	description: string;
 	tags: string[];
+	status: string;
 }
 
 export type ProductTypes = {
@@ -31,8 +33,8 @@ const ImageCard = ({ product, className }: ProductTypes) => {
 
 	const { id, thumbnail, title, author, category, price } = product;
 	return (
-		<Link href={`/product/${id}`}>
-			<div key={id} className="cursor-pointer">
+		<div key={id} className="cursor-pointer group">
+			<div className="relative rounded-xl overflow-hidden">
 				<Image
 					src={thumbnail}
 					width={100}
@@ -40,26 +42,34 @@ const ImageCard = ({ product, className }: ProductTypes) => {
 					className="rounded-xl w-full"
 					alt="image"
 				/>
-				<div className="mt-5 text-textColor px-1.5">
-					<div className="flex justify-between">
-						<p className="font-bold">{title}</p>
-						<span className="text-primary font-bold">
-							<FormattedPrice amount={price} />
-						</span>
-					</div>
-					<p className="text-neutral-400">
-						by{" "}
-						<span className="font-medium text-neutral-600">
-							{author.authorName}
-						</span>{" "}
-						in{" "}
-						<span className="font-medium text-neutral-600">
-							{category}
-						</span>
-					</p>
+				<div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 duration-500 flex flex-col justify-center items-center gap-4">
+					<button className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center">
+						<MdOutlineShoppingCart size={16} /> <span>Add to cart</span>
+					</button>
+					<Link href={`/product/${id}`}>
+						<button className="bg-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-1000">
+							View Details
+						</button>
+					</Link>
 				</div>
 			</div>
-		</Link>
+			<div className="mt-5 text-textColor px-1.5">
+				<div className="flex justify-between">
+					<p className="font-bold">{title}</p>
+					<span className="text-primary font-bold">
+						<FormattedPrice amount={price} />
+					</span>
+				</div>
+				<p className="text-neutral-400">
+					by{" "}
+					<span className="font-medium text-neutral-600">
+						{author.authorName}
+					</span>{" "}
+					in{" "}
+					<span className="font-medium text-neutral-600">{category}</span>
+				</p>
+			</div>
+		</div>
 	);
 };
 

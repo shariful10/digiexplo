@@ -1,0 +1,1 @@
+01 => Blog Page => BlogCard width & height

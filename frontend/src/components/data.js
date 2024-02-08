@@ -812,7 +812,7 @@ export const myOrderItems = [
 export const blogData = [
    {
       id: 1,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Classic Music",
@@ -820,7 +820,7 @@ export const blogData = [
    },
    {
       id: 2,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Classic Music, Pop Music",
@@ -828,7 +828,7 @@ export const blogData = [
    },
    {
       id: 3,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Classic Music",
@@ -836,7 +836,7 @@ export const blogData = [
    },
    {
       id: 4,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Pop Music",
@@ -844,7 +844,7 @@ export const blogData = [
    },
    {
       id: 5,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Music",
@@ -852,7 +852,7 @@ export const blogData = [
    },
    {
       id: 6,
-      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      thumbnail: "https://dummyimage.com/365x365/a8a6a6/fff",
       title: "Back sleep that back for our girl I but rather",
       author: "Ella Gross",
       category: "Pop Music",

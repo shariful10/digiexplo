@@ -10,3 +10,8 @@
 .tox-statusbar__branding {
   display: none;
 }
+
+.box-shadow {
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}

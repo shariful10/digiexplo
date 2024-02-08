@@ -7,7 +7,7 @@ import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-
+console.log('reching')
   const { accessToken, user } = result;
 
   // sendResponse(res, {

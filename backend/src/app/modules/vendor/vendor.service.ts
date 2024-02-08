@@ -7,7 +7,8 @@ const becomeVendor = async (
   userId: Types.ObjectId,
   payload: Omit<IVendor, "user" | "status">
 ) => {
-  const result = await new VendorModel<Omit<IVendor, "status">>({
+  type TOptional = "status" | "products"
+  const result = await new VendorModel<Omit<IVendor,TOptional>>({
     address: payload.address,
     companyName: payload.companyName,
     ownerName: payload.ownerName,
@@ -19,4 +20,11 @@ const becomeVendor = async (
   return result;
 };
 
-export const VendorServices = { becomeVendor };
+
+const getVendor = async( vendorId:string) => {
+  const vendor = await VendorModel.findById(vendorId)
+  return vendor
+}
+
+
+export const VendorServices = { becomeVendor ,getVendor};

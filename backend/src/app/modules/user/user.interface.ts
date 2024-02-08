@@ -15,11 +15,11 @@ export interface IUser {
   password: string;
   phone: string;
   profileImg: string;
-  verificationID?: string;
+  // verificationID?: string;
   role?: "Admin" | "Vendor" | "User";
-  status: "Active" | "Blocked" ;
+  status: "Active" | "Blocked";
   isDeleted: boolean;
-  vendor: Types.ObjectId
+  vendor: Types.ObjectId;
 }
 
 // Custom static methods:

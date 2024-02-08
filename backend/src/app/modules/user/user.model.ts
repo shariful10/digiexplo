@@ -21,7 +21,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     password: { type: String, required: true, select: 0 },
     phone: { type: String, required: true },
     profileImg: { type: String, required: true },
-    verificationID: { type: String },
+    // verificationID: { type: String },
     role: { type: String, enum: ["Admin", "Vendor", "User"], default: "User" },
     status: {
       type: String,

@@ -21,6 +21,9 @@ const Table = () => {
 							Date
 						</th>
 						<th scope="col" className="px-6 py-3">
+							Status
+						</th>
+						<th scope="col" className="px-6 py-3">
 							View
 						</th>
 					</tr>
@@ -51,22 +54,32 @@ const Table = () => {
 									</p>
 								</div>
 							</td>
-							<td className="px-6 py-4 font-semibold whitespace-nowrap">
-								<div className="text-green-500 bg-green-100 px-1.5 py-1 rounded-md">
+							<td className="px-6 py-4 font-medium whitespace-nowrap">
+								<div className="text-green-500 bg-green-100 px-2 py-1 rounded-md">
 									<FormattedPrice
 										amount={item?.price}
 										className="text-center"
 									/>
 								</div>
 							</td>
-							<td className="px-6 py-4 w-full whitespace-nowrap">
-								{item?.date}
+							<td className="px-6 py-4 whitespace-nowrap">
+								<span className="bg-blue-100 text-blue-500 px-2 py-1 rounded-md font-medium">
+									{item?.date}
+								</span>
+							</td>
+							<td className="px-6 py-4 whitespace-nowrap">
+								<span
+									className={`${
+										item?.status === "Paid"
+											? "bg-green-100 text-green-500 "
+											: "bg-amber-100 text-amber-500 "
+									} px-2 py-1 rounded-md font-medium`}
+								>
+									{item?.status}
+								</span>
 							</td>
 							<td className="px-6 py-4">
-								<Link
-									href="#"
-									className="font-medium hover:text-blue-600"
-								>
+								<Link href="#" className="font-medium text-primary">
 									<FaEye size={20} />
 								</Link>
 							</td>

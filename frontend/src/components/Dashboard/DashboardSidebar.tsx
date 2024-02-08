@@ -10,6 +10,7 @@ import { VscHome } from "react-icons/vsc";
 import { BsPersonGear } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import { HiOutlineLogout } from "react-icons/hi";
+import { FaTelegramPlane } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 const dashboardUserItems = [
@@ -24,6 +25,12 @@ const dashboardUserItems = [
 		title: "Change Password",
 		url: "/dashboard/change-password",
 		Icon: GoGear,
+	},
+	{
+		id: 3,
+		title: "Message to Admin",
+		url: "/dashboard/send-message",
+		Icon: FaTelegramPlane,
 	},
 ];
 

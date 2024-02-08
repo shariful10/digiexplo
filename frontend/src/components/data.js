@@ -768,6 +768,7 @@ export const myOrderItems = [
       vendor: "MelodyMaestro456",
       price: 120,
       date: "2024-03-09",
+      status: "Paid"
    },
    {
       id: 2,
@@ -776,6 +777,7 @@ export const myOrderItems = [
       vendor: "MelodyMaestro456",
       price: 120,
       date: "2024-04-14",
+      status: "Pending"
    },
    {
       id: 3,
@@ -784,6 +786,7 @@ export const myOrderItems = [
       vendor: "MelodyMaestro456",
       price: 12.50,
       date: "2024-03-22",
+      status: "Paid"
    },
    {
       id: 4,
@@ -792,6 +795,7 @@ export const myOrderItems = [
       vendor: "MelodyMaestro456",
       price: 16.99,
       date: "2024-02-14",
+      status: "Pending"
    },
    {
       id: 5,
@@ -800,5 +804,58 @@ export const myOrderItems = [
       vendor: "MelodyMaestro456",
       price: 120,
       date: "2024-03-18",
+      status: "Paid"
+   }
+]
+
+
+export const blogData = [
+   {
+      id: 1,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Classic Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
+   },
+   {
+      id: 2,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Classic Music, Pop Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
+   },
+   {
+      id: 3,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Classic Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
+   },
+   {
+      id: 4,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Pop Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
+   },
+   {
+      id: 5,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
+   },
+   {
+      id: 6,
+      thumbnail: "https://dummyimage.com/365x245/a8a6a6/fff",
+      title: "Back sleep that back for our girl I but rather",
+      author: "Ella Gross",
+      category: "Pop Music",
+      desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
    }
 ]

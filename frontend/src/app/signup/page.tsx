@@ -5,13 +5,14 @@ import { IoMail } from "react-icons/io5";
 import { IoIosLock } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 import Link from "next/link";
-
+import AWS from 'aws-sdk';
 import { FaUser } from "react-icons/fa";
 import useAuth from "@/hooks/useAuth";
 
 const SignUp = () => {
 	const [uploadButtonText, setUploadButtonText] = useState("");
 	const { registerUser } = useAuth();
+   // const s3 = new AWS.S3();
 
 	const handleImageChange = (image: {
 		name: React.SetStateAction<string>;
@@ -19,7 +20,25 @@ const SignUp = () => {
 		setUploadButtonText(image.name);
 	};
 
-	const handleSignUp = (e: any) => {
+   // const uploadProfileImageToS3 = async (file: File) => {
+   //    const params = {
+   //      Bucket: 'digiexplo',
+   //      Key: `profiles/${file.name}`,
+   //      Body: file,
+   //      ACL: 'public-read',
+   //    };
+    
+   //    try {
+   //      const data = await s3.upload(params).promise();
+   //      console.log('File uploaded successfully:', data.Location);
+   //      return data.Location; // Return the URL of the uploaded file
+   //    } catch (error) {
+   //      console.error('Error uploading file:', error);
+   //      throw error;
+   //    }
+   //  };
+
+	const handleSignUp = async (e: any) => {
 		e.preventDefault();
 
 		const form = e.target;
@@ -35,6 +54,22 @@ const SignUp = () => {
 
 		// setUploadButtonText("Uploading...");
 
+      // try {
+      //    const profileImg = await uploadProfileImageToS3(file);
+      //    const userData = {
+      //       name,
+      //       username,
+      //       email,
+      //       password,
+      //       phone,
+      //       profileImg,
+      //    };
+      //    registerUser(userData);
+      //  } catch (error) {
+      //    console.error('Error uploading profile image:', error);
+      //    // Handle error
+      //  }
+     
 		const userData = {
 			name,
 			username,

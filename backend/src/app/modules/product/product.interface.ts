@@ -1,5 +1,8 @@
 
 import { Types } from "mongoose"
+
+type TProductStatus = "Pending" | "Approved" | "Reject"
+
 export interface IProduct {
     productName: string,
     description: string,
@@ -10,7 +13,7 @@ export interface IProduct {
     vendor: Types.ObjectId,
     file : string,
     tags : string[],
-
+    status: TProductStatus,
     // for seo
     slug? : string,
     "meta-tigle"?: string,

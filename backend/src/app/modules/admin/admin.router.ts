@@ -16,4 +16,12 @@ router.patch(
   AdminController.acceptVendorRequest
 );
 
+
+
+// admin product related route
+
+router.get('/get-pending-products',auth(USER_ROLE.ADMIN),AdminController.getPendingProducts)
+
+router.patch('/product-status-update/:productId',auth(USER_ROLE.ADMIN),AdminController.updateProductStatus)
+
 export const AdminRoutes = router;

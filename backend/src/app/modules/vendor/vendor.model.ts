@@ -26,7 +26,7 @@ const VendorSchema = new Schema <IVendor>({
       ref: 'product',
       unique:true
     }
-  ]
-});
+  ],
+},{timestamps:true});
 
 export const VendorModel = model<IVendor>("Vendor", VendorSchema);

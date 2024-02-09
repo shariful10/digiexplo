@@ -13,11 +13,18 @@ const createProduct = catchAsync(async (req,res)=> {
         data:product,
         statusCode:httpStatus.CREATED,
         success:true,
-        message:'product created successfull'
+        message:'product created successfull let admin it to approve '
     })
 })
 
+const addProductToCart  = catchAsync(async (req,res)=> {
+    const productId = req.params
+
+})
 
 export const ProductControllers = {
-    createProduct
+    createProduct,
+
+    // cart related function
+    addProductToCart
 }

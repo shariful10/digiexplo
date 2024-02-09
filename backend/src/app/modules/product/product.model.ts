@@ -13,7 +13,7 @@ const ProductSchema = new Schema<IProduct>({
         type: String,
         required: true
     },
-    vendorContryLocation: {
+    vendorCountryLocation: {
         type: String,
         required: true
     },
@@ -36,7 +36,13 @@ const ProductSchema = new Schema<IProduct>({
     },
     vendor: {
         type: Schema.Types.ObjectId,
-        ref:'Vendor'
+        ref:'Vendor',
+        unique:true
+    },
+    status:{
+        type : String,
+        enum : ["Pending" , "Approved" , "Reject"],
+        default: "Pending"
     },
     slug: {
         type:String
@@ -45,7 +51,7 @@ const ProductSchema = new Schema<IProduct>({
         type:String
     }
 
-})
+},{timestamps:true})
 
 export const ProductModel = model <IProduct>('product',ProductSchema)
 

@@ -9,22 +9,26 @@ const createProdcut = async (payload:IProduct,vendorId:string) => {
         productName: payload.productName,
         description: payload.description,
         category: payload.category,
-        vendorContryLocation: payload.vendorCountryLocation,
+        vendorCountryLocation: payload.vendorCountryLocation,
         vendor: vendorId,
         thumbnail: payload.thumbnail,
         file:payload.file,
         price: payload.price,
         tags: payload.tags
     }).save()
-    await VendorModel.findByIdAndUpdate(vendorId,{
-        products:[
-            product.id
-        ]
-    })
+
     return product
 }
 
 
+
+// cart related function
+
+const addProductToCart = async(productId:string,quantity:number) =>{
+    
+}
+
 export const ProductServices = {
     createProdcut,
+    addProductToCart
 }

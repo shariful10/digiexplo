@@ -8,7 +8,7 @@ export interface IName {
 }
 
 export interface IUser {
-  _id: Types.ObjectId;
+  // _id: Types.ObjectId;
   name: IName;
   username: string;
   email: string;
@@ -20,11 +20,12 @@ export interface IUser {
   status: "Active" | "Blocked";
   isDeleted: boolean;
   vendor: Types.ObjectId;
+  cart: Types.ObjectId
 }
 
 // Custom static methods:
 export interface UserModel extends Model<IUser> {
-  userExists(id: string): Promise<IUser | null>;
+  userExists(email : string): Promise<IUser | null>;
   isPasswordMatch(plainPass: string, hashedPass: string): Promise<boolean>;
   JwtIssueBeforePassChange(
     passwordChangedTimeStamp: Date,

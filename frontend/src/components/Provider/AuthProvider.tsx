@@ -8,6 +8,7 @@ import {
 	useState,
 } from "react";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../helper";
 
 interface PostData {
 	title: string;
@@ -59,7 +60,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 				if (token) {
 					// If a token exists, make a request to validate it
 					const response = await fetch(
-						"http://localhost:5000/api/v1/auth/validate-user",
+						`${BASE_URL}/api/v1/auth/validate-user`,
 						{
 							method: "POST",
 							headers: {
@@ -102,7 +103,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		try {
 			// Make API request to register user
 			const response = await fetch(
-				"http://localhost:5000/api/v1/users/create-user",
+				`${BASE_URL}/api/v1/users/create-user`,
 				{
 					method: "POST",
 					headers: {
@@ -139,7 +140,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 		try {
 			// Make API request to login user
 			const response = await fetch(
-				"http://localhost:5000/api/v1/auth/login",
+				`${BASE_URL}/api/v1/auth/login`,
 				{
 					method: "POST",
 					headers: {

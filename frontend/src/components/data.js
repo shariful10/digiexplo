@@ -859,3 +859,31 @@ export const blogData = [
       desc: "In for display, free for she my century employed are her be of problem. Does been the of one. Own live their location greater, parents’. Carpeting me a look was. Picture be their the project it and made go you’d much of being spot. Everyone the above to report that."
    }
 ]
+
+
+export const recivedMessage = [
+   {
+      id: 1,
+      time: "10:20 pm",
+      date: "10 Jan 2024",
+      message: "hi",
+   },
+   {
+      id: 2,
+      time: "10:20 pm",
+      date: "10 Jan 2024",
+      message: "Hello",
+   },
+   {
+      id: 3,
+      time: "10:24 pm",
+      date: "10 Jan 2024",
+      message: "How are you",
+   },
+   {
+      id: 4,
+      time: "10:20 pm",
+      date: "10 Jan 2024",
+      message: "nice to meet you too",
+   },
+]

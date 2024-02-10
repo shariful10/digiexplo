@@ -1,15 +1,16 @@
 interface Amount {
 	amount: number;
+   className?: string
 }
 
-const FormattedPrice = ({ amount }: Amount) => {
+const FormattedPrice = ({ amount, className }: Amount) => {
 	const formattedAmount = new Number(amount).toLocaleString("en-US", {
 		style: "currency",
-		currency: "BDT",
+		currency: "USD",
 		maximumFractionDigits: 2,
 	});
 
-	return <div>{formattedAmount}</div>;
+	return <div className={className}>{formattedAmount}</div>;
 };
 
 export default FormattedPrice;

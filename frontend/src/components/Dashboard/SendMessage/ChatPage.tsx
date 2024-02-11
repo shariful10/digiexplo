@@ -54,10 +54,10 @@ const ChatPage: React.FC = () => {
 					onKeyDown={handleKeyDown}
 				/>
 				<button
-					className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2"
+					className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-3"
 					onClick={handleSendMessage}
 				>
-					<IoSend size={24} />
+					<IoSend size={18} />
 				</button>
 			</div>
 		</div>

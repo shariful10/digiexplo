@@ -3,6 +3,7 @@ import { products } from "@/components/data";
 import VendorProductCard from "@/components/Dashboard/Vendor/VendorProductCard";
 import { FaPlus } from "react-icons/fa6";
 import Pagination from "./Pagination";
+import Link from "next/link";
 
 const VendorProduct = () => {
   return (
@@ -12,9 +13,12 @@ const VendorProduct = () => {
           <h2 className="text-lg font-semibold">My Product</h2>
           <p className="text-sm text-neutral-500 font-medium">Recent</p>
         </div>
-        <button className="bg-primary text-[13px] px-3 py-2 text-white rounded-md flex items-center gap-2">
+        <Link
+          href="/dashboard/add-product"
+          className="bg-primary text-[13px] px-3 py-2 text-white rounded-md flex items-center gap-2"
+        >
           <FaPlus /> New Product
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">

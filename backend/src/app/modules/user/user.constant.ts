@@ -1,5 +1,11 @@
 export const USER_ROLE = {
-  USER: "USER",
-  VENDOR: "VENDOR",
-  ADMIN: "ADMIN",
+  USER: "User",
+  VENDOR: "Vendor",
+  ADMIN: "Admin",
 } as const;
+
+// export enum USER_ROLE  {
+//   USER = "User",
+//   VENDOR = "Vendor",
+//   ADMIN = "Admin",
+// }

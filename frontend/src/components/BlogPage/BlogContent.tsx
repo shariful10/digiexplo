@@ -4,14 +4,14 @@ import BlogCards from "./BlogCards";
 import RightBar from "../SingleBlogPage/RightBar";
 
 const BlogContent = () => {
-   return (
-      <div className="grid md:grid-cols-3 gap-6 mb-5 md:mb-10">
-         <div className="md:col-span-2">
-            <BlogCards items={blogData} />
-         </div>
-         <RightBar />
+  return (
+    <div className="grid md:grid-cols-3 gap-6 mb-5 md:mb-10">
+      <div className="md:col-span-2">
+        <BlogCards items={blogData} />
       </div>
-   );
+      <RightBar />
+    </div>
+  );
 };
 
 export default BlogContent;

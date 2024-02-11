@@ -5,13 +5,21 @@ import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-
+import cookieParser from "cookie-parser";
+import config from "./app/config";
+import path from 'path'
 const app: Application = express();
 
 // Parser
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:'http://localhost:5173',
+  credentials:true
+}));
+app.use(cookieParser())
 
+const static_folder =  path.join(__dirname,'..','public') 
+app.use(express.static(static_folder))
 // application routes
 app.use("/api/v1", router);
 

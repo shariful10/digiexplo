@@ -12,4 +12,7 @@ export default {
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
   jwt_access_expires: process.env.JWT_ACCESS_EXPIRES_IN,
   jwt_refresh_expires: process.env.JWT_REFRESH_EXPIRES_IN,
+  cookie_secret : process.env.COOKIE_SECRET,
+  cookie_expire : process.env.COOKIE_EXPIER,
+  stripe_secret_key : process.env.STRIPE_SECRET_KEY
 };

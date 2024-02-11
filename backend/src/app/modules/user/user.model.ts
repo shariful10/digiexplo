@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import config from "../../config";
 import { IName, IUser, UserModel } from "./user.interface";
 import { AppError } from "../../errors/AppError";
@@ -7,7 +7,8 @@ import { AppError } from "../../errors/AppError";
 const IName = new Schema<IName>({
   firstName: { type: String },
   lastName: { type: String },
-});
+  // _id:false
+}, {_id:false});
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
@@ -17,11 +18,11 @@ const UserSchema = new Schema<IUser, UserModel>(
       required: true,
       unique: true,
     },
-    email: { type: String, required: true },
+    email: { type: String, required: true,unique:true },
     password: { type: String, required: true, select: 0 },
     phone: { type: String, required: true },
     profileImg: { type: String, required: true },
-    verificationID: { type: String },
+    // verificationID: { type: String },
     role: { type: String, enum: ["Admin", "Vendor", "User"], default: "User" },
     status: {
       type: String,
@@ -32,8 +33,18 @@ const UserSchema = new Schema<IUser, UserModel>(
     vendor: {
       type: Schema.Types.ObjectId,
       ref:'Vendor',
-      unique:true
-    }
+      // unique:true
+    },
+    cart : {
+      type : Schema.Types.ObjectId,
+      ref : "cart"
+    },
+    buyedProducts : [
+      {
+        type:Schema.Types.ObjectId,
+        ref:'order'
+      }
+    ],
   },
   {
     timestamps: true,
@@ -56,7 +67,6 @@ UserSchema.statics.isPasswordMatch = async (plainPass, hashedPass) => {
 UserSchema.pre("save", async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
-
   if (user.password) {
     // Only hash the password if it's defined
     user.password = await bcrypt.hash(

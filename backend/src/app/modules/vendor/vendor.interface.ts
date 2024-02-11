@@ -9,5 +9,6 @@ export interface IVendor {
   verificationId: string;
   address: string;
   status?: "Pending" | "Approved" | "Cancel" | "Restrict";
-  products: IProduct[]
+  products: Types.ObjectId[],
+  selledProducts? : Types.ObjectId[]
 }

@@ -1,14 +1,14 @@
 import { Types } from "mongoose";
 import { IVendor } from "./vendor.interface";
 import { VendorModel } from "./vendor.model";
-import { handleDuplicateError } from "../../errors/handleDuplicateError";
+
 
 const becomeVendor = async (
   userId: Types.ObjectId,
   payload: Omit<IVendor, "user" | "status">
 ) => {
   type TOptional = "status" | "products"
-  const result = await new VendorModel<Omit<IVendor,TOptional>>({
+  const result = await new VendorModel({
     address: payload.address,
     companyName: payload.companyName,
     ownerName: payload.ownerName,
@@ -22,7 +22,7 @@ const becomeVendor = async (
 
 
 const getVendor = async( vendorId:string) => {
-  const vendor = await VendorModel.findById(vendorId)
+  const vendor = await VendorModel.findById(vendorId).populate('products')
   return vendor
 }
 

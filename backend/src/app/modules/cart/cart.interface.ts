@@ -1,11 +1,9 @@
 import { Types } from "mongoose";
 
-export interface ICartProduct {
-    productId: Types.ObjectId
-    quantity : number
-}
+export type TCartProduct =  Types.ObjectId
+
 
 export interface ICart {
-    userId: Types.ObjectId
-    products: ICartProduct[]
+    user: Types.ObjectId
+    products: TCartProduct[]
 }

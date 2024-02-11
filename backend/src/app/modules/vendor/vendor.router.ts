@@ -14,4 +14,6 @@ router.post(
   VendorController.becomeVendor
 );
 
+router.get('/get-vendor/:vendorId',VendorController.getVendor)
+
 export const VendorRoutes = router;

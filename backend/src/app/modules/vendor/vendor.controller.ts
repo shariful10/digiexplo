@@ -22,9 +22,20 @@ const becomeVendor = catchAsync(async (req, res) => {
   });
 });
 
+const getVendor = catchAsync(async (req,res)=> {
+  const {vendorId} = req.params
+  const vendor = await VendorServices.getVendor(vendorId)
+  sendResponse(res, {
+    data:vendor,
+    statusCode:httpStatus.OK,
+    success:true,
+    message:"get vendor successfull"
+  })
+})
 
 
 
 export const VendorController = {
   becomeVendor,
+  getVendor
 };

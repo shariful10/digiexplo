@@ -34,11 +34,7 @@ const ProductSchema = new Schema<IProduct>({
         type:String,
         required: true
     },
-    vendor: {
-        type: Schema.Types.ObjectId,
-        ref:'Vendor',
-        unique:true
-    },
+
     status:{
         type : String,
         enum : ["Pending" , "Approved" , "Reject"],
@@ -49,8 +45,11 @@ const ProductSchema = new Schema<IProduct>({
     },
     "meta-tigle":{
         type:String
-    }
-
+    },
+    vendor: {
+        type: Schema.Types.ObjectId,
+        ref:'Vendor',
+    },
 },{timestamps:true})
 
 export const ProductModel = model <IProduct>('product',ProductSchema)

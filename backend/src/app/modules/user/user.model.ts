@@ -38,7 +38,13 @@ const UserSchema = new Schema<IUser, UserModel>(
     cart : {
       type : Schema.Types.ObjectId,
       ref : "cart"
-    }
+    },
+    buyedProducts : [
+      {
+        type:Schema.Types.ObjectId,
+        ref:'order'
+      }
+    ],
   },
   {
     timestamps: true,

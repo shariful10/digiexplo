@@ -15,9 +15,17 @@ const router = Router()
 router.post('/create-product',auth(USER_ROLE.VENDOR),validateRequest(ProductValidation.createProductSchema),ProductControllers.createProduct)
 
 
+
+// cart add realted route
 // all route are associate with both user and vendor
 
-router.post('/add-cart/:productId',auth(USER_ROLE.USER),validateRequest(CartValidation.CreateCartZodSchema),)
+router.post('/add-cart/:productId',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.addProductToCart)
+router.get('/get-cart',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.getCartProducts)
+
+
+
+router.post('/buy-product-intend/:productId',auth(USER_ROLE.USER),ProductControllers.buyProductPaymentIntend)
+
 
 export const ProductRoutes = router;
 

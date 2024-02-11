@@ -8,7 +8,7 @@ export interface IName {
 }
 
 export interface IUser {
-  // _id: Types.ObjectId;
+  _id: Types.ObjectId;
   name: IName;
   username: string;
   email: string;
@@ -20,7 +20,8 @@ export interface IUser {
   status: "Active" | "Blocked";
   isDeleted: boolean;
   vendor: Types.ObjectId;
-  cart: Types.ObjectId
+  cart: Types.ObjectId,
+  buyedProducts :  Types.ObjectId[]
 }
 
 // Custom static methods:

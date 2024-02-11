@@ -87,8 +87,8 @@ const session = await stripe.checkout.sessions.create({
     ],
     // customer: customer.id,
     mode: "payment",
-    success_url: "http://localhost:5000/success.html",
-    cancel_url: "http://localhost:5000/success.html",
+    success_url: "http://localhost:5000/index.html",
+    cancel_url: "http://localhost:5000/index.html",
   });
   return session.id
 }

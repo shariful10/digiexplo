@@ -64,10 +64,15 @@ const buyProductPaymentIntend = catchAsync(async (req,res)=> {
     //     data:sessionId,
     //     message:'session id get successfull'
     // })
-    res.render(`http://localhost:5000/${sessionId}`)
+    res.json({
+        sessionId
+    })
 })
 
 
+const stripeHook = catchAsync(async (req,res)=> {
+
+})
 
 
 
@@ -80,5 +85,6 @@ export const ProductControllers = {
 
 
     // product by related function
-    buyProductPaymentIntend
+    buyProductPaymentIntend,
+    stripeHook
 }

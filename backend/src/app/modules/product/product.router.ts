@@ -26,6 +26,7 @@ router.get('/get-cart',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.
 
 router.post('/buy-product-intend/:productId',auth(USER_ROLE.USER),ProductControllers.buyProductPaymentIntend)
 
+router.post('/webhook',ProductControllers.stripeHook)
 
 export const ProductRoutes = router;
 

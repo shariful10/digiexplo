@@ -13,9 +13,9 @@ const orderSchema = new Schema<IOrder>({
   },
   paymentStatus: {
     type: String,
-    enum : ['Pending',"Paid"],
-    default: 'Pending'
+    enum : ['pending',"paid"],
+    default: 'pending'
   }
 });
 
-export const orderModel = model<IOrder>("order", orderSchema);
+export const OrderModel = model<IOrder>("order", orderSchema);

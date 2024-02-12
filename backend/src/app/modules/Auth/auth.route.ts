@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.post("/login",validateRequest(AuthZodValidation.LoginValidationSchema), AuthControllers.loginUser
 );
+router.post('/forget-password')
+
 
 router.post('/logout',auth(USER_ROLE.ADMIN,USER_ROLE.USER,USER_ROLE.VENDOR),AuthControllers.logoutUser)
 router.post("/validate-user", AuthControllers.validateUser);

@@ -6,7 +6,7 @@ import { ProductControllers } from "./product.controller";
 import validateRequest from "../../middleware/validateRequest";
 import { ProductValidation } from "./product.validation";
 import { CartValidation } from "../cart/cart.validation";
-
+import express from 'express'
 
 
 const router = Router()
@@ -14,7 +14,9 @@ const router = Router()
 // all route are associate with vendor
 router.post('/create-product',auth(USER_ROLE.VENDOR),validateRequest(ProductValidation.createProductSchema),ProductControllers.createProduct)
 
+// get product by cateogry
 
+router.get('/get-products-by-category/:category',)
 
 // cart add realted route
 // all route are associate with both user and vendor
@@ -26,7 +28,7 @@ router.get('/get-cart',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.
 
 router.post('/buy-product-intend/:productId',auth(USER_ROLE.USER),ProductControllers.buyProductPaymentIntend)
 
-router.post('/webhook',ProductControllers.stripeHook)
+router.post('/buy-product/stripe/webhook',express.raw({type:'application/json'}),ProductControllers.stripeHook)
 
 export const ProductRoutes = router;
 

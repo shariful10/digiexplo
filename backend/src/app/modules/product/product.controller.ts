@@ -19,6 +19,19 @@ const createProduct = catchAsync(async (req,res)=> {
 })
 
 
+const getProductsByCategory = catchAsync(async (req,res)=> {
+    const category = req.params.category as unknown as string;
+    const {page,limit} = req.query
+    const products = await ProductServices.getProductsByCategory(category,Number(page),Number(limit))
+    sendResponse(res,{
+        data:products,
+        statusCode:httpStatus.OK,
+        success:true,
+        message:'category wise products get successfull '
+    })
+})
+
+
 //cart related function
 const addProductToCart  = catchAsync(async (req,res)=> {
     const productId  = req.params.productId as unknown as Types.ObjectId
@@ -57,7 +70,7 @@ const getCartProducts = catchAsync(async (req,res)=> {
 const buyProductPaymentIntend = catchAsync(async (req,res)=> {
     const userId = req.user._id;
     const productId = req.params.productId
-    const sessionId = await ProductServices.buyProductPaymentIntend(userId,productId)
+    const session = await ProductServices.buyProductPaymentIntend(userId,productId)
     // sendResponse(res,{
     //     statusCode:httpStatus.OK,
     //     success:true,
@@ -65,20 +78,22 @@ const buyProductPaymentIntend = catchAsync(async (req,res)=> {
     //     message:'session id get successfull'
     // })
     res.json({
-        sessionId
+        url:session.url
     })
 })
 
 
 const stripeHook = catchAsync(async (req,res)=> {
-
+    const sig = req.headers['stripe-signature'] as unknown as string;
+    const body = req.body;
+    await ProductServices.stripeHook(body,sig)
 })
 
 
 
 export const ProductControllers = {
     createProduct,
-
+    getProductsByCategory,
     // cart related function
     addProductToCart,
     getCartProducts,

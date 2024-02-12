@@ -7,7 +7,6 @@ import {
 export const handleDuplicateError = (err: any): IGenericErrorResponse => {
   const match = err.message.match(/"([^"]*)"/);
   const extracted_message = match && match[1];
-  console.log(err)
   const errorDetails: IErrorDetails = [
     {
       path: err.keyValue,
@@ -25,3 +24,5 @@ export const handleDuplicateError = (err: any): IGenericErrorResponse => {
     errorDetails,
   };
 };
+
+

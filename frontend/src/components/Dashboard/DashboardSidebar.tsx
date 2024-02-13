@@ -13,6 +13,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { FaTelegramPlane } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoLockOpenOutline } from "react-icons/io5";
 
 const dashboardUserItems = [
   {
@@ -38,7 +39,7 @@ const dashboardUserItems = [
 const dashboardVendorItems = [
   {
     id: 1,
-    title: "Vendor Profile",
+    title: "My Profile",
     url: "/dashboard",
     Icon: LuUser2,
   },
@@ -50,9 +51,9 @@ const dashboardVendorItems = [
   },
   {
     id: 3,
-    title: "My Order Items",
+    title: "Change Password",
     url: "/dashboard/my-order-items",
-    Icon: VscHome,
+    Icon: IoLockOpenOutline,
   },
 ];
 
@@ -64,16 +65,21 @@ const DashboardSidebar = () => {
     <div className="w-64">
       <div className="fixed top-0 bg-sidebar  h-screen w-64 py-10 hidden z-20 md:flex flex-col justify-between">
         <div>
-          <Link href="/" className="">
+          <div className="text-center">
+            <Link href="/" className="text-4xl font-bold  text-white">
+              Digi<span className="text-primary">Ex</span>plore
+            </Link>
+          </div>
+          {/* <Link href="/" className="">
             <Image src={logo} className="w-[70%] rounded-md px-10" alt="logo" />
-          </Link>
+          </Link> */}
           {user?.role === "User" ? (
-            <div className="flex flex-col gap-2 mt-10">
+            <div className="flex flex-col gap-2 mt-14">
               {dashboardUserItems.map(({ id, title, url, Icon }) => (
                 <Link
                   href={url}
                   key={id}
-                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                  className={`flex items-center gap-2 hover:text-primary py-2 w-full duration-300 ${
                     pathName === url
                       ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
                       : "text-[#9a9cae]"
@@ -85,12 +91,12 @@ const DashboardSidebar = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col gap-2 mt-10">
+            <div className="flex flex-col gap-2 mt-14">
               {dashboardVendorItems.map(({ id, title, url, Icon }) => (
                 <Link
                   href={url}
                   key={id}
-                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                  className={`flex items-center gap-2 hover:text-primary py-2 w-full duration-300 ${
                     pathName === url
                       ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
                       : "text-[#9a9cae]"
@@ -110,7 +116,7 @@ const DashboardSidebar = () => {
           <div className="flex flex-col gap-2 mt-5 px-5">
             <Link
               href="/"
-              className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
+              className="flex items-center gap-2 text-[#9a9cae] hover:text-primary py-2 px-5 w-full duration-300"
             >
               <VscHome className="text-xl" />
               <span className="">Home</span>
@@ -118,7 +124,7 @@ const DashboardSidebar = () => {
             <Link href="/">
               <button
                 onClick={logoutUser}
-                className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
+                className="flex items-center gap-2 text-[#9a9cae] hover:text-primary py-2 px-5 w-full duration-300"
               >
                 <HiOutlineLogout className="text-xl" />
                 <span className="">Logout</span>

@@ -1,22 +1,9 @@
 "use client";
-import {
-  ReactNode,
-  createContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { ReactNode, createContext, useReducer } from "react";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../helper";
-
-interface PostData {
-  title: string;
-  content: string;
-}
-
-interface PostResponse {
-  id: string;
-}
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { QueryData } from "./Interface";
 
 // Create a context for the API provider
 export const AuthContext = createContext<any>(null);
@@ -29,7 +16,8 @@ const initialState = {
 // Define action types
 const SET_USER = "SET_USER";
 const SET_ERROR = "SET_ERROR";
-const LOGOUT = "LOGOUT"; // New action type for logout
+const LOGOUT = "LOGOUT";
+const CHECK_LOGIN = "CHECK_LOGIN"; // New action type for logout
 
 // Reducer function to handle state changes based on actions
 const apiReducer = (state: any, action: any) => {
@@ -38,6 +26,12 @@ const apiReducer = (state: any, action: any) => {
       return { ...state, user: action.payload, error: null };
     case SET_ERROR:
       return { ...state, error: action.payload, user: null };
+    case CHECK_LOGIN:
+      return {
+        ...state,
+        user: action.payload,
+        error: null,
+      };
     case LOGOUT:
       localStorage.removeItem("token"); // Remove token on logout
       return { ...initialState }; // Reset state to initial state on logout
@@ -47,47 +41,11 @@ const apiReducer = (state: any, action: any) => {
 };
 
 // API provider component
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+const AuthProviderFake = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(apiReducer, initialState);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const token = localStorage.getItem("token");
+  // check if user is logged in
 
-        if (token) {
-          // If a token exists, make a request to validate it
-          const response = await fetch(
-            `${BASE_URL}/api/v1/auth/validate-user`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setLoading(true);
-
-          const data = await response.json();
-
-          if (response.ok && data.success) {
-            // If token is valid, update user data in the state
-            dispatch({ type: SET_USER, payload: data.data.user });
-            setLoading(false);
-          } else {
-            // If token is not valid, log the user out
-            dispatch({ type: LOGOUT });
-          }
-        }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      }
-    };
-
-    checkAuthentication();
-  }, []); // Run only once when the component mounts
   // Function to handle user registration
   const registerUser = async (userData: {
     userData: {
@@ -166,9 +124,30 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Function to handle user logout
-  const logoutUser = () => {
-    dispatch({ type: LOGOUT });
+  const checkLoginStatus = async () => {
+    const userQueryKey = ["user"] as const;
+
+    try {
+      const { data, isLoading } = useQuery({
+        queryKey: userQueryKey,
+        queryFn: async () => {
+          const response = await fetch(
+            `http://localhost:5000/api/v1/auth/check-login`
+          );
+          return response.json();
+        },
+      });
+
+      console.log(data);
+
+      dispatch({ type: SET_USER, payload: data });
+
+      if (data?.data.isLoggedIn) {
+        dispatch({ type: CHECK_LOGIN, payload: data.data.user });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -178,8 +157,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         error: state.error,
         registerUser,
         loginUser,
-        logoutUser,
-        loading,
+        checkLoginStatus,
       }}
     >
       {children}
@@ -187,4 +165,4 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default AuthProvider;
+export default AuthProviderFake;

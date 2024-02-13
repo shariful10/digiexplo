@@ -7,7 +7,7 @@ import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-console.log('reching')
+  // console.log("reching");
   const { accessToken, user } = result;
 
   // sendResponse(res, {
@@ -22,7 +22,7 @@ console.log('reching')
     success: true,
     message: "User Login successful",
     data: { accessToken, user },
-    user : user
+    user: user,
   });
 });
 
@@ -44,16 +44,30 @@ const validateUser = catchAsync(async (req, res) => {
   });
 });
 
-const logoutUser = catchAsync(async (req,res)=> {
+const checkLogin = catchAsync(async (req, res) => {
+  const user = req.cookies.user;
+
+  const result = await AuthServices.checkLogin(user);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User is Logged in",
+    data: result,
+  });
+});
+
+const logoutUser = catchAsync(async (req, res) => {
   const response = {
-    success:true,
-    message:"User Logour successfull",
-  }
-  res.status(httpStatus.OK).clearCookie('user').json(response)
-})
+    success: true,
+    message: "User Logout successful",
+  };
+  res.status(httpStatus.OK).clearCookie("user").json(response);
+});
 
 export const AuthControllers = {
   loginUser,
   validateUser,
-  logoutUser
+  logoutUser,
+  checkLogin,
 };

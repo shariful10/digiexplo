@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
   "/create-user",
-  // validateRequest(UserValidation.CreateUserZodSchema),
+  validateRequest(UserValidation.CreateUserZodSchema),
   UserController.createUser
 );
 router.get('/get-user/:userId',UserController.getUser)

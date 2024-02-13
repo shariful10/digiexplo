@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { HiOutlineLogout } from "react-icons/hi";
 import { FaTelegramPlane } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 const dashboardUserItems = [
 	{
@@ -91,35 +92,51 @@ const DashboardSidebar = () => {
 							alt="logo"
 						/>
 					</Link>
-					{user?.role === "User" && (
+					{user?.role === "User" ? (
 						<div className="flex flex-col gap-2 mt-10">
 							{dashboardUserItems.map(({ id, title, url, Icon }) => (
 								<Link
 									href={url}
 									key={id}
-									className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 px-5 w-full ${
+									className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
 										pathName === url
-											? "bg-[#53535f] text-[#f5f5f5] py-2 px-5 w-full"
+											? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
 											: "text-[#9a9cae]"
-									}`}
+									} px-10`}
 								>
 									<Icon className="text-xl" />
 									<span className="">{title}</span>
 								</Link>
 							))}
 						</div>
-					)}
-					{user?.role === "Admin" && (
+					) : user?.role === "Vendor" ? (
+						<div className="flex flex-col gap-2 mt-10">
+							{dashboardVendorItems.map(({ id, title, url, Icon }) => (
+								<Link
+									href={url}
+									key={id}
+									className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+										pathName === url
+											? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
+											: "text-[#9a9cae]"
+									} px-10`}
+								>
+									<Icon className="text-xl" />
+									<span className="">{title}</span>
+								</Link>
+							))}
+						</div>
+					) : (
 						<div className="flex flex-col gap-2 mt-10">
 							{dashboardAdminItems.map(({ id, title, url, Icon }) => (
 								<Link
 									href={url}
 									key={id}
-									className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 px-5 w-full ${
+									className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
 										pathName === url
-											? "bg-[#53535f] text-[#f5f5f5] py-2 px-5 w-full"
+											? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
 											: "text-[#9a9cae]"
-									}`}
+									} px-10`}
 								>
 									<Icon className="text-xl" />
 									<span className="">{title}</span>

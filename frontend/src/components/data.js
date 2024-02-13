@@ -887,3 +887,101 @@ export const recivedMessage = [
       message: "nice to meet you too",
    },
 ]
+
+export const vendorData = [
+   {
+      id: 1,
+      name: "Ella Gross",
+      image: "https://dummyimage.com/365x365/a8a6a6/fff",
+      status: [
+         {
+            id: 1,
+            option: "Painding",
+         },
+         {
+            id: 2,
+            option: "Approve",
+         },
+         {
+            id: 3,
+            option: "Reject",
+         }
+      ],
+   },
+   {
+      id: 2,
+      name: "Ella Gross",
+      image: "https://dummyimage.com/365x365/a8a6a6/fff",
+      status: [
+         {
+            id: 1,
+            option: "Pending",
+         },
+         {
+            id: 2,
+            option: "Approve",
+         },
+         {
+            id: 3,
+            option: "Reject",
+         }
+      ],
+   },
+   {
+      id: 3,
+      name: "Ella Gross",
+      image: "https://dummyimage.com/365x365/a8a6a6/fff",
+      status: [
+         {
+            id: 1,
+            option: "Painding",
+         },
+         {
+            id: 2,
+            option: "Approve",
+         },
+         {
+            id: 3,
+            option: "Reject",
+         }
+      ],
+   },
+   {
+      id: 4,
+      name: "Ella Gross",
+      image: "https://dummyimage.com/365x365/a8a6a6/fff",
+      status: [
+         {
+            id: 1,
+            option: "Painding",
+         },
+         {
+            id: 2,
+            option: "Approve",
+         },
+         {
+            id: 3,
+            option: "Reject",
+         }
+      ],
+   },
+   {
+      id: 5,
+      name: "Ella Gross",
+      image: "https://dummyimage.com/365x365/a8a6a6/fff",
+      status: [
+         {
+            id: 1,
+            option: "Painding",
+         },
+         {
+            id: 2,
+            option: "Approve",
+         },
+         {
+            id: 3,
+            option: "Reject",
+         }
+      ],
+   },
+]

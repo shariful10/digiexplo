@@ -65,7 +65,7 @@ const Sidebar = ({ show, setShow }: Props) => {
   const pathName = usePathname();
 
   return (
-    <div className="laptop:w-[270px] w-[50px]">
+    <div className="laptop:w-[270px] w-[50px] group">
       <div
         className={`fixed top-0 sidebar-shadow h-screen laptop:w-[270px] w-[70px] hover:w-[270px] border-r laptop:border-0 z-50 ${
           show
@@ -99,7 +99,7 @@ const Sidebar = ({ show, setShow }: Props) => {
                 >
                   <Icon className="text-2xl" />
                   <Link
-                    className="hidden hover:block "
+                    className="hidden xl:block group-hover:block duration-500"
                     href={`${url ? url : ""}`}
                   >
                     {title}

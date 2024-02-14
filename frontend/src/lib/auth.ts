@@ -1,5 +1,6 @@
 // import { useUser } from "@/components/Context/UserContext";
 import { BASE_URL } from "@/components/helper";
+import axios from "axios";
 import toast from "react-hot-toast";
 
 const registerUser = async (userData: {
@@ -34,28 +35,27 @@ const registerUser = async (userData: {
   }
 };
 
-const loginUser = async (credentials: { email: string; password: string }) => {
+const loginUser = async (loginData: { email: string; password: string }) => {
   try {
-    // Make API request to login user
-    const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(credentials),
-    });
+    const res = await axios.post(
+      `${BASE_URL}/api/v1/auth/login`,
+      loginData, // this this the body of post method
+      {
+        withCredentials: true,
+      }
+    );
 
-    const data = await response.json();
+    const result = res.data;
+    console.log(result);
 
-    if (response.ok && data.success) {
-      toast.success(data.message);
+    if (result && result.success) {
+      toast.success(result.message);
       // window.location.href = "/ ";
-      localStorage.setItem("digitalization" as string, data.data.userToken);
+      localStorage.setItem("digitalization" as string, result.data.userToken);
 
       // store userData for global use: data.user
     } else {
-      toast.error(data.errorMessage);
+      toast.error(result.errorMessage);
     }
   } catch (error) {
     console.log("Error logging in user:", error);
@@ -76,7 +76,7 @@ const logoutUser = async () => {
 
     if (response.ok && data.success) {
       toast.success(data.message);
-      // window.location.href = "/ ";
+      window.location.href = "/ ";
 
       localStorage.removeItem("digitalization");
     } else {

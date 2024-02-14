@@ -17,6 +17,9 @@ const config: Config = {
         descColor: "rgba(34, 43, 79, 0.63)",
         shadowBorder: "#F1F1F4",
       },
+      screens: {
+        laptop: "1368px",
+      },
     },
   },
   plugins: [],

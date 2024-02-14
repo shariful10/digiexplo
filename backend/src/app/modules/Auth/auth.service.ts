@@ -5,8 +5,10 @@ import { User } from "../user/user.model";
 import { ILoginUser } from "./auth.interface";
 import { CreateToken } from "./auth.utils";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { IUser } from "../user/user.interface";
-
+import { generateOTP } from "../../mail/OtpGenerate";
+import { sendMail } from "../../mail/sendMail";
+import { SessionModel } from "../sessions/session.model";
+import bcrypt from "bcrypt";
 const loginUser = async (payload: ILoginUser) => {
   // check if the user exists
   // const isUserExist = await User.findOne({ id: payload?.id });
@@ -49,6 +51,79 @@ const loginUser = async (payload: ILoginUser) => {
   };
 };
 
+const validateUser = async (token: string) => {
+  // checking if the given token is valid | verify the received token
+  const decoded = jwt.verify(
+    token,
+    config.jwt_access_secret as string
+  ) as JwtPayload;
+
+  const { _id, username, role } = decoded;
+  const isUserExist = await User.findOne({
+    _id: _id,
+    username: username,
+    role: role,
+  }).select("-isDeleted -createdAt -updatedAt -__v");
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found !");
+  }
+
+  return { user: isUserExist };
+};
+const forgetPasswordMailSend = async (email: string) => {
+  const otp = generateOTP();
+  const user = await User.findOne({ email });
+  if (!user) {
+    return {
+      userNotFound: true,
+    };
+  }
+  await sendMail({
+    email,
+    otp,
+    subject: "Forget Password",
+    username: user?.username as unknown as string,
+  });
+  const session = await SessionModel.create({
+    email: email,
+    username: user?.username,
+    otp: otp,
+  });
+  return { user, session };
+};
+
+const forgetPassword = async (
+  otp: number,
+  password: string,
+  session_id: string
+) => {
+  const findSession = await SessionModel.findById(session_id);
+  if (!findSession) {
+    return {
+      no_database_exist: true,
+    };
+  }
+  if (findSession.otp !== otp) {
+    return {
+      otp_wrong: true,
+    };
+  }
+  const hastPassword = await bcrypt.hash(
+    password,
+    Number(config.bcrypt_salt_round)
+  );
+  const update = await User.findOneAndUpdate(
+    { email: findSession.email },
+    { password: hastPassword }
+  );
+  await SessionModel.findByIdAndDelete(findSession._id);
+  return { update };
+};
+
 export const AuthServices = {
   loginUser,
+  validateUser,
+
+  forgetPasswordMailSend,
+  forgetPassword,
 };

@@ -12,14 +12,23 @@ router.post(
   validateRequest(AuthZodValidation.LoginValidationSchema),
   AuthControllers.loginUser
 );
-router.post("/forget-password");
+router.post(
+  "/forget-password-otp-sent",
+  validateRequest(AuthZodValidation.credentialChangeMailGet),
+  AuthControllers.forgetPasswordMailSend
+);
+
+router.post(
+  "/forget-password",
+  validateRequest(AuthZodValidation.credentialChangeOtpAndPassGet),
+  AuthControllers.forgetPassword
+);
 
 router.post(
   "/logout",
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.VENDOR),
   AuthControllers.logoutUser
 );
-
-router.get("/get-cookies", AuthControllers.getCookies);
+router.post("/validate-user", AuthControllers.validateUser);
 
 export const AuthRoutes = router;

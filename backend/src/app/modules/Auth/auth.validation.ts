@@ -7,14 +7,22 @@ const LoginValidationSchema = z.object({
   }),
 });
 
-const changePasswordValidationSchema = z.object({
+const credentialChangeMailGet = z.object({
   body: z.object({
-    oldPassword: z.string({ required_error: "The old password is required" }),
-    newPassword: z.string({ required_error: "The New password is required" }),
+    email: z.string({ required_error: "An Email is required" }),
+  }),
+});
+
+const credentialChangeOtpAndPassGet = z.object({
+  body: z.object({
+    otp: z.string({ required_error: "An Otp needed" }),
+    password: z.string({ required_error: "New password needed" }),
   }),
 });
 
 export const AuthZodValidation = {
   LoginValidationSchema,
-  changePasswordValidationSchema,
+
+  credentialChangeMailGet,
+  credentialChangeOtpAndPassGet,
 };

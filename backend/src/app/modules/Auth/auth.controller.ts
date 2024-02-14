@@ -11,26 +11,26 @@ import { sendMail } from "../../mail/sendMail";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  const { accessToken, user } = result;
+  const { user, userToken } = result;
 
-  // sendResponse(res, {
-  //   statusCode: httpStatus.OK,s
-  //   success: true,
-  //   message: "User Login successful",
-  //   data: { accessToken, user },
-  // });
-  sendResponseWithCookie(
-    res,
-    {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: "User Login successful",
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Login successful",
+    data: { userToken },
+  });
+  // sendResponseWithCookie(
+  //   res,
+  //   {
+  //     statusCode: httpStatus.OK,
+  //     success: true,
+  //     message: "User Login successful",
 
-      session_id: undefined,
-      user,
-    },
-    "user"
-  );
+  //     session_id: undefined,
+  //     user,
+  //   },
+  //   "user"
+  // );
 });
 
 const forgetPasswordMailSend = catchAsync(async (req, res) => {
@@ -82,24 +82,6 @@ const forgetPassword = catchAsync(async (req, res) => {
   }
 });
 
-const validateUser = catchAsync(async (req, res) => {
-  const payload = req.headers.authorization;
-  const token = payload?.split(" ")[1];
-
-  if (!token) {
-    throw new AppError(404, "Token missing");
-  }
-
-  const result = await AuthServices.validateUser(token);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Cookies get",
-    data: cookies,
-  });
-});
-
 const logoutUser = catchAsync(async (req, res) => {
   const response = {
     success: true,
@@ -110,7 +92,6 @@ const logoutUser = catchAsync(async (req, res) => {
 
 export const AuthControllers = {
   loginUser,
-  validateUser,
   logoutUser,
 
   //

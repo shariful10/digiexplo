@@ -26,9 +26,8 @@ router.post(
 
 router.post(
   "/logout",
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.VENDOR),
+  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.VENDOR),
   AuthControllers.logoutUser
 );
-router.post("/validate-user", AuthControllers.validateUser);
 
 export const AuthRoutes = router;

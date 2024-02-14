@@ -33,12 +33,22 @@ const loginUser = async (payload: ILoginUser) => {
 
   // create token and sent to the client
   const jwtPayload = {
-    _id: isUserExist?._id,
-    username: isUserExist?.username,
-    role: isUserExist?.role,
+    _id: isUserExist._id,
+    name: isUserExist.name,
+    username: isUserExist.username,
+    email: isUserExist.email,
+    phone: isUserExist.phone,
+    profileImg: isUserExist.profileImg,
+    // verificationID?: string,
+    role: isUserExist.role,
+    status: isUserExist.status,
+    isDeleted: isUserExist.isDeleted,
+    vendor: isUserExist.vendor,
+    cart: isUserExist.cart,
+    buyedProducts: isUserExist.buyedProducts,
   };
 
-  const accessToken = CreateToken(
+  const userToken = CreateToken(
     jwtPayload,
     config.jwt_access_secret as string,
     config.jwt_access_expires as string
@@ -46,7 +56,7 @@ const loginUser = async (payload: ILoginUser) => {
 
   // Access Granted: Send AccessToken, RefreshToken
   return {
-    accessToken,
+    userToken,
     user,
   };
 };

@@ -1,7 +1,17 @@
 import nodemailer from "nodemailer";
 import ejs from "ejs";
 import path from "path";
-export const sendMail = async ({email, otp, subject,username}:{email:string,otp:number,subject:string,username:string}) => {
+export const sendMail = async ({
+  email,
+  otp,
+  subject,
+  username,
+}: {
+  email: string;
+  otp: number;
+  subject: string;
+  username: string;
+}) => {
   const transporter = await nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -10,7 +20,10 @@ export const sendMail = async ({email, otp, subject,username}:{email:string,otp:
     },
   });
   const filePath = path.join(__dirname, "..", "..", "views");
-  const fileVal = await ejs.renderFile(`${filePath}/email.ejs`, { otp ,username});
+  const fileVal = await ejs.renderFile(`${filePath}/email.ejs`, {
+    otp,
+    username,
+  });
 
   const mailSend = await transporter.sendMail({
     from: `digiexplo <${process.env.MAIL_USER}>`,
@@ -18,7 +31,5 @@ export const sendMail = async ({email, otp, subject,username}:{email:string,otp:
     subject,
     html: fileVal,
   });
-  return mailSend
+  return mailSend;
 };
-
-

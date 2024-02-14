@@ -12,13 +12,14 @@ router.post(
   validateRequest(AuthZodValidation.LoginValidationSchema),
   AuthControllers.loginUser
 );
+router.post("/forget-password");
 
 router.post(
   "/logout",
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.VENDOR),
   AuthControllers.logoutUser
 );
-router.post("/validate-user", AuthControllers.validateUser);
-router.post("/check-login", AuthControllers.checkLogin);
+
+router.get("/get-cookies", AuthControllers.getCookies);
 
 export const AuthRoutes = router;

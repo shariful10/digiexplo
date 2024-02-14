@@ -7,11 +7,10 @@ import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  // console.log("reching");
   const { accessToken, user } = result;
 
   // sendResponse(res, {
-  //   statusCode: httpStatus.OK,
+  //   statusCode: httpStatus.OK,s
   //   success: true,
   //   message: "User Login successful",
   //   data: { accessToken, user },
@@ -21,39 +20,21 @@ const loginUser = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "User Login successful",
-    data: { accessToken, user },
+    // data: { accessToken, user },
     user: user,
   });
+
+  console.log(user);
 });
 
-const validateUser = catchAsync(async (req, res) => {
-  const payload = req.headers.authorization;
-  const token = payload?.split(" ")[1];
-
-  if (!token) {
-    throw new AppError(404, "Token missing");
-  }
-
-  const result = await AuthServices.validateUser(token);
+const getCookies = catchAsync(async (req, res) => {
+  const cookies = req.cookies;
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User Login successful",
-    data: result,
-  });
-});
-
-const checkLogin = catchAsync(async (req, res) => {
-  const user = req.cookies.user;
-
-  const result = await AuthServices.checkLogin(user);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User is Logged in",
-    data: result,
+    message: "Cookies get",
+    data: cookies,
   });
 });
 
@@ -67,7 +48,6 @@ const logoutUser = catchAsync(async (req, res) => {
 
 export const AuthControllers = {
   loginUser,
-  validateUser,
   logoutUser,
-  checkLogin,
+  getCookies,
 };

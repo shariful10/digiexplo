@@ -49,38 +49,6 @@ const loginUser = async (payload: ILoginUser) => {
   };
 };
 
-const validateUser = async (token: string) => {
-  // checking if the given token is valid | verify the received token
-  const decoded = jwt.verify(
-    token,
-    config.jwt_access_secret as string
-  ) as JwtPayload;
-
-  const { _id, username, role } = decoded;
-  const isUserExist = await User.findOne({
-    _id: _id,
-    username: username,
-    role: role,
-  }).select("-isDeleted -createdAt -updatedAt -__v");
-  // console.log(isUserExist);
-
-  if (!isUserExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not found !");
-  }
-
-  return { user: isUserExist };
-};
-
-const checkLogin = async (user: IUser) => {
-  if (!user) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User not logged in");
-  }
-
-  return { user, isLoggedIn: true };
-};
-
 export const AuthServices = {
   loginUser,
-  validateUser,
-  checkLogin,
 };

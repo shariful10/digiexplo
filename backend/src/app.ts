@@ -8,22 +8,50 @@ import router from "./app/routes";
 import cookieParser from "cookie-parser";
 import config from "./app/config";
 import path from "path";
+import { v4 as uuid } from "uuid";
+import { S3 } from "aws-sdk";
+import multer, { Multer } from "multer";
+
 const app: Application = express();
 
 // Parser
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+// app.use(express.json())
 app.use(
   cors({
-    origin: process.env.BASE_URL,
+    origin: config.localURL,
     credentials: true,
   })
 );
-app.use(cookieParser());
+app.use(cookieParser(config.cookie_secret));
 
 const static_folder = path.join(__dirname, "..", "public");
 app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
+
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
+});
+app.post("/upload", upload.single("img"), async (req, res) => {
+  const originalFilename = req.file?.originalname;
+  const fileBuffer = req.file?.buffer;
+  const s3 = new S3();
+  const params = {
+    Bucket: config.aws_bucket_name as string,
+    Key: `upload/-${originalFilename}`,
+    Body: fileBuffer,
+  };
+  const result = await s3.upload(params).promise();
+  res.json({ result });
+});
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>

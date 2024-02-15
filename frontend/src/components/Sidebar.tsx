@@ -90,22 +90,27 @@ const Sidebar = ({ show, setShow }: Props) => {
         <div className="my-[30px]">
           <div className="">
             {items.map(({ id, title, Icon, url }) => (
-              <ul key={id}>
-                <li
-                  onClick={() => setShow(false)}
-                  className={`flex items-center gap-4 px-5 py-[13px] cursor-pointer ${
-                    pathName === url && "text-primary"
-                  } hover:text-primary capitalize text-lg font-medium`}
-                >
-                  <Icon className="text-2xl" />
-                  <Link
-                    className="hidden xl:block group-hover:block duration-500"
-                    href={`${url ? url : ""}`}
+              <div key={id} className="group">
+                <ul>
+                  <li
+                    onClick={() => setShow(false)}
+                    className={`flex items-center gap-4 px-5 py-[13px] cursor-pointer -translate-x-[500px] laptop:translate-x-0 group-hover:translate-x-0 duration-500 ${
+                      pathName === url && "text-primary"
+                    } hover:text-primary capitalize text-lg font-medium`}
                   >
-                    {title}
-                  </Link>
-                </li>
-              </ul>
+                    <Icon className="text-2xl" />
+                    <Link href={`${url ? url : ""}`}>{title}</Link>
+                  </li>
+                </ul>
+                <ol>
+                  <li
+                    onClick={() => setShow(false)}
+                    className={`gap-4 px-5 py-[13px] cursor-pointer translate-x-0 laptop:-translate-x-[500px] duration-500 group-hover:hidden capitalize text-lg font-medium`}
+                  >
+                    <Icon className="text-2xl" />
+                  </li>
+                </ol>
+              </div>
             ))}
           </div>
         </div>

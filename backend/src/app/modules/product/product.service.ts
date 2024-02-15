@@ -11,6 +11,12 @@ import { OrderModel } from "../order/order.model";
 const stripe = new Stripe(config.stripe_secret_key as string);
 
 const createProduct = async (payload: IProduct, vendorId: string) => {
+  const findVendor = await VendorModel.findById(vendorId)
+  if(!findVendor?.commissionPercentage) {
+    return {
+      profile_not_update: true
+    }
+  }
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,
@@ -22,15 +28,15 @@ const createProduct = async (payload: IProduct, vendorId: string) => {
     price: payload.price,
     tags: payload.tags,
   }).save();
-
-  return product;
+  await findVendor.updateOne({$push:{products:product._id}})
+  return {product};
 };
 
 
 const getProductsByCategory = async(category:string,page:number,limit:number) => {
   const skip = !page ? 0 : limit * page;
   const products = await ProductModel.find({category}).limit(limit).skip(skip)
-
+  return products
 }
 
 // cart related function
@@ -120,6 +126,7 @@ const stripeHook = async (body: any, sig: string) => {
     const customerInfo : any = await stripe.customers.retrieve(data.customer)
     let userId = customerInfo.metadata.userId;
     const product = JSON.parse(customerInfo.metadata.product)
+    console.log(product)
     const order = await OrderModel.create({
       user: userId,
       product:product._id,
@@ -129,6 +136,7 @@ const stripeHook = async (body: any, sig: string) => {
     await User.findByIdAndUpdate(order.user,{
       $push : {buyedProducts: order._id},
     })
+    await VendorModel.findByIdAndUpdate
   }
 
 };

@@ -7,12 +7,15 @@ import validateRequest from "../../middleware/validateRequest";
 import { ProductValidation } from "./product.validation";
 import { CartValidation } from "../cart/cart.validation";
 import express from 'express'
+import { upload } from "../uploadFile/awsUpload";
 
 
 const router = Router()
 
 // all route are associate with vendor
-router.post('/create-product',auth(USER_ROLE.VENDOR),validateRequest(ProductValidation.createProductSchema),ProductControllers.createProduct)
+const productImages = upload.fields([{ name: 'thumbnail'}, { name: 'file'}])
+
+router.post('/create-product',auth(USER_ROLE.VENDOR),productImages,validateRequest(ProductValidation.createProductSchema),ProductControllers.createProduct)
 
 // get product by cateogry
 

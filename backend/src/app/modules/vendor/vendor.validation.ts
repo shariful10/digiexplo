@@ -10,6 +10,14 @@ const BecomeVendorZodValidation = z.object({
   }),
 });
 
+const UpdateVendorProfile = z.object({
+  body: z.object({
+    wallet: z.number().optional(),
+    commissionPercentage : z.number().optional()
+  })
+})
+
 export const VendorValidation = {
   BecomeVendorZodValidation,
+  UpdateVendorProfile
 };

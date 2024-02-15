@@ -11,9 +11,10 @@ const createProductSchema = z.object({
     vendorCountryLocation: z.string(),
     category: z.string(),
     price: z.string(),
-    thumbnail: z.string(),
-    file: z.string(),
-    tags: z.array(z.string()).max(5,{message:'tag cannot be more than 5'}),
+    // thumbnail: z.string(),
+    // file: z.string(),
+    // tags: z.array(z.string()).max(5,{message:'tag cannot be more than 5'}),
+    tags: z.string(),
     slug: z.string().optional()
   }),
 });

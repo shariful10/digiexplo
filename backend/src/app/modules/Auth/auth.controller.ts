@@ -8,6 +8,7 @@ import { generateOTP } from "../../mail/OtpGenerate";
 import { SessionModel } from "../sessions/session.model";
 import { User } from "../user/user.model";
 import { sendMail } from "../../mail/sendMail";
+import config from "../../config";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
@@ -25,9 +26,9 @@ const loginUser = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: "User Login successful",
-      
+
       session_id: undefined,
-      user
+      user,
     },
     "user"
   );
@@ -52,7 +53,7 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: "otp get successfull",
-      session_id: session?._id
+      session_id: session?._id,
     },
     "session_id"
   );
@@ -65,22 +66,22 @@ const forgetPassword = catchAsync(async (req, res) => {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
 
-  const {no_database_exist,otp_wrong,update} = await AuthServices.forgetPassword(Number(otp), password, session_id);
+  const { no_database_exist, otp_wrong, update } =
+    await AuthServices.forgetPassword(Number(otp), password, session_id);
 
-  if(no_database_exist){
+  if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
-  if(otp_wrong)
-  throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
-if(update)
-{
-  sendResponse(res,{
-    data:update,
-    statusCode: httpStatus.OK,
-    success:true,
-    message:'pass word update successfull'
-  })
-}
+  if (otp_wrong) throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
+  res.clearCookie('session_id')
+  if (update) {
+    sendResponse(res, {
+      data: update,
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "pass word update successfull",
+    });
+  }
 });
 
 const validateUser = catchAsync(async (req, res) => {
@@ -116,5 +117,5 @@ export const AuthControllers = {
 
   //
   forgetPasswordMailSend,
-  forgetPassword
+  forgetPassword,
 };

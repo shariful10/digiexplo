@@ -10,9 +10,7 @@ import cookieParser from "cookie-parser";
 import config from "./app/config";
 import path from 'path'
 const app: Application = express();
-import {v4 as uuid} from 'uuid'
-import {S3} from 'aws-sdk'
-import multer, { Multer } from 'multer'
+
 // Parser
 app.use((req,res,next)=> {
   if(req.originalUrl === '/api/v1/product/buy-product/stripe/webhook'){
@@ -35,10 +33,7 @@ app.use(express.static(static_folder))
 app.use("/api/v1", router);
 
 
-const storage = multer.memoryStorage()
-const upload = multer({
-  storage,
-})
+
 // app.post('/upload',upload.single('img'), async (req,res)=> {
 //   const originalFilename = req.file?.originalname;
 //   const fileBuffer = req.file?.buffer

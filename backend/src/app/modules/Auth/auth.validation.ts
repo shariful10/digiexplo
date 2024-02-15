@@ -24,8 +24,6 @@ const credentialChangeOtpAndPassGet = z.object({
 
 export const AuthZodValidation = {
   LoginValidationSchema,
-
-
   credentialChangeMailGet,
   credentialChangeOtpAndPassGet
 };

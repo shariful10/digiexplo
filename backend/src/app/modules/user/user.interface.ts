@@ -15,16 +15,18 @@ export interface IUser {
   password: string;
   phone: string;
   profileImg: string;
-  verificationID?: string;
-  role?: "ADMIN" | "VENDOR" | "USER";
+  // verificationID?: string;
+  role?: "Admin" | "Vendor" | "User";
   status: "Active" | "Blocked";
   isDeleted: boolean;
   vendor: Types.ObjectId;
+  cart: Types.ObjectId,
+  buyedProducts :  Types.ObjectId[]
 }
 
 // Custom static methods:
 export interface UserModel extends Model<IUser> {
-  userExists(id: string): Promise<IUser | null>;
+  userExists(email : string): Promise<IUser | null>;
   isPasswordMatch(plainPass: string, hashedPass: string): Promise<boolean>;
   JwtIssueBeforePassChange(
     passwordChangedTimeStamp: Date,

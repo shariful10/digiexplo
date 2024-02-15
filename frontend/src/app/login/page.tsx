@@ -1,24 +1,24 @@
 "use client";
-import useAuth from "@/hooks/useAuth";
+// import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { useEffect } from "react";
 import { IoIosLock } from "react-icons/io";
 import { IoMail } from "react-icons/io5";
 
 const Login = () => {
-	const { loginUser, user } = useAuth();
+	// const { loginUser, user } = useAuth();
 
-	useEffect(() => {
-		if (user) {
-			window.location.href = "/"; // Replace '/dashboard' with the desired page
-		}
-	}, [user]);
+	// useEffect(() => {
+	// 	if (user) {
+	// 		window.location.href = "/"; // Replace '/dashboard' with the desired page
+	// 	}
+	// }, [user]);
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		const email = e.target.email.value;
 		const password = e.target.password.value;
-		loginUser({ email, password });
+		// loginUser({ email, password });
 	};
 
 	return (

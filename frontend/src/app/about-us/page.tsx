@@ -2,7 +2,6 @@ import React from "react";
 import { aboutData } from "@/components/data";
 import SectionTopBanner from "@/components/SectionTopBanner";
 
-
 const AboutUsPage = () => {
 	return (
 		<div className="md:w-5/6 mx-auto px-5 md:px-10">

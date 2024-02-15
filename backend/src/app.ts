@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 // app.use(express.json())
 app.use(
   cors({
-    origin: config.localURL,
+    origin: "http://localhost:3001",
     credentials: true,
   })
 );

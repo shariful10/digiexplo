@@ -12,6 +12,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;
     const token = req.signedCookies.user;
+    console.log(token);
     // if no token received throw error
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");

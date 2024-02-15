@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import './app/mail/sendMail'
+import "./app/mail/sendMail";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
@@ -8,37 +8,39 @@ import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
 import cookieParser from "cookie-parser";
 import config from "./app/config";
-import path from 'path'
+import path from "path";
+import { v4 as uuid } from "uuid";
+import { S3 } from "aws-sdk";
+import multer, { Multer } from "multer";
+
 const app: Application = express();
-import {v4 as uuid} from 'uuid'
-import {S3} from 'aws-sdk'
-import multer, { Multer } from 'multer'
+
 // Parser
-app.use((req,res,next)=> {
-  if(req.originalUrl === '/api/v1/product/buy-product/stripe/webhook'){
-    next()
-  }
-  else {
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
+    next();
+  } else {
     express.json()(req, res, next);
   }
 });
 // app.use(express.json())
-app.use(cors({
-  origin:'http://localhost:5173',
-  credentials:true
-}));
-app.use(cookieParser(config.cookie_secret))
+app.use(
+  cors({
+    origin: config.localURL,
+    credentials: true,
+  })
+);
+app.use(cookieParser(config.cookie_secret));
 
-const static_folder =  path.join(__dirname,'..','public') 
-app.use(express.static(static_folder))
+const static_folder = path.join(__dirname, "..", "public");
+app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
 
-
-const storage = multer.memoryStorage()
+const storage = multer.memoryStorage();
 const upload = multer({
   storage,
-})
+});
 // app.post('/upload',upload.single('img'), async (req,res)=> {
 //   const originalFilename = req.file?.originalname;
 //   const fileBuffer = req.file?.buffer
@@ -51,7 +53,6 @@ const upload = multer({
 //   const result = await s3.upload(params).promise()
 //   res.json({result})
 // })
-
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>

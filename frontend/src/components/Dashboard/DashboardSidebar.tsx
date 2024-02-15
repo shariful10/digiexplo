@@ -1,18 +1,19 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import useAuth from "@/hooks/useAuth";
 import logo from "@/images/logo.webp";
-import { GoGear } from "react-icons/go";
-import { LuUser2 } from "react-icons/lu";
-import { VscHome } from "react-icons/vsc";
-import { BsPersonGear } from "react-icons/bs";
+import { auth } from "@/lib/auth";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HiOutlineLogout } from "react-icons/hi";
+import { BsPersonGear } from "react-icons/bs";
 import { FaTelegramPlane } from "react-icons/fa";
+import { GoGear } from "react-icons/go";
+import { HiOutlineLogout } from "react-icons/hi";
+import { LuUser2 } from "react-icons/lu";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { VscHome } from "react-icons/vsc";
+import { useUser } from "../Context/UserContext";
+import { FaCirclePlus } from "react-icons/fa6";
+import { FaUser, FaUserCog } from "react-icons/fa";
 
 const dashboardUserItems = [
 	{
@@ -40,19 +41,19 @@ const dashboardVendorItems = [
 		id: 1,
 		title: "Vendor Profile",
 		url: "/dashboard",
-		Icon: LuUser2,
+		Icon: FaUser,
 	},
 	{
 		id: 2,
 		title: "Profile Settings",
 		url: "/dashboard/profle-settings",
-		Icon: BsPersonGear,
+		Icon: FaUserCog,
 	},
 	{
 		id: 3,
-		title: "My Order Items",
-		url: "/dashboard/my-order-items",
-		Icon: VscHome,
+		title: "Add Product",
+		url: "/dashboard/add-product",
+		Icon: FaCirclePlus,
 	},
 ];
 
@@ -61,13 +62,13 @@ const dashboardAdminItems = [
 		id: 1,
 		title: "All Vendor Request",
 		url: "/dashboard",
-		Icon: LuUser2,
+		Icon: FaUser,
 	},
 	{
 		id: 2,
 		title: "All Vendors",
 		url: "/dashboard/all-vendors",
-		Icon: BsPersonGear,
+		Icon: FaUserCog,
 	},
 	{
 		id: 3,
@@ -79,7 +80,8 @@ const dashboardAdminItems = [
 
 const DashboardSidebar = () => {
 	const pathName = usePathname();
-	const { user, logoutUser } = useAuth();
+   const { user } = useUser();
+   const { logoutUser } = auth;
 
 	return (
 		<div className="w-64">
@@ -126,7 +128,7 @@ const DashboardSidebar = () => {
 								</Link>
 							))}
 						</div>
-					) : (
+					) : user?.role === "Admin" ? (
 						<div className="flex flex-col gap-2 mt-10">
 							{dashboardAdminItems.map(({ id, title, url, Icon }) => (
 								<Link
@@ -143,7 +145,7 @@ const DashboardSidebar = () => {
 								</Link>
 							))}
 						</div>
-					)}
+					) : <></>}
 				</div>
 				<div>
 					<div className="px-5">

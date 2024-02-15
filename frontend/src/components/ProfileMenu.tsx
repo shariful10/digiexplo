@@ -7,13 +7,20 @@ interface Name {
 }
 
 interface User {
-  name: Name;
   _id: string;
-  email: string;
-  phone: string;
-  role?: string;
+  name: Name;
   username: string;
+  email: string;
+  password: string;
+  phone: string;
   profileImg: string;
+  // verificationID?: string;
+  role: string;
+  status: string;
+  isDeleted: boolean;
+  vendor: string;
+  cart: string;
+  buyedProducts: [];
 }
 
 interface ProfileMenuProps {
@@ -24,8 +31,6 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
-  console.log(user);
-  console.log(logoutUser);
   return (
     <div
       className={`fixed  right-10 ${
@@ -38,9 +43,13 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
       >
         <div className="px-4 py-3 text-sm text-gray-900 ">
           <div>
-            {user?.name?.firstName} {user?.name?.lastName}
+            <p>
+              {user?.name?.firstName} {user?.name?.lastName}
+            </p>
           </div>
-          <div className="font-medium truncate text-xs">{user?.email}</div>
+          <div className="font-medium truncate text-xs">
+            <p>{user?.email}</p>
+          </div>
         </div>
         <ul
           className="py-2 text-sm text-gray-700 text-start"
@@ -69,9 +78,9 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
           </li>
         </ul>
         <div className="py-2" onClick={logoutUser}>
-          <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full">
+          <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full">
             Sign out
-          </button>
+          </div>
         </div>
       </div>
     </div>

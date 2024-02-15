@@ -11,26 +11,26 @@ import { sendMail } from "../../mail/sendMail";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  const { accessToken, user } = result;
+  const { user, userToken } = result;
 
-  // sendResponse(res, {
-  //   statusCode: httpStatus.OK,
-  //   success: true,
-  //   message: "User Login successful",
-  //   data: { accessToken, user },
-  // });
-  sendResponseWithCookie(
-    res,
-    {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: "User Login successful",
-      
-      session_id: undefined,
-      user
-    },
-    "user"
-  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Login successful",
+    data: { userToken },
+  });
+  // sendResponseWithCookie(
+  //   res,
+  //   {
+  //     statusCode: httpStatus.OK,
+  //     success: true,
+  //     message: "User Login successful",
+
+  //     session_id: undefined,
+  //     user,
+  //   },
+  //   "user"
+  // );
 });
 
 const forgetPasswordMailSend = catchAsync(async (req, res) => {
@@ -52,7 +52,7 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: "otp get successfull",
-      session_id: session?._id
+      session_id: session?._id,
     },
     "session_id"
   );
@@ -65,40 +65,21 @@ const forgetPassword = catchAsync(async (req, res) => {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
 
-  const {no_database_exist,otp_wrong,update} = await AuthServices.forgetPassword(Number(otp), password, session_id);
+  const { no_database_exist, otp_wrong, update } =
+    await AuthServices.forgetPassword(Number(otp), password, session_id);
 
-  if(no_database_exist){
+  if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
-  if(otp_wrong)
-  throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
-if(update)
-{
-  sendResponse(res,{
-    data:update,
-    statusCode: httpStatus.OK,
-    success:true,
-    message:'pass word update successfull'
-  })
-}
-});
-
-const validateUser = catchAsync(async (req, res) => {
-  const payload = req.headers.authorization;
-  const token = payload?.split(" ")[1];
-
-  if (!token) {
-    throw new AppError(404, "Token missing");
+  if (otp_wrong) throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
+  if (update) {
+    sendResponse(res, {
+      data: update,
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "pass word update successfull",
+    });
   }
-
-  const result = await AuthServices.validateUser(token);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: result,
-  });
 });
 
 const logoutUser = catchAsync(async (req, res) => {
@@ -111,10 +92,9 @@ const logoutUser = catchAsync(async (req, res) => {
 
 export const AuthControllers = {
   loginUser,
-  validateUser,
   logoutUser,
 
   //
   forgetPasswordMailSend,
-  forgetPassword
+  forgetPassword,
 };

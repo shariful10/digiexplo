@@ -985,3 +985,65 @@ export const vendorData = [
       ],
    },
 ]
+
+export const categoriesItems = [
+	{
+		id: 1,
+		category: " Photo",
+	},
+	{
+		id: 2,
+		category: "Audio",
+	},
+	{
+		id: 3,
+		category: "Video",
+	},
+	{
+		id: 4,
+		category: "Software",
+	},
+	{
+		id: 5,
+		category: "AI Promt",
+	},
+	{
+		id: 6,
+		category: "Graphics",
+	},
+	{
+		id: 7,
+		category: "Document",
+	},
+];
+
+export const aboutData = [
+	{
+		id: 1,
+		desc: "Welcome to DiGiExplo, the global marketplace that connects digital content creators with enthusiasts and professionals from every corner of the world. Our mission is to empower individuals to share their unique stories and talents, while providing a one-stop destination for those seeking original and diverse digital content.",
+	},
+	{
+		id: 2,
+		desc: "At DiGiExplo, we believe that everyone has something special to offer. Be it a breathtaking photo from your village, a captivating video of daily life in your city, a mesmerizing piece of music you composed, an AI prompt or a set of music notes compiled into a PDF document – we provide a platform for you to showcase your creativity and share your passion with the world.",
+	},
+	{
+		id: 3,
+		desc: "Welcome to DiGiExplo, the global marketplace that connects digital content creators with enthusiasts and professionals from every corner of the world. Our mission is to empower individuals to share their unique stories and talents, while providing a one-stop destination for those seeking original and diverse digital content.",
+	},
+	{
+		id: 4,
+		desc: "For content seekers, DiGiExplo offers a treasure trove of inspiration and resources. Imagine finding the perfect photo to print, frame, and hang on your wall or discovering a stunning background video from a remote city that would otherwise be difficult to reach. Our extensive collection also includes captivating background music for podcasts and movies, catering to a wide array of creative needs.",
+	},
+	{
+		id: 5,
+		desc: "By bringing together creators and consumers, we foster a vibrant community that celebrates diversity, innovation, and the power of human expression. We are dedicated to providing a seamless and enjoyable experience for everyone involved, ensuring the highest standards of quality, originality, and customer service.",
+	},
+	{
+		id: 6,
+		desc: "Join us on this exciting journey and be a part of the ever-expanding world of DiGiExplo. Together, let's make the world of digital content more accessible, engaging, and inspiring than ever before.",
+	},
+	{
+		id: 7,
+		desc: "Welcome to DiGiExplo – your gateway to a universe of creativity and inspiration.",
+	},
+];

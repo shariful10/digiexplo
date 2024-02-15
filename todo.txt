@@ -1,1 +1,5 @@
 01 => Blog Page => BlogCard width & height
+02 => Home Page not responsive
+03 => Become Vendor => page doesn't have the mentioned field
+04 => User login stats will be handled from backend and AuthProvider will not be used
+05 => sidebar responsive small sidebar on small devices

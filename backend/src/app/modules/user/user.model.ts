@@ -4,11 +4,14 @@ import config from "../../config";
 import { IName, IUser, UserModel } from "./user.interface";
 import { AppError } from "../../errors/AppError";
 
-const IName = new Schema<IName>({
-  firstName: { type: String },
-  lastName: { type: String },
-  // _id:false
-}, {_id:false});
+const IName = new Schema<IName>(
+  {
+    firstName: { type: String },
+    lastName: { type: String },
+    // _id:false
+  },
+  { _id: false }
+);
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
@@ -18,7 +21,7 @@ const UserSchema = new Schema<IUser, UserModel>(
       required: true,
       unique: true,
     },
-    email: { type: String, required: true,unique:true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: 0 },
     phone: { type: String, required: true },
     profileImg: { type: String, required: true },
@@ -27,23 +30,23 @@ const UserSchema = new Schema<IUser, UserModel>(
     status: {
       type: String,
       enum: ["Active", "Pending"],
-      default:"Active"
+      default: "Active",
     },
     isDeleted: { type: Boolean, default: false },
     vendor: {
       type: Schema.Types.ObjectId,
-      ref:'Vendor',
+      ref: "Vendor",
       // unique:true
     },
-    cart : {
-      type : Schema.Types.ObjectId,
-      ref : "cart"
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "cart",
     },
-    buyedProducts : [
+    buyedProducts: [
       {
-        type:Schema.Types.ObjectId,
-        ref:'order'
-      }
+        type: Schema.Types.ObjectId,
+        ref: "order",
+      },
     ],
   },
   {
@@ -89,6 +92,11 @@ UserSchema.pre("findOneAndUpdate", async function (next) {
 
   next();
 });
+
+// check if password matches:
+UserSchema.statics.isPasswordMatch = async (plainPass, hashedPass) => {
+  return await bcrypt.compare(plainPass, hashedPass);
+};
 
 // Post save middleware: will work on create() and save()
 UserSchema.post("save", function (doc, next) {

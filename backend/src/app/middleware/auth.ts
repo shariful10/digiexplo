@@ -1,25 +1,23 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsync from "../utils/catchAsync";
-import { AppError } from "../errors/AppError";
 import httpStatus from "http-status";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import config from "../config";
+import { AppError } from "../errors/AppError";
+import catchAsync from "../utils/catchAsync";
 
-import { User } from "../modules/user/user.model";
 import { USER_ROLE } from "../modules/user/user.constant";
+import { User } from "../modules/user/user.model";
 
-
-type TRequiredRole = Array<typeof USER_ROLE[keyof typeof  USER_ROLE]>
+type TRequiredRole = Array<(typeof USER_ROLE)[keyof typeof USER_ROLE]>;
 
 const auth = (...requiredRoles: TRequiredRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;
-    const token = req.signedCookies.user
+    const token = req.signedCookies.user;
+    console.log(token);
     // if no token received throw error
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
-    const {_id:userId,role} = token
+    const { _id: userId, role } = token;
     // console.log(userId)
     // checking if the given token is valid | verify the received token
     // const decoded = jwt.verify(
@@ -29,7 +27,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
 
     // const { role, userId, iat } = decoded;
     // user existence check:
-    const isUserExist = await User.findById(userId)
+    const isUserExist = await User.findById(userId);
     if (!isUserExist) {
       throw new AppError(httpStatus.NOT_FOUND, "User not found !");
     }
@@ -44,7 +42,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
 
     // // Decoded
     // req.user = decoded as JwtPayload;
-    req.user = token
+    req.user = token;
     next();
   });
 };

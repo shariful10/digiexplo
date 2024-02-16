@@ -52,7 +52,6 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     if (result && result.success) {
       toast.success(result.message);
       window.location.href = "/";
-      localStorage.setItem("digitalization" as string, result.data.userToken);
 
       // store userData for global use: data.user
     } else {
@@ -98,7 +97,7 @@ const getUser = async () => {
   );
 
   const data = res.data;
-  console.log(data);
+  console.log(data.user._id);
   return data;
 };
 

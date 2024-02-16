@@ -13,9 +13,16 @@ const UserPage = () => {
   const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
-    const userData = auth.getUser();
+    const fetchUserData = async () => {
+      try {
+        const userData = await auth.getUser();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-    setUser(userData);
+    fetchUserData();
   }, []);
 
   console.log(user);

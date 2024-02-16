@@ -13,24 +13,24 @@ const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user, userToken } = result;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: { userToken },
-  });
-  // sendResponseWithCookie(
-  //   res,
-  //   {
-  //     statusCode: httpStatus.OK,
-  //     success: true,
-  //     message: "User Login successful",
+  // sendResponse(res, {
+  //   statusCode: httpStatus.OK,
+  //   success: true,
+  //   message: "User Login successful",
+  //   data: { userToken },
+  // });
+  sendResponseWithCookie(
+    res,
+    {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "User Login successful",
 
-  //     session_id: undefined,
-  //     user,
-  //   },
-  //   "user"
-  // );
+      session_id: undefined,
+      user,
+    },
+    "user"
+  );
 });
 
 const forgetPasswordMailSend = catchAsync(async (req, res) => {

@@ -2,6 +2,8 @@ import { Router } from "express";
 import { AdminController } from "./admin.controller";
 import auth from "../../middleware/auth";
 import { USER_ROLE } from "../user/user.constant";
+import validateRequest from "../../middleware/validateRequest";
+import { VendorValidation } from "../vendor/vendor.validation";
 
 const router = Router();
 
@@ -16,6 +18,7 @@ router.patch(
   AdminController.acceptVendorRequest
 );
 
+router.patch("/vendor-profile-update/:vendorId",validateRequest(VendorValidation.UpdateVendorProfile),AdminController.updateVendorProfile)
 
 
 // admin product related route

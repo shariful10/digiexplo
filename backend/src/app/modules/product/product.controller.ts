@@ -3,14 +3,26 @@ import catchAsync from "../../utils/catchAsync"
 import sendResponse from "../../utils/sendResponse";
 import { ProductServices } from "./product.service"
 import { Types } from "mongoose";
+import { Multer } from "multer";
+import { uploadFile } from "../uploadFile/awsUpload";
 
 
 
 const createProduct = catchAsync(async (req,res)=> {
-    const vendorId = req.user.vendor;
-    const product = await ProductServices.createProduct(req.body,vendorId)
-
-    sendResponse(res,{
+   const file = req.files as {[fieldname: string]: Express.Multer.File[]}
+   const thumbnail = file?.thumbnail[0]
+   const productFile = file?.file[0]
+   const vendorId = req.user.vendor;
+   const {product,profile_not_update} = await ProductServices.createProduct(req.body,vendorId,thumbnail,productFile)
+    if(profile_not_update){
+        return sendResponse(res, {
+            data: null,
+            statusCode:httpStatus.FORBIDDEN,
+            success:false,
+            message:'profile not updated'
+        })
+    }
+    return sendResponse(res,{
         data:product,
         statusCode:httpStatus.CREATED,
         success:true,

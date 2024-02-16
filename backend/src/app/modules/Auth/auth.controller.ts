@@ -8,29 +8,32 @@ import { generateOTP } from "../../mail/OtpGenerate";
 import { SessionModel } from "../sessions/session.model";
 import { User } from "../user/user.model";
 import { sendMail } from "../../mail/sendMail";
-
+import config from "../../config";
+import jwt from 'jsonwebtoken'
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user, userToken } = result;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: { userToken },
-  });
-  // sendResponseWithCookie(
-  //   res,
-  //   {
-  //     statusCode: httpStatus.OK,
-  //     success: true,
-  //     message: "User Login successful",
+  // sendResponse(res, {
+  //   statusCode: httpStatus.OK,
+  //   success: true,
+  //   message: "User Login successful",
+  //   data: { userToken },
+  // });
+  const signedUser = jwt.sign({user},config.jwt_access_secret as string)
 
-  //     session_id: undefined,
-  //     user,
-  //   },
-  //   "user"
-  // );
+  sendResponseWithCookie(
+    res,
+    {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "User Login successful",
+
+      session_id: undefined,
+      user: signedUser,
+    },
+    "user"
+  );
 });
 
 const forgetPasswordMailSend = catchAsync(async (req, res) => {
@@ -60,18 +63,16 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
 
 const forgetPassword = catchAsync(async (req, res) => {
   const { otp, password } = req.body;
-  const session_id = req.signedCookies.session_id;
+  const session_id = req.cookies.session_id;
   if (!session_id) {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
-
-  const { no_database_exist, otp_wrong, update } =
-    await AuthServices.forgetPassword(Number(otp), password, session_id);
-
+  const { no_database_exist, otp_wrong, update } =  await AuthServices.forgetPassword(Number(otp), password, session_id);
   if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
   if (otp_wrong) throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
+  res.clearCookie('session_id')
   if (update) {
     sendResponse(res, {
       data: update,
@@ -80,6 +81,24 @@ const forgetPassword = catchAsync(async (req, res) => {
       message: "pass word update successfull",
     });
   }
+});
+
+const validateUser = catchAsync(async (req, res) => {
+  const payload = req.headers.authorization;
+  const token = payload?.split(" ")[1];
+
+  if (!token) {
+    throw new AppError(404, "Token missing");
+  }
+
+  const result = await AuthServices.validateUser(token);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Login successful",
+    data: result,
+  });
 });
 
 const logoutUser = catchAsync(async (req, res) => {
@@ -97,4 +116,4 @@ export const AuthControllers = {
   //
   forgetPasswordMailSend,
   forgetPassword,
-};
+}

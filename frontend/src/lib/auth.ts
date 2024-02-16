@@ -1,6 +1,7 @@
 // import { useUser } from "@/components/Context/UserContext";
 import { BASE_URL } from "@/components/helper";
 import axios from "axios";
+
 import toast from "react-hot-toast";
 
 const registerUser = async (userData: {
@@ -86,5 +87,8 @@ const logoutUser = async () => {
     console.log("Error logging in user:", error);
   }
 };
+
+
+
 
 export const auth = { registerUser, loginUser, logoutUser };

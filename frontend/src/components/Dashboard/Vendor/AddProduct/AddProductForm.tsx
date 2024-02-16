@@ -27,29 +27,19 @@ const AddProductForm = () => {
       console.log(image.name)
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const form = e.target;
-		const productName = form.productName.value;
-		const productDesc = form.description.value;
-		const price = form.price.value;
-		const category = selectedOption;
-		const country = selectedCountry.label;
-		const file = form.file.files[0];
-		const thumbnail = form.thumbnail.files[0];
-
-		const productDetails = {
-			productName,
-			productDesc,
-			price,
-			category,
-			country,
-			file,
-			thumbnail,
-		};
-
-		console.log(productDetails);
-	};
+	const handleSubmit = (e: any) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('productName', e.target.elements.productName.value);
+      formData.append('productDesc', e.target.elements.description.value);
+      formData.append('price', e.target.elements.price.value);
+      formData.append('category', selectedOption);
+      formData.append('country', selectedCountry.label);
+      formData.append('file', e.target.elements.file.files[0]);
+      formData.append('thumbnail', e.target.elements.thumbnail.files[0]);
+      console.log(formData);
+  };
+  
 
 	return (
 		<div>

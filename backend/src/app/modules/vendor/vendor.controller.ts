@@ -8,8 +8,8 @@ import { AppError } from "../../errors/AppError";
 const becomeVendor = catchAsync(async (req, res) => {
   const userId = req.params.userId as unknown as Types.ObjectId;
   console.log(req.user);
-  
-  if(userId !== req.user._id) {
+
+  if (userId !== req.user._id) {
     throw new AppError(
       httpStatus.UNAUTHORIZED,
       "You are not authorized to perform this action"
@@ -24,20 +24,18 @@ const becomeVendor = catchAsync(async (req, res) => {
   });
 });
 
-const getVendor = catchAsync(async (req,res)=> {
-  const {vendorId} = req.params
-  const vendor = await VendorServices.getVendor(vendorId)
+const getVendor = catchAsync(async (req, res) => {
+  const { vendorId } = req.params;
+  const vendor = await VendorServices.getVendor(vendorId);
   sendResponse(res, {
-    data:vendor,
-    statusCode:httpStatus.OK,
-    success:true,
-    message:"get vendor successfull"
-  })
-})
-
-
+    data: vendor,
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "get vendor successfull",
+  });
+});
 
 export const VendorController = {
   becomeVendor,
-  getVendor
+  getVendor,
 };

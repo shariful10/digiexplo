@@ -15,7 +15,10 @@ const IName = new Schema<IName>(
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
-    name: IName,
+    name: {
+      type:String,
+      required: true
+    },
     username: {
       type: String,
       required: true,

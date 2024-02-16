@@ -5,14 +5,29 @@ import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
 
 const createUser = catchAsync(async (req, res) => {
-
-  const result = await UserServices.createUser(req.body);
-  
+  const profileImg = req.file as Express.Multer.File
+  const {user,email_exist,username_exist} = await UserServices.createUser({body:req.body,profileImg});
+  if(email_exist) {
+    return sendResponse(res, {
+      statusCode:httpStatus.FORBIDDEN,
+      success: false,
+      message: "email already exist",
+      data: null,
+    })
+  }
+  if(username_exist) {
+    return sendResponse(res, {
+      statusCode:httpStatus.FORBIDDEN,
+      success: false,
+      message: "username already exist",
+      data: null,
+    })
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "User created successfully",
-    data: result,
+    data: user,
   });
 });
 

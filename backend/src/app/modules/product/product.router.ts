@@ -19,7 +19,7 @@ router.post('/create-product',auth(USER_ROLE.VENDOR),productImages,validateReque
 
 // get product by cateogry
 
-router.get('/get-products-by-category/:category',)
+router.get('/get-products-by-category/:category',ProductControllers.getProductsByCategory)
 
 // cart add realted route
 // all route are associate with both user and vendor

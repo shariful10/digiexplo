@@ -11,7 +11,7 @@ const createUserNameZodSchema = z.object({
 
 const CreateUserZodSchema = z.object({
   body: z.object({
-    name: createUserNameZodSchema,
+    name: z.string(),
     username: z.string(),
     email: z.string(),
     password: z
@@ -20,7 +20,7 @@ const CreateUserZodSchema = z.object({
       })
       .max(30, { message: "Password cannot be more than 30 characters" }),
     phone: z.string(),
-    profileImg: z.string(),
+    // profileImg: z.string(),
     verificationID: z.string().optional(),
     role: z.enum(["Admin", "Vendor", "User"]).optional(),
     status: z.enum(["Active", "Pending"]).optional(),

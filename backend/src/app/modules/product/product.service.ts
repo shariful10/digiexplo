@@ -18,8 +18,8 @@ const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Expre
       profile_not_update: true
     }
   }
-  const thumbnailUpload = await uploadFile(thumbnail)
-  const fileUpload = await uploadFile(productFile)
+  const thumbnailUpload = await uploadFile(thumbnail,"product")
+  const fileUpload = await uploadFile(productFile,"product")
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,

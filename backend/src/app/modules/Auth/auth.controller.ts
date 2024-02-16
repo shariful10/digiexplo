@@ -8,29 +8,32 @@ import { generateOTP } from "../../mail/OtpGenerate";
 import { SessionModel } from "../sessions/session.model";
 import { User } from "../user/user.model";
 import { sendMail } from "../../mail/sendMail";
-
+import jwt from 'jsonwebtoken'
+import config from "../../config";
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user, userToken } = result;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: { userToken },
-  });
-  // sendResponseWithCookie(
-  //   res,
-  //   {
-  //     statusCode: httpStatus.OK,
-  //     success: true,
-  //     message: "User Login successful",
+  // sendResponse(res, {
+  //   statusCode: httpStatus.OK,
+  //   success: true,
+  //   message: "User Login successful",
+  //   data: { userToken },
+  // });
+  const signedUser = jwt.sign({user},config.jwt_access_secret as string)
 
-  //     session_id: undefined,
-  //     user,
-  //   },
-  //   "user"
-  // );
+  sendResponseWithCookie(
+    res,
+    {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "User Login successful",
+
+      session_id: undefined,
+      user: signedUser,
+    },
+    "user"
+  );
 });
 
 const forgetPasswordMailSend = catchAsync(async (req, res) => {

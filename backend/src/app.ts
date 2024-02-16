@@ -26,11 +26,11 @@ app.use((req, res, next) => {
 // app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
-app.use(cookieParser(config.cookie_secret));
+app.use(cookieParser());
 
 const static_folder = path.join(__dirname, "..", "public");
 app.use(express.static(static_folder));

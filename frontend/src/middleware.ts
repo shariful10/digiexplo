@@ -2,13 +2,11 @@ import { NextResponse, NextRequest } from "next/server";
 
 import { validateUser } from "./lib/validateUser";
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest ) {
   const token = request.cookies.get("user")?.value;
   // const user = jwt.verify(token as string,"3ab1184db972063f9215203945d9af4eb663200f9f96ba980ce5303d862d45dc")
 
-  const user =
-    token &&
-    (await validateUser(token).catch((err) => {
+  const user =  token && (await validateUser(token).catch((err) => {
       console.log(err);
     }));
   if(request.nextUrl.pathname.startsWith('/dashboard') && !user ) {
@@ -17,5 +15,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard','/login']
+  matcher: ['/']
 };

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
   "/become-vendor/:userId",
-  auth(USER_ROLE.USER),
+  // auth(USER_ROLE.USER),
   validateRequest(VendorValidation.BecomeVendorZodValidation),
   VendorController.becomeVendor
 );

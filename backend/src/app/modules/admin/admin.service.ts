@@ -29,6 +29,14 @@ const acceptVendorRequest = async (vendorId: string) => {
   return accept;
 };
 
+const updateVendorProfile = async (vendorId:string,body: {commissionPercentage: string}) => {
+  const update = await VendorModel.findByIdAndUpdate(vendorId, {
+    commissionPercentage: body.commissionPercentage
+  })
+  return update
+}
+
+
 // product related function
 
 const getPendingProducts = async (page: number, limit: number) => {
@@ -60,7 +68,7 @@ const updateProductStatus = async (
 export const AdminServices = {
   getPendingVendorRequest,
   acceptVendorRequest,
-
+updateVendorProfile,
   // product related function
   getPendingProducts,
   updateProductStatus,

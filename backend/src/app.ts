@@ -15,6 +15,7 @@ import multer, { Multer } from "multer";
 
 const app: Application = express();
 
+
 // Parser
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
@@ -30,29 +31,14 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser(config.cookie_secret));
+app.use(cookieParser());
 
 const static_folder = path.join(__dirname, "..", "public");
 app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
 
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-});
-// app.post('/upload',upload.single('img'), async (req,res)=> {
-//   const originalFilename = req.file?.originalname;
-//   const fileBuffer = req.file?.buffer
-//   const s3 = new S3()
-//   const params = {
-//     Bucket: config.aws_bucket_name as string,
-//     Key: `upload/-${originalFilename}`,
-//     Body: fileBuffer
-//   }
-//   const result = await s3.upload(params).promise()
-//   res.json({result})
-// })
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>

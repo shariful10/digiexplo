@@ -30,8 +30,8 @@ const CartPage = ({ showCart, setShowCart }: Props) => {
       </div>
 
       <div
-        className={`fixed top-0 h-screen w-full bg-black/50 z-[60] ${
-          showCart ? "right-0 md:-right-[280px]" : "-right-[1950px]"
+        className={`fixed top-0 h-screen w-full bg-black/50 z-[60] duration-300 ${
+          showCart ? "right-0 " : "-right-[1950px]"
         }`}
         onClick={() => setShowCart(false)}
       ></div>

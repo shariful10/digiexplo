@@ -24,7 +24,7 @@ const sendResponseWithCookie = <T>(
         : cookieKey === "session_id"
           ? data.session_id
           : null,
-      { expires: cookieExpires, secure: true, sameSite: "none", signed: true }
+      { expires: cookieExpires, secure: true, sameSite: "none", }
     )
     .json({
       success: data.success,

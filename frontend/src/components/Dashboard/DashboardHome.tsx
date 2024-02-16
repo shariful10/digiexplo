@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
 import Table from "./Table";
 import VendorProfile from "./Vendor/VendorProfile";
 
 const DashboardHome = () => {
-  const { user } = useContext(AuthContext);
+  const user = { role: "User" };
 
   return (
     <div>

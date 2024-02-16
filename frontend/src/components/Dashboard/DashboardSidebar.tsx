@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import useAuth from "@/hooks/useAuth";
 import logo from "@/images/logo.webp";
 import { GoGear } from "react-icons/go";
 import { LuUser2 } from "react-icons/lu";
@@ -59,7 +58,7 @@ const dashboardVendorItems = [
 
 const DashboardSidebar = () => {
   const pathName = usePathname();
-  const { user, logoutUser } = useAuth();
+  const user = { role: "User" };
 
   return (
     <div className="w-64">
@@ -123,7 +122,7 @@ const DashboardSidebar = () => {
             </Link>
             <Link href="/">
               <button
-                onClick={logoutUser}
+                // onClick={logoutUser}
                 className="flex items-center gap-2 text-[#9a9cae] hover:text-primary py-2 px-5 w-full duration-300"
               >
                 <HiOutlineLogout className="text-xl" />

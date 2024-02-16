@@ -13,6 +13,7 @@ const extensions = [
   "router.ts",
 ];
 
+
 // Define the folder name
 const folder = "product";
 

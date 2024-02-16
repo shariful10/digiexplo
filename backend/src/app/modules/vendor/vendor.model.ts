@@ -26,7 +26,13 @@ const VendorSchema = new Schema<IVendor>(
         unique: true,
       },
     ],
-    selledProducts: [
+    wallet: {
+      type: Number,
+    },
+    commissionPercentage : {
+      type: Number
+    },
+    soldProducts: [
       {
         type: Schema.Types.ObjectId,
         ref: "order",

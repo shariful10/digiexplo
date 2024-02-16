@@ -88,4 +88,18 @@ const logoutUser = async () => {
   }
 };
 
-export const auth = { registerUser, loginUser, logoutUser };
+const getUser = async () => {
+  const res = await axios.get(
+    `/api/user/me`,
+    // this this the body of post method
+    {
+      withCredentials: true,
+    }
+  );
+
+  const data = res.data;
+  console.log(data);
+  return data;
+};
+
+export const auth = { registerUser, loginUser, logoutUser, getUser };

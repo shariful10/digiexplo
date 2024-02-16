@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import { categoriesItems } from "@/components/data";
 import CountrySelector from "./CountrySelector";
 import { categoriesItems } from "@/components/data";
 
@@ -36,8 +35,8 @@ const AddProductForm = () => {
 		const price = form.price.value;
 		const category = selectedOption;
 		const country = selectedCountry.label;
-		const file = form.file.files[0].name;
-		const thumbnailFile = form.thumbnail.files[0];
+		const file = form.file.files[0];
+		const thumbnail = form.thumbnail.files[0];
 
 		const productDetails = {
 			productName,

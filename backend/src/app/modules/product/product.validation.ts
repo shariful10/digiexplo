@@ -7,7 +7,7 @@ const createProductSchema = z.object({
       .min(5, { message: "productName must be more than 2 characters" }),
     description: z
       .string()
-      .min(50, { message: "description must be more than 50 chrectar " }),
+      .min(50, { message: "description must be more than 50 chrectars" }),
     vendorCountryLocation: z.string(),
     category: z.string(),
     price: z.string(),

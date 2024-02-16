@@ -64,33 +64,40 @@ const AddProductForm = () => {
 			[name]: value,
 		});
 	};
-	const { name, description, price, category, country,file,thumbnail } = inputVal;
+	const { name, description, price, category, country, file, thumbnail } =
+		inputVal;
 
-   const handleProductSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      try {
-         const formData = new FormData()
+	const handleProductSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const formData = new FormData();
+			formData.append("productName", name);
+			formData.append("description", description);
+			formData.append("category", category);
+			formData.append("vendorCountryLocation", country);
+			formData.append("price", price);
+			formData.append("thumbnail", thumbnail);
+			formData.append("file", file);
+			console.log(formData.get("productName"));
 
-      formData.append('productName',name)
-      formData.append('description',description)
-      formData.append('category',category)
-      formData.append('vendorCountryLocation',country)
-      formData.append('price',price)
-      formData.append('thumbnail',thumbnail)
-      formData.append('file',file)
-      console.log(formData.get("productName"))
-
-      const res = await axios.post(`${BASE_URL}/api/v1/product/create-product`, formData, {withCredentials: true})
-      const data = res.data
-      console.log(data)
-      } catch (err) {
-         console.log(err)
-      }
-  }
+			const res = await axios.post(
+				`${BASE_URL}/api/v1/product/create-product`,
+				formData,
+				{ withCredentials: true }
+			);
+			const data = res.data;
+			console.log(data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<div>
-			<form onSubmit={handleProductSubmit} className="w-full mx-auto mt-5 md:mt-10">
+			<form
+				onSubmit={handleProductSubmit}
+				className="w-full mx-auto mt-5 md:mt-10"
+			>
 				<div className="mb-5">
 					<input
 						onChange={handleInputChange}

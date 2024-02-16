@@ -7,24 +7,27 @@ import { User } from "../user/user.model";
 import Stripe from "stripe";
 import config from "../../config";
 import { OrderModel } from "../order/order.model";
+import { uploadFile } from "../uploadFile/awsUpload";
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 
-const createProduct = async (payload: IProduct, vendorId: string) => {
+const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Express.Multer.File, productFile:Express.Multer.File) => {
   const findVendor = await VendorModel.findById(vendorId)
   if(!findVendor?.commissionPercentage) {
     return {
       profile_not_update: true
     }
   }
+  const thumbnailUpload = await uploadFile(thumbnail)
+  const fileUpload = await uploadFile(productFile)
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,
     category: payload.category,
     vendorCountryLocation: payload.vendorCountryLocation,
     vendor: vendorId,
-    thumbnail: payload.thumbnail,
-    file: payload.file,
+    thumbnail: thumbnailUpload.Location,
+    file: fileUpload.Location,
     price: payload.price,
     tags: payload.tags,
   }).save();
@@ -126,7 +129,6 @@ const stripeHook = async (body: any, sig: string) => {
     const customerInfo : any = await stripe.customers.retrieve(data.customer)
     let userId = customerInfo.metadata.userId;
     const product = JSON.parse(customerInfo.metadata.product)
-    console.log(product)
     const order = await OrderModel.create({
       user: userId,
       product:product._id,
@@ -136,7 +138,7 @@ const stripeHook = async (body: any, sig: string) => {
     await User.findByIdAndUpdate(order.user,{
       $push : {buyedProducts: order._id},
     })
-    await VendorModel.findByIdAndUpdate
+    // await VendorModel.findByIdAndUpdate
   }
 
 };

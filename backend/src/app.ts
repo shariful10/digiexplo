@@ -40,19 +40,6 @@ app.use("/api/v1", router);
 
 
 
-// app.post('/upload',upload.single('img'), async (req,res)=> {
-//   const originalFilename = req.file?.originalname;
-//   const fileBuffer = req.file?.buffer
-//   const s3 = new S3()
-//   const params = {
-//     Bucket: config.aws_bucket_name as string,
-//     Key: `upload/-${originalFilename}`,
-//     Body: fileBuffer
-//   }
-//   const result = await s3.upload(params).promise()
-//   res.json({result})
-// })
-
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>
   <html lang="en">

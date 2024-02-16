@@ -10,26 +10,24 @@ import { uploadFile } from "../uploadFile/awsUpload";
 
 const createProduct = catchAsync(async (req,res)=> {
    const file = req.files as {[fieldname: string]: Express.Multer.File[]}
-   const thumbnail = file.thumbnail[0]
-   const productFile = file.file[0]
-   const thumbnailUpload = await uploadFile(thumbnail)
-   console.log(thumbnailUpload)
-    // const vendorId = req.user.vendor;
-    // const {product,profile_not_update} = await ProductServices.createProduct(req.body,vendorId)
-    // if(profile_not_update){
-    //     return sendResponse(res, {
-    //         data: null,
-    //         statusCode:httpStatus.FORBIDDEN,
-    //         success:false,
-    //         message:'profile not updated'
-    //     })
-    // }
-    // return sendResponse(res,{
-    //     data:product,
-    //     statusCode:httpStatus.CREATED,
-    //     success:true,
-    //     message:'product created successfull let admin it to approve '
-    // })
+   const thumbnail = file?.thumbnail[0]
+   const productFile = file?.file[0]
+   const vendorId = req.user.vendor;
+   const {product,profile_not_update} = await ProductServices.createProduct(req.body,vendorId,thumbnail,productFile)
+    if(profile_not_update){
+        return sendResponse(res, {
+            data: null,
+            statusCode:httpStatus.FORBIDDEN,
+            success:false,
+            message:'profile not updated'
+        })
+    }
+    return sendResponse(res,{
+        data:product,
+        statusCode:httpStatus.CREATED,
+        success:true,
+        message:'product created successfull let admin it to approve '
+    })
 })
 
 

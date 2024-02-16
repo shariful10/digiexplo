@@ -13,7 +13,7 @@ import { upload } from "../uploadFile/awsUpload";
 const router = Router()
 
 // all route are associate with vendor
-const productImages = upload.fields([{ name: 'thumbnail'}, { name: 'file'}])
+const productImages = upload.fields([ { name: 'file'},{ name: 'thumbnail'}])
 
 router.post('/create-product',auth(USER_ROLE.VENDOR),productImages,validateRequest(ProductValidation.createProductSchema),ProductControllers.createProduct)
 

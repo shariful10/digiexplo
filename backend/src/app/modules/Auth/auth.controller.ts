@@ -10,7 +10,6 @@ import { User } from "../user/user.model";
 import { sendMail } from "../../mail/sendMail";
 import config from "../../config";
 import jwt from 'jsonwebtoken'
-import config from "../../config";
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user, userToken } = result;
@@ -31,7 +30,7 @@ const loginUser = catchAsync(async (req, res) => {
       message: "User Login successful",
 
       session_id: undefined,
-      user,: signedUser,
+      user: signedUser,
     },
     "user"
   );
@@ -57,7 +56,6 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
       success: true,
       message: "otp get successfull",
       session_id: session?._id,
-      session_id: session?._id,
     },
     "session_id"
   );
@@ -65,17 +63,11 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
 
 const forgetPassword = catchAsync(async (req, res) => {
   const { otp, password } = req.body;
-  const session_id = req.signedCookies.session_id;
+  const session_id = req.cookies.session_id;
   if (!session_id) {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
-
-  const { no_database_exist, otp_wrong, update } =
-    await AuthServices.forgetPassword(Number(otp), password, session_id);
-  const { no_database_exist, otp_wrong, update } =
-    await AuthServices.forgetPassword(Number(otp), password, session_id);
-
-  if (no_database_exist) {
+  const { no_database_exist, otp_wrong, update } =  await AuthServices.forgetPassword(Number(otp), password, session_id);
   if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
@@ -124,5 +116,4 @@ export const AuthControllers = {
   //
   forgetPasswordMailSend,
   forgetPassword,
-  forgetPassword,
-};
+}

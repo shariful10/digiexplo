@@ -11,15 +11,21 @@ import { uploadFile } from "../uploadFile/awsUpload";
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 
-const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Express.Multer.File, productFile:Express.Multer.File) => {
-  const findVendor = await VendorModel.findById(vendorId)
-  if(!findVendor?.commissionPercentage) {
+const createProduct = async (
+  payload: IProduct,
+  vendorId: string,
+  thumbnail: Express.Multer.File,
+  productFile: Express.Multer.File
+) => {
+  const findVendor = await VendorModel.findById(vendorId);
+  console.log(vendorId);
+  if (!findVendor?.commissionPercentage) {
     return {
-      profile_not_update: true
-    }
+      profile_not_update: true,
+    };
   }
-  const thumbnailUpload = await uploadFile(thumbnail)
-  const fileUpload = await uploadFile(productFile)
+  const thumbnailUpload = await uploadFile(thumbnail);
+  const fileUpload = await uploadFile(productFile);
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,
@@ -31,16 +37,21 @@ const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Expre
     price: payload.price,
     tags: payload.tags,
   }).save();
-  await findVendor.updateOne({$push:{products:product._id}})
-  return {product};
+  await findVendor.updateOne({ $push: { products: product._id } });
+  return { product };
 };
 
-
-const getProductsByCategory = async(category:string,page:number,limit:number) => {
+const getProductsByCategory = async (
+  category: string,
+  page: number,
+  limit: number
+) => {
   const skip = !page ? 0 : limit * page;
-  const products = await ProductModel.find({category}).limit(limit).skip(skip)
-  return products
-}
+  const products = await ProductModel.find({ category })
+    .limit(limit)
+    .skip(skip);
+  return products;
+};
 
 // cart related function
 
@@ -80,11 +91,11 @@ const getCartProducts = async (userId: Types.ObjectId) => {
 const buyProductPaymentIntend = async (userId: string, productId: string) => {
   const product = await ProductModel.findById(productId);
   const customer = await stripe.customers.create({
-    metadata:{
+    metadata: {
       product: JSON.stringify(product),
-      userId
-    }
-  })
+      userId,
+    },
+  });
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -115,32 +126,31 @@ if (config.stripe_endpoing_secret) {
 const stripeHook = async (body: any, sig: string) => {
   let data;
   let eventType;
-  if(endpointSecret){
+  if (endpointSecret) {
     let event;
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
     data = event.data.object;
-    eventType = event.type
-  }else {
-    data = body.data.object
-    eventType = body.type
+    eventType = event.type;
+  } else {
+    data = body.data.object;
+    eventType = body.type;
   }
 
-  if(eventType === 'checkout.session.completed'){
-    const customerInfo : any = await stripe.customers.retrieve(data.customer)
+  if (eventType === "checkout.session.completed") {
+    const customerInfo: any = await stripe.customers.retrieve(data.customer);
     let userId = customerInfo.metadata.userId;
-    const product = JSON.parse(customerInfo.metadata.product)
+    const product = JSON.parse(customerInfo.metadata.product);
     const order = await OrderModel.create({
       user: userId,
-      product:product._id,
+      product: product._id,
       paymentStatus: data.payment_status,
-      orderStatus:'Delivered'
-    })
-    await User.findByIdAndUpdate(order.user,{
-      $push : {buyedProducts: order._id},
-    })
+      orderStatus: "Delivered",
+    });
+    await User.findByIdAndUpdate(order.user, {
+      $push: { buyedProducts: order._id },
+    });
     // await VendorModel.findByIdAndUpdate
   }
-
 };
 
 export const ProductServices = {

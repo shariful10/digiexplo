@@ -1,5 +1,4 @@
-import Select from "react-select";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Tprops = {
   country: string;
@@ -34,13 +33,11 @@ function CountrySelector({ country, handleSelectChange }: Tprops) {
       name="country"
       onChange={handleSelectChange}
       className={`py-2 pl-3 rounded-md border focus:outline-gray-400 w-full md:w-1/2 ${
-		!country && "text-gray-400"
-	  } cursor-pointer`}
+        !country && "text-gray-400"
+      } cursor-pointer`}
     >
       <>
-        <option  value="" selected >
-          Select an country
-        </option>
+        <option defaultChecked>country</option>
         {countries?.map((country, i) => (
           <option key={i} value={country.label}>
             {country.label}

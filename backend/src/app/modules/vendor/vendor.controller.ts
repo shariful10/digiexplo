@@ -1,13 +1,13 @@
 import httpStatus from "http-status";
 import sendResponse from "../../utils/sendResponse";
-import { VendorServices } from "./vendor.service";
+import { VendorServices } from "./vendor.service"; 
 import catchAsync from "../../utils/catchAsync";
 import { Types } from "mongoose";
 import { AppError } from "../../errors/AppError";
 
 const becomeVendor = catchAsync(async (req, res) => {
   const userId = req.params.userId as unknown as Types.ObjectId;
-  console.log(req.user);
+  console.log("Message: ", req.body);
   
   if(userId !== req.user._id) {
     throw new AppError(

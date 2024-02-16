@@ -50,8 +50,14 @@ const dashboardVendorItems = [
 		url: "/dashboard/profle-settings",
 		Icon: FaUserCog,
 	},
-	{
+   {
 		id: 3,
+		title: "Change Password",
+		url: "/dashboard/change-password",
+		Icon: GoGear,
+	},
+	{
+		id: 4,
 		title: "Add Product",
 		url: "/dashboard/add-product",
 		Icon: FaCirclePlus,
@@ -76,6 +82,12 @@ const dashboardAdminItems = [
 		title: "Rejected Vendor",
 		url: "/dashboard/rejected-vendors",
 		Icon: VscHome,
+	},
+   {
+		id: 4,
+		title: "Change Password",
+		url: "/dashboard/change-password",
+		Icon: GoGear,
 	},
 ];
 

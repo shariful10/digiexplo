@@ -16,7 +16,7 @@ const registerUser = async (userData: {
 }) => {
   try {
     // Make API request to register user
-    const response = await fetch(`${BASE_URL}/api/v1/users/create-user`, {
+    const response = await fetch(`${BASE_URL}/users/create-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const registerUser = async (userData: {
 const loginUser = async (loginData: { email: string; password: string }) => {
   try {
     const res = await axios.post(
-      `${BASE_URL}/api/v1/auth/login`,
+      `${BASE_URL}/auth/login`,
       loginData, // this this the body of post method
       {
         withCredentials: true,
@@ -52,7 +52,6 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     if (result && result.success) {
       toast.success(result.message);
       window.location.href = "/";
-      localStorage.setItem("digitalization" as string, result.data.userToken);
 
       // store userData for global use: data.user
     } else {
@@ -65,7 +64,7 @@ const loginUser = async (loginData: { email: string; password: string }) => {
 
 const logoutUser = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/auth/logout`, {
+    const response = await fetch(`${BASE_URL}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +97,7 @@ const getUser = async () => {
   );
 
   const data = res.data;
-  console.log(data);
+  console.log(data.user._id);
   return data;
 };
 

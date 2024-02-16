@@ -96,7 +96,7 @@ const LoginForm = () => {
 								<div className="w-full h-full bg-white rounded-full">
 									<Link
 										href="/signup"
-										className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 "
+										className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500"
 									>
 										Sign Up
 									</Link>

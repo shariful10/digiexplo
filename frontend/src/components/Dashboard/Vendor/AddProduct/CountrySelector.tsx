@@ -1,9 +1,19 @@
 import Select from "react-select";
 import React, { useState, useEffect } from "react";
 
-function CountrySelector() {
-	const [countries, setCountries] = useState([]);
-	const [selectedCountry, setSelectedCountry] = useState({});
+interface Country {
+   value: string;
+   label: string;
+}
+
+interface CountrySelectorProps {
+   selectedCountry: Country;
+   setSelectedCountry: React.Dispatch<React.SetStateAction<Country>>;
+}
+
+function CountrySelector({ selectedCountry, setSelectedCountry }: CountrySelectorProps) {
+	const [countries, setCountries] = useState<Country[]>([]);
+	// const [selectedCountry, setSelectedCountry] = useState({});
 
 	useEffect(() => {
 		fetch(

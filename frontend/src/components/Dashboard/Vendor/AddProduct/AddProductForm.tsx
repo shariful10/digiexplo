@@ -1,11 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { categoriesItems } from "@/components/data";
+// import { categoriesItems } from "@/components/data";
 import CountrySelector from "./CountrySelector";
+import { categoriesItems } from "@/components/data";
+
+interface Country {
+	value: string;
+	label: string;
+}
 
 const AddProductForm = () => {
-	const [selectedOption, setSelectedOption] = useState("");
+	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [uploadButtonText, setUploadButtonText] = useState("");
+	const [selectedCountry, setSelectedCountry] = useState<Country>({
+		value: "",
+		label: "",
+	});
 
 	const handleChange = (e: any) => {
 		setSelectedOption(e.target.value);
@@ -15,14 +25,40 @@ const AddProductForm = () => {
 		name: React.SetStateAction<string>;
 	}) => {
 		setUploadButtonText(image.name);
+      console.log(image.name)
+	};
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const form = e.target;
+		const productName = form.productName.value;
+		const productDesc = form.description.value;
+		const price = form.price.value;
+		const category = selectedOption;
+		const country = selectedCountry.label;
+		const file = form.file.files[0].name;
+		const thumbnailFile = form.thumbnail.files[0];
+
+		const productDetails = {
+			productName,
+			productDesc,
+			price,
+			category,
+			country,
+			file,
+			thumbnail,
+		};
+
+		console.log(productDetails);
 	};
 
 	return (
 		<div>
-			<form className="w-full mx-auto mt-5 md:mt-10">
+			<form onSubmit={handleSubmit} className="w-full mx-auto mt-5 md:mt-10">
 				<div className="mb-5">
 					<input
 						type="text"
+						name="productName"
 						placeholder="Product name"
 						className="py-2 pl-3 rounded-md border focus:outline-gray-400 placeholder:text-base w-full md:w-1/2"
 					/>
@@ -35,7 +71,8 @@ const AddProductForm = () => {
 				></textarea>
 				<div className="mb-5">
 					<input
-						type="tell"
+						type="number"
+						name="price"
 						placeholder="Price"
 						className="py-2 pl-3 rounded-md border focus:outline-gray-400 w-full md:w-1/2 placeholder:text-base"
 					/>
@@ -58,17 +95,21 @@ const AddProductForm = () => {
 						))}
 					</select>
 				</div>
-				<CountrySelector />
+				<CountrySelector
+					selectedCountry={selectedCountry}
+					setSelectedCountry={setSelectedCountry}
+				/>
 				<div className="flex items-center border-2 border-gray-300 rounded-md p-2 w-full md:w-1/2 mb-5">
 					<input
 						onChange={(e) => {
 							const files = e.target.files;
 							if (files && files.length > 0) {
 								handleImageChange(files[0]);
+                        console.log(files);
 							}
 						}}
 						type="file"
-						name=""
+						name="file"
 						id="custom-input"
 						hidden
 					/>
@@ -78,7 +119,9 @@ const AddProductForm = () => {
 					>
 						Choose file
 					</label>
-					<label className="text-sm text-slate-500">Upload file</label>
+					<label className="text-sm text-slate-500">
+						Upload file (.zip file)
+					</label>
 				</div>
 				<div className="flex items-center border-2 border-gray-300 rounded-md p-2 w-full md:w-1/2">
 					<input
@@ -89,7 +132,7 @@ const AddProductForm = () => {
 							}
 						}}
 						type="file"
-						name=""
+						name="thumbnail"
 						id="custom-input"
 						hidden
 					/>

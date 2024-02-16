@@ -9,7 +9,7 @@ import { SessionModel } from "../sessions/session.model";
 import { User } from "../user/user.model";
 import { sendMail } from "../../mail/sendMail";
 import config from "../../config";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user, userToken } = result;
@@ -20,7 +20,7 @@ const loginUser = catchAsync(async (req, res) => {
   //   message: "User Login successful",
   //   data: { userToken },
   // });
-  const signedUser = jwt.sign({user},config.jwt_access_secret as string)
+  const signedUser = jwt.sign({ user }, config.jwt_access_secret as string);
 
   sendResponseWithCookie(
     res,
@@ -67,12 +67,13 @@ const forgetPassword = catchAsync(async (req, res) => {
   if (!session_id) {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
-  const { no_database_exist, otp_wrong, update } =  await AuthServices.forgetPassword(Number(otp), password, session_id);
+  const { no_database_exist, otp_wrong, update } =
+    await AuthServices.forgetPassword(Number(otp), password, session_id);
   if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
   if (otp_wrong) throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
-  res.clearCookie('session_id')
+  res.clearCookie("session_id");
   if (update) {
     sendResponse(res, {
       data: update,
@@ -116,4 +117,4 @@ export const AuthControllers = {
   //
   forgetPasswordMailSend,
   forgetPassword,
-}
+};

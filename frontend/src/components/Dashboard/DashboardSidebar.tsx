@@ -1,8 +1,9 @@
 "use client";
-import logo from "@/images/logo.webp";
-import { auth } from "@/lib/auth";
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/images/logo-white.png";
+import { auth } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 import { BsPersonGear } from "react-icons/bs";
 import { FaTelegramPlane } from "react-icons/fa";
@@ -19,7 +20,7 @@ const dashboardUserItems = [
 	{
 		id: 1,
 		title: "My Order Items",
-		url: "/dashboard/my-order-items",
+		url: "/dashboard",
 		Icon: MdOutlineShoppingCart,
 	},
 	{
@@ -80,8 +81,7 @@ const dashboardAdminItems = [
 
 const DashboardSidebar = () => {
 	const pathName = usePathname();
-   const { user } = useUser();
-   const { logoutUser } = auth;
+   const user = { role: "Vendor" };
 
 	return (
 		<div className="w-64">
@@ -90,7 +90,7 @@ const DashboardSidebar = () => {
 					<Link href="/" className="">
 						<Image
 							src={logo}
-							className="w-[70%] rounded-md px-10"
+							className="w-[65%] rounded-md px-10 mx-auto"
 							alt="logo"
 						/>
 					</Link>
@@ -161,7 +161,7 @@ const DashboardSidebar = () => {
 						</Link>
 						<Link href="/">
 							<button
-								onClick={logoutUser}
+								// onClick={logoutUser}
 								className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
 							>
 								<HiOutlineLogout className="text-xl" />

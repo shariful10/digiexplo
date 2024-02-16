@@ -19,6 +19,7 @@ const config: Config = {
       },
       screens: {
         laptop: "1368px",
+        xxl: "1448px",
       },
     },
   },

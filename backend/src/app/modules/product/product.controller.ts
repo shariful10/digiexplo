@@ -9,6 +9,7 @@ import { uploadFile } from "../uploadFile/awsUpload";
 
 
 const createProduct = catchAsync(async (req,res)=> {
+   console.log("createProduct");
    const file = req.files as {[fieldname: string]: Express.Multer.File[]}
    const thumbnail = file?.thumbnail[0]
    const productFile = file?.file[0]

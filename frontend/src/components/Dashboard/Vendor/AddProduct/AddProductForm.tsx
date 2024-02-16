@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import CountrySelector from "./CountrySelector";
 import { categoriesItems } from "@/components/data";
+import { BASE_URL } from "@/components/helper";
+import axios from "axios";
 
 interface Country {
 	value: string;
@@ -9,50 +11,99 @@ interface Country {
 }
 
 const AddProductForm = () => {
-	const [selectedOption, setSelectedOption] = useState<string>("");
-	const [uploadButtonText, setUploadButtonText] = useState("");
-	const [selectedCountry, setSelectedCountry] = useState<Country>({
-		value: "",
-		label: "",
+	const [inputVal, setInputVal] = useState<{
+		name: string;
+		description: string;
+		price: string;
+		category: string;
+		country: string;
+		thumbnail: any;
+		file: any;
+	}>({
+		name: "",
+		description: "",
+		price: "",
+		category: "",
+		country: "",
+		thumbnail: null,
+		file: null,
 	});
-
-	const handleChange = (e: any) => {
-		setSelectedOption(e.target.value);
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files && event.target?.files[0];
+		setInputVal({
+			...inputVal,
+			file,
+		});
 	};
 
-	const handleImageChange = (image: {
-		name: React.SetStateAction<string>;
-	}) => {
-		setUploadButtonText(image.name);
-      console.log(image.name)
+	const handleThumbnailChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const file = event.target.files && event.target?.files[0];
+		setInputVal({
+			...inputVal,
+			thumbnail: file,
+		});
 	};
 
-	const handleSubmit = (e: any) => {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append('productName', e.target.elements.productName.value);
-      formData.append('productDesc', e.target.elements.description.value);
-      formData.append('price', e.target.elements.price.value);
-      formData.append('category', selectedOption);
-      formData.append('country', selectedCountry.label);
-      formData.append('file', e.target.elements.file.files[0]);
-      formData.append('thumbnail', e.target.elements.thumbnail.files[0]);
-      console.log(formData);
-  };
-  
+	const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = event.target.value;
+		const name = event.target.name;
+		setInputVal({
+			...inputVal,
+			[name]: value,
+		});
+	};
+	const handleInputChange = (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		const value = event.target.value;
+		const name = event.target.name;
+		setInputVal({
+			...inputVal,
+			[name]: value,
+		});
+	};
+	const { name, description, price, category, country,file,thumbnail } = inputVal;
+
+   const handleProductSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      try {
+         const formData = new FormData()
+
+      formData.append('productName',name)
+      formData.append('description',description)
+      formData.append('category',category)
+      formData.append('vendorCountryLocation',country)
+      formData.append('price',price)
+      formData.append('thumbnail',thumbnail)
+      formData.append('file',file)
+      console.log(formData.get("productName"))
+
+      const res = await axios.post(`${BASE_URL}/api/v1/product/create-product`, formData, {withCredentials: true})
+      const data = res.data
+      console.log(data)
+      } catch (err) {
+         console.log(err)
+      }
+  }
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className="w-full mx-auto mt-5 md:mt-10">
+			<form onSubmit={handleProductSubmit} className="w-full mx-auto mt-5 md:mt-10">
 				<div className="mb-5">
 					<input
+						onChange={handleInputChange}
+						value={name}
+						name="name"
 						type="text"
-						name="productName"
 						placeholder="Product name"
 						className="py-2 pl-3 rounded-md border focus:outline-gray-400 placeholder:text-base w-full md:w-1/2"
 					/>
 				</div>
 				<textarea
+					onChange={handleInputChange}
+					value={description}
 					name="description"
 					rows={5}
 					placeholder="Product description"
@@ -60,21 +111,24 @@ const AddProductForm = () => {
 				></textarea>
 				<div className="mb-5">
 					<input
-						type="number"
+						onChange={handleInputChange}
+						value={price}
 						name="price"
+						type="number"
 						placeholder="Price"
 						className="py-2 pl-3 rounded-md border focus:outline-gray-400 w-full md:w-1/2 placeholder:text-base"
 					/>
 				</div>
 				<div className="mb-3">
 					<select
-						value={selectedOption}
-						onChange={handleChange}
+						name="category"
+						value={category}
+						onChange={handleSelectChange}
 						className={`py-2 pl-3 rounded-md border focus:outline-gray-400 w-full md:w-1/2 ${
-							!selectedOption && "text-gray-400"
+							!category && "text-gray-400"
 						} cursor-pointer`}
 					>
-						<option disabled value="">
+						<option selected value="">
 							Select an option
 						</option>
 						{categoriesItems.map(({ id, category }) => (
@@ -85,18 +139,13 @@ const AddProductForm = () => {
 					</select>
 				</div>
 				<CountrySelector
-					selectedCountry={selectedCountry}
-					setSelectedCountry={setSelectedCountry}
+					country={country}
+					handleSelectChange={handleSelectChange}
 				/>
 				<div className="flex items-center border-2 border-gray-300 rounded-md p-2 w-full md:w-1/2 mb-5">
 					<input
-						onChange={(e) => {
-							const files = e.target.files;
-							if (files && files.length > 0) {
-								handleImageChange(files[0]);
-                        console.log(files);
-							}
-						}}
+						max={1}
+						onChange={handleFileChange}
 						type="file"
 						name="file"
 						id="custom-input"
@@ -108,30 +157,26 @@ const AddProductForm = () => {
 					>
 						Choose file
 					</label>
-					<label className="text-sm text-slate-500">
-						Upload file (.zip file)
-					</label>
+					<label className="text-sm text-slate-500">Upload file</label>
 				</div>
-				<div className="flex items-center border-2 border-gray-300 rounded-md p-2 w-full md:w-1/2">
+				<div className="flex items-center border-2 border-gray-300 rounded-md p-2 w-full md:w-1/2 mb-5">
 					<input
-						onChange={(e) => {
-							const files = e.target.files;
-							if (files && files.length > 0) {
-								handleImageChange(files[0]);
-							}
-						}}
+						max={1}
+						onChange={handleThumbnailChange}
 						type="file"
 						name="thumbnail"
-						id="custom-input"
+						id="custom-input-thumbnail"
 						hidden
 					/>
 					<label
-						htmlFor="custom-input"
+						htmlFor="custom-input-thumbnail"
 						className="block text-sm mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 cursor-pointer"
 					>
 						Choose file
 					</label>
-					<label className="text-sm text-slate-500">Thumbnail</label>
+					<label className="text-sm text-slate-500">
+						Upload Thumbnail
+					</label>
 				</div>
 				<input
 					type="submit"

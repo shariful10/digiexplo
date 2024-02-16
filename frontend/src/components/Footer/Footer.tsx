@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "../Container";
-import logo from "@/images/logo.webp";
+import logo from "@/images/logo.png";
 import FooterCol from "./FooterCol";
 import { RiInstagramFill } from "react-icons/ri";
 import { FaSquareFacebook, FaSquareXTwitter } from "react-icons/fa6";
@@ -15,9 +15,9 @@ const Footer = () => {
 					<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12">
 						<div>
 							<Link href="/" className="mb-5">
-								<Image src={logo} className="w-[100px]" alt="logo" />
+								<Image src={logo} className="w-[60px]" alt="logo" />
 							</Link>
-							<p>
+							<p className="mt-5">
 								Monotonectally fabricate magnetic e-tailers via optimal
 								processes. Appropriately initiate cross-media
 								infrastructures and proactive interfaces.

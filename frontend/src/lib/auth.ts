@@ -1,6 +1,7 @@
 // import { useUser } from "@/components/Context/UserContext";
 import { BASE_URL } from "@/components/helper";
 import axios from "axios";
+
 import toast from "react-hot-toast";
 
 const registerUser = async (userData: {
@@ -50,7 +51,7 @@ const loginUser = async (loginData: { email: string; password: string }) => {
 
     if (result && result.success) {
       toast.success(result.message);
-      // window.location.href = "/ ";
+      window.location.href = "/";
       localStorage.setItem("digitalization" as string, result.data.userToken);
 
       // store userData for global use: data.user
@@ -87,4 +88,18 @@ const logoutUser = async () => {
   }
 };
 
-export const auth = { registerUser, loginUser, logoutUser };
+const getUser = async () => {
+  const res = await axios.get(
+    `/api/user/me`,
+    // this this the body of post method
+    {
+      withCredentials: true,
+    }
+  );
+
+  const data = res.data;
+  console.log(data);
+  return data;
+};
+
+export const auth = { registerUser, loginUser, logoutUser, getUser };

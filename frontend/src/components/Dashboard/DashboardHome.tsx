@@ -1,13 +1,12 @@
-"use client";
+
 
 import React from "react";
 import Table from "./Table";
-import { useUser } from "../Context/UserContext";
 import VendorProfile from "./Vendor/VendorProfile";
 import AllVendorRequest from "./Admin/AllVendorRequest";
 
 const DashboardHome = () => {
-	const { user } = useUser();
+  const user = { role: "Vendor" };
 
 	return (
 		<div>

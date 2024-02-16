@@ -7,30 +7,39 @@ import { User } from "../user/user.model";
 import Stripe from "stripe";
 import config from "../../config";
 import { OrderModel } from "../order/order.model";
+import { uploadFile } from "../uploadFile/awsUpload";
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 
-const createProduct = async (payload: IProduct, vendorId: string) => {
+const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Express.Multer.File, productFile:Express.Multer.File) => {
+  const findVendor = await VendorModel.findById(vendorId)
+  if(!findVendor?.commissionPercentage) {
+    return {
+      profile_not_update: true
+    }
+  }
+  const thumbnailUpload = await uploadFile(thumbnail)
+  const fileUpload = await uploadFile(productFile)
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,
     category: payload.category,
     vendorCountryLocation: payload.vendorCountryLocation,
     vendor: vendorId,
-    thumbnail: payload.thumbnail,
-    file: payload.file,
+    thumbnail: thumbnailUpload.Location,
+    file: fileUpload.Location,
     price: payload.price,
     tags: payload.tags,
   }).save();
-
-  return product;
+  await findVendor.updateOne({$push:{products:product._id}})
+  return {product};
 };
 
 
 const getProductsByCategory = async(category:string,page:number,limit:number) => {
   const skip = !page ? 0 : limit * page;
   const products = await ProductModel.find({category}).limit(limit).skip(skip)
-
+  return products
 }
 
 // cart related function
@@ -129,6 +138,7 @@ const stripeHook = async (body: any, sig: string) => {
     await User.findByIdAndUpdate(order.user,{
       $push : {buyedProducts: order._id},
     })
+    // await VendorModel.findByIdAndUpdate
   }
 
 };

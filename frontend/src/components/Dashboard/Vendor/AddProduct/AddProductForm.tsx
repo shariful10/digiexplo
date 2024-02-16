@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { categoriesItems } from "@/components/data";
 import CountrySelector from "./CountrySelector";
+import { categoriesItems } from "@/components/data";
+
+interface Country {
+	value: string;
+	label: string;
+}
 
 const AddProductForm = () => {
   const [inputVal, setInputVal] = useState<{

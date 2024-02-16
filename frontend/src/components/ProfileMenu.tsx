@@ -1,30 +1,9 @@
 import Link from "next/link";
 import React from "react";
-
-interface Name {
-  lastName: string;
-  firstName: string;
-}
-
-interface User {
-  _id: string;
-  name: Name;
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  profileImg: string;
-  // verificationID?: string;
-  role: string;
-  status: string;
-  isDeleted: boolean;
-  vendor: string;
-  cart: string;
-  buyedProducts: [];
-}
+import { IUser } from "./types";
 
 interface ProfileMenuProps {
-  user: User;
+  user: IUser;
   open: boolean;
   logoutUser: () => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

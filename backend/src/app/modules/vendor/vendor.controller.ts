@@ -6,36 +6,36 @@ import { Types } from "mongoose";
 import { AppError } from "../../errors/AppError";
 
 const becomeVendor = catchAsync(async (req, res) => {
-  const userId = req.params.userId as unknown as Types.ObjectId;
-  console.log("Message: ", req.body);
+	const userId = req.params.userId as unknown as Types.ObjectId;
+	console.log("Message: ", req.body);
 
-  if (userId !== req.user._id) {
-    throw new AppError(
-      httpStatus.UNAUTHORIZED,
-      "You are not authorized to perform this action"
-    );
-  }
-  const result = await VendorServices.becomeVendor(userId, req.body);
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: "Become Vendor request was sent successfully",
-    data: result,
-  });
+	// if (userId !== req.user._id) {
+	// 	throw new AppError(
+	// 		httpStatus.UNAUTHORIZED,
+	// 		"You are not authorized to perform this action"
+	// 	);
+	// }
+	const result = await VendorServices.becomeVendor(userId, req.body);
+	sendResponse(res, {
+		statusCode: httpStatus.CREATED,
+		success: true,
+		message: "Become Vendor request was sent successfully",
+		data: result,
+	});
 });
 
 const getVendor = catchAsync(async (req, res) => {
-  const { vendorId } = req.params;
-  const vendor = await VendorServices.getVendor(vendorId);
-  sendResponse(res, {
-    data: vendor,
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "get vendor successfull",
-  });
+	const { vendorId } = req.params;
+	const vendor = await VendorServices.getVendor(vendorId);
+	sendResponse(res, {
+		data: vendor,
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "get vendor successfull",
+	});
 });
 
 export const VendorController = {
-  becomeVendor,
-  getVendor,
+	becomeVendor,
+	getVendor,
 };

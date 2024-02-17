@@ -8,9 +8,9 @@ import { USER_ROLE } from "../user/user.constant";
 const router = express.Router();
 
 router.post(
-  "/become-vendor/:userId",
-  validateRequest(VendorValidation.BecomeVendorZodValidation),
-  VendorController.becomeVendor
+	"/become-vendor/:userId",
+	validateRequest(VendorValidation.BecomeVendorZodValidation),
+	VendorController.becomeVendor
 );
 
 router.get("/get-vendor/:vendorId", VendorController.getVendor);

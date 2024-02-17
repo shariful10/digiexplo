@@ -67,7 +67,7 @@ const BecomeVendor = () => {
       console.log(vendorData);
 
       const res = await axios.post(
-        `${BASE_URL}/vendor/become-vendor/65b5372bc98ba207969df9f1`,
+        `${BASE_URL}/vendor/become-vendor/65b62e687698afdc7ac16b5e`,
         vendorData,
         { withCredentials: true }
       );
@@ -187,7 +187,7 @@ const BecomeVendor = () => {
                     Choose file
                   </label>
                   <label className="text-sm text-slate-500">
-                    Profile Image
+                    ID/Driving licence or Passport
                   </label>
                 </div>
               </div>

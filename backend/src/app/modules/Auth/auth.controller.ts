@@ -85,21 +85,24 @@ const forgetPassword = catchAsync(async (req, res) => {
 });
 
 const validateUser = catchAsync(async (req, res) => {
-  const payload = req.headers.authorization;
-  const token = payload?.split(" ")[1];
+  const cookies = req.cookies.user;
+  // const token = payload?.split(" ")[1];
+  const decoded = jwt.verify(cookies, config.jwt_access_secret!);
 
-  if (!token) {
-    throw new AppError(404, "Token missing");
-  }
+  console.log(decoded);
 
-  const result = await AuthServices.validateUser(token);
+  // if (!token) {
+  //   throw new AppError(404, "Token missing");
+  // }
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: result,
-  });
+  // const result = await AuthServices.validateUser(token);
+
+  // sendResponse(res, {
+  //   statusCode: httpStatus.OK,
+  //   success: true,
+  //   message: "User Login successful",
+  //   data: result,
+  // });
 });
 
 const logoutUser = catchAsync(async (req, res) => {
@@ -113,7 +116,7 @@ const logoutUser = catchAsync(async (req, res) => {
 export const AuthControllers = {
   loginUser,
   logoutUser,
-
+  validateUser,
   //
   forgetPasswordMailSend,
   forgetPassword,

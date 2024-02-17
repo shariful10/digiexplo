@@ -98,7 +98,7 @@ const Sidebar = ({ show, setShow }: Props) => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-2 mx-5 lg:hidden">
+        <div className="flex flex-col gap-2 mx-5 small:hidden">
           <Link href="#" onClick={() => setShow(false)}>
             <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2.5 px-5 rounded-md font-semibold text-white w-full">
               Became a Vendor

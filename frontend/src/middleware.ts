@@ -13,9 +13,15 @@ export async function middleware(request: NextRequest) {
     token &&
     (await validateUser(token).catch((err) => {
       console.log(err);
+      if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
     }));
+
+  console.log(user);
+
   if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
-    return new NextRequest(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // return {
@@ -26,5 +32,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/"],
+  matcher: ["/dashboard"],
 };

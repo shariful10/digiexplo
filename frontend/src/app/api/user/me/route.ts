@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
       (await validateUser(token).catch((err) => {
         console.log(err);
       }));
+    console.log(user);
     return NextResponse.json(user);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

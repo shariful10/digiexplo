@@ -31,7 +31,7 @@ const getVendor = catchAsync(async (req, res) => {
     data: vendor,
     statusCode: httpStatus.OK,
     success: true,
-    message: "get vendor successfull",
+    message: "get vendor successful",
   });
 });
 

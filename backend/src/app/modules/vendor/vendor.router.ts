@@ -9,11 +9,10 @@ const router = express.Router();
 
 router.post(
   "/become-vendor/:userId",
-  // auth(USER_ROLE.USER),
   validateRequest(VendorValidation.BecomeVendorZodValidation),
   VendorController.becomeVendor
 );
 
-router.get('/get-vendor/:vendorId',VendorController.getVendor)
+router.get("/get-vendor/:vendorId", VendorController.getVendor);
 
 export const VendorRoutes = router;

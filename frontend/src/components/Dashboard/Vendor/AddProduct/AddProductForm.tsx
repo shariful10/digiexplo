@@ -83,7 +83,7 @@ const AddProductForm = () => {
       console.log(formData.get("productName"));
 
       const res = await axios.post(
-        `${BASE_URL}/api/v1/product/create-product`,
+        `${BASE_URL}/product/create-product`,
         formData,
         { withCredentials: true }
       );
@@ -156,7 +156,6 @@ const AddProductForm = () => {
             onChange={handleFileChange}
             type="file"
             name="file"
-            id="custom-input"
             hidden
           />
           <label

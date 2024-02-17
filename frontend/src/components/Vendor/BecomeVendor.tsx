@@ -1,10 +1,83 @@
-import Link from "next/link";
-import React from "react";
-import { FaPhone, FaUser } from "react-icons/fa6";
-import { IoIosLock } from "react-icons/io";
-import { IoMail } from "react-icons/io5";
+"use client";
+import axios from "axios";
+import React, { useState } from "react";
+import { BASE_URL } from "../helper";
 
 const BecomeVendor = () => {
+  const [inputVal, setInputVal] = useState<{
+    companyName: string;
+    ownerName: string;
+    website: string;
+    address: string;
+    verificationId: any;
+  }>({
+    companyName: "",
+    ownerName: "",
+    website: "",
+    address: "",
+    verificationId: null,
+  });
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const verificationId = event.target.files && event.target?.files[0];
+    setInputVal({
+      ...inputVal,
+      verificationId,
+    });
+  };
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setInputVal({
+      ...inputVal,
+      [name]: value,
+    });
+  };
+
+  // const { companyName, ownerName, website, address, verificationId } = inputVal
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      const form = e.target as HTMLFormElement;
+      const companyName = form.companyName.value;
+      const ownerName = form.ownerName.value;
+      const website = form.website.value;
+      const address = form.address.value;
+      const verificationId = form.verificationId.files[0].name;
+
+      const vendorData = {
+        companyName,
+        ownerName,
+        website,
+        address,
+        verificationId,
+      };
+
+      // formData.append("companyName", companyName);
+      // formData.append("ownerName", ownerName);
+      // formData.append("website", website);
+      // formData.append("address", address);
+      // formData.append("verificationId", verificationId);
+
+      console.log(vendorData);
+
+      const res = await axios.post(
+        `${BASE_URL}/vendor/become-vendor/65b5372bc98ba207969df9f1`,
+        vendorData,
+        { withCredentials: true }
+      );
+      const data = res.data;
+      console.log(data.response);
+    } catch (err: any) {
+      console.log(err.response.data);
+    }
+  };
+
   return (
     <div className="bg-gray-200 w-full h-screen flex justify-center items-center">
       <div className="py-6 md:py-12 px-5 md:px-10 lg:px-0 flex justify-center items-center">
@@ -13,7 +86,7 @@ const BecomeVendor = () => {
             Vendor Info
           </h2>
 
-          <form className="mt-10 ">
+          <form onSubmit={handleFormSubmit} className="mt-10 ">
             <div className="md:flex gap-8">
               <div className="mb-5 md:mb-8">
                 <label
@@ -26,6 +99,8 @@ const BecomeVendor = () => {
                   <input
                     type="text"
                     name="companyName"
+                    // value={companyName}
+                    onChange={handleInputChange}
                     className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full p-2.5 px-3  "
                     placeholder="Z Company"
                     required
@@ -43,6 +118,8 @@ const BecomeVendor = () => {
                   <input
                     type="text"
                     name="ownerName"
+                    // value={ownerName}
+                    onChange={handleInputChange}
                     className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full p-2.5 px-3  "
                     placeholder="Doe"
                     required
@@ -62,6 +139,8 @@ const BecomeVendor = () => {
                   <input
                     type="text"
                     name="website"
+                    // value={website}
+                    onChange={handleInputChange}
                     className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full p-2.5 px-3  "
                     placeholder="www.xyz.com"
                     required
@@ -79,6 +158,8 @@ const BecomeVendor = () => {
                   <input
                     type="text"
                     name="address"
+                    // value={address}
+                    onChange={handleInputChange}
                     id="address"
                     className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full p-2.5 px-3  "
                     placeholder="201 Main St, New York"
@@ -94,12 +175,13 @@ const BecomeVendor = () => {
                 <div className="flex items-center border-b-2 border-gray-300 py-4">
                   <input
                     type="file"
-                    name="profileImg"
-                    id="custom-input"
+                    name="verificationId"
+                    id="verificationId"
+                    onChange={handleFileChange}
                     hidden
                   />
                   <label
-                    htmlFor="custom-input"
+                    htmlFor="verificationId"
                     className="block text-sm mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 cursor-pointer"
                   >
                     Choose file

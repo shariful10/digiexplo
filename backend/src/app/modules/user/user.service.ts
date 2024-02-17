@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import { uploadFile } from "../uploadFile/awsUpload";
+import { CartModel } from "../cart/cart.model";
 
 const createUser = async ({body,profileImg}:{body: IUser,profileImg:Express.Multer.File}) => {
   const userExist = await User.findOne({
@@ -30,12 +31,19 @@ const createUser = async ({body,profileImg}:{body: IUser,profileImg:Express.Mult
 };
 
 const getUser = async (userId: string) =>{
-  const user = await User.findById(userId)
+  const user = await User.findById(userId).select('name  profileImg  email  role  phone')
 
+  return user;
+}
+
+
+const getCart = async (userId: string) =>{
+  const user = await CartModel.findOne({user:userId}).populate("products")
   return user;
 }
 
 export const UserServices = {
   createUser,
-  getUser
+  getUser,
+  getCart
 };

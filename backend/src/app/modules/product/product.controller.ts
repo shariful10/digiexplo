@@ -60,17 +60,17 @@ const addProductToCart  = catchAsync(async (req,res)=> {
 })
 
 
-const getCartProducts = catchAsync(async (req,res)=> {
-    const userId = req.user._id;
-    const cart = await ProductServices.getCartProducts(userId)
+// const getCartProducts = catchAsync(async (req,res)=> {
+//     const userId = req.user._id;
+//     const cart = await ProductServices.getCartProducts(userId)
 
-    sendResponse(res, {
-        data:cart,
-        statusCode:httpStatus.OK,
-        success:true,
-        message:'cart get successfull'
-    })
-})
+//     sendResponse(res, {
+//         data:cart,
+//         statusCode:httpStatus.OK,
+//         success:true,
+//         message:'cart get successfull'
+//     })
+// })
 
 
 
@@ -108,7 +108,7 @@ export const ProductControllers = {
     getProductsByCategory,
     // cart related function
     addProductToCart,
-    getCartProducts,
+    // getCartProducts,
 
 
     // product by related function

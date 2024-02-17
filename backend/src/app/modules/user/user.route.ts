@@ -15,6 +15,8 @@ router.post(
 
   UserController.createUser
 );
-router.get('/get-user/:userId',UserController.getUser)
+router.get('/get-user/',auth(USER_ROLE.USER , USER_ROLE.VENDOR, USER_ROLE.ADMIN),UserController.getUser)
+
+router.get('/get-cart',auth(USER_ROLE.USER , USER_ROLE.VENDOR, USER_ROLE.ADMIN),UserController.getCart)
 
 export const UserRoutes = router;

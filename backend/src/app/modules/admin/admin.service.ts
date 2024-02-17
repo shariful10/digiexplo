@@ -14,28 +14,36 @@ const getPendingVendorRequest = async (page: number, limit: number) => {
   return vendors;
 };
 
-const acceptVendorRequest = async (vendorId: string) => {
-  const accept = await VendorModel.findOneAndUpdate(
-    { _id: vendorId },
-    { status: VENDOR_STATUS.APPROVED }
-  ).populate("user");
-  const savedVendorId = accept?.id;
-  const savedVendorUserId = accept?.user.id;
-  const userUpdate = await User.findOneAndUpdate(
-    { _id: savedVendorUserId },
-    { vendor: savedVendorId, role: USER_ROLE.VENDOR }
+const updateVendorRequest = async (vendorId: string, status: string) => {
+  const findVendor = await VendorModel.findById(vendorId);
+  if (status === VENDOR_STATUS.CANECEL) {
+    await VendorModel?.findByIdAndDelete(vendorId);
+    return {
+      cancel: true,
+    };
+  }
+  await VendorModel.findByIdAndUpdate(vendorId, {
+    status,
+    commissionPercentage:30
+  });
+  await User.findOneAndUpdate(
+    { _id: findVendor?.user },
+    { vendor: findVendor?._id, role: USER_ROLE.VENDOR }
   );
-
-  return accept;
+  return {
+    update: true,
+  };
 };
 
-const updateVendorProfile = async (vendorId:string,body: {commissionPercentage: string}) => {
+const updateVendorProfile = async (
+  vendorId: string,
+  body: { commissionPercentage: string }
+) => {
   const update = await VendorModel.findByIdAndUpdate(vendorId, {
-    commissionPercentage: body.commissionPercentage
-  })
-  return update
-}
-
+    commissionPercentage: body.commissionPercentage,
+  });
+  return update;
+};
 
 // product related function
 
@@ -67,8 +75,8 @@ const updateProductStatus = async (
 
 export const AdminServices = {
   getPendingVendorRequest,
-  acceptVendorRequest,
-updateVendorProfile,
+  updateVendorRequest,
+  updateVendorProfile,
   // product related function
   getPendingProducts,
   updateProductStatus,

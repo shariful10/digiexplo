@@ -20,64 +20,80 @@ const getPendingVendorRequest = catchAsync(async (req, res) => {
   });
 });
 
-const acceptVendorRequest = catchAsync(async(req,res)=> {
-    const {vendorId} = req.params;
-    const accept = await AdminServices.acceptVendorRequest(vendorId)
-    sendResponse(res,{
-        statusCode:httpStatus.OK,
-        data:accept,
-        success:true,
-        message:'Vendor request has been accepted'
-    })
-})
+const updateVendorRequest = catchAsync(async (req, res) => {
+  const { vendorId } = req.params;
+  const { status } = req.body;
+  const {cancel,update} = await AdminServices.updateVendorRequest(
+    vendorId,
+    status
+  );
+  if (update) {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      data: update,
+      success: true,
+      message: "Vendor request has been updated",
+    });
+  }
+  if (cancel) {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      data: update,
+      success: true,
+      message: "Vendor request has been updated",
+    });
+  }
+});
 
-
-
-
-const updateVendorProfile = catchAsync(async (req,res)=> {
-  const {vendorId} = req.params;
-  const body = req.body
-  const update = await AdminServices.updateVendorProfile(vendorId,body)
+const updateVendorProfile = catchAsync(async (req, res) => {
+  const { vendorId } = req.params;
+  const body = req.body;
+  const update = await AdminServices.updateVendorProfile(vendorId, body);
   sendResponse(res, {
-    data:update,
-    statusCode:httpStatus.OK,
-    success:true,
-    message:'profile update successfull'
-  })
-})
-
+    data: update,
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "profile update successfull",
+  });
+});
 
 // product related function
 
-const getPendingProducts = catchAsync(async (req,res)=> {
+const getPendingProducts = catchAsync(async (req, res) => {
   const { page, limit } = req.query;
-  const pendingProducts = await AdminServices.getPendingProducts(Number(page),Number(limit))
-  sendResponse(res,{
-    statusCode:httpStatus.OK,
-    data:pendingProducts,
-    success:true,
-    message:' product get successfull '
-})
-})
+  const pendingProducts = await AdminServices.getPendingProducts(
+    Number(page),
+    Number(limit)
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    data: pendingProducts,
+    success: true,
+    message: " product get successfull ",
+  });
+});
 
-const updateProductStatus = catchAsync(async (req,res)=> {
-  const {productId} = req.params
-  const {productStatus} = req.body
-  const updatedProduct = await AdminServices.updateProductStatus(productId, productStatus )
-  sendResponse(res,{
+const updateProductStatus = catchAsync(async (req, res) => {
+  const { productId } = req.params;
+  const { productStatus } = req.body;
+  const updatedProduct = await AdminServices.updateProductStatus(
+    productId,
+    productStatus
+  );
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     data: updatedProduct,
     success: true,
-    message: 'product update successfull'
-  })
-})
+    message: "product update successfull",
+  });
+});
 
 export const AdminController = {
-    getPendingVendorRequest,
-  acceptVendorRequest,
+  getPendingVendorRequest,
+  updateVendorRequest,
   updateVendorProfile,
 
   // product related function
   getPendingProducts,
-  updateProductStatus
+  updateProductStatus,
 };

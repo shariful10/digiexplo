@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { IVendor } from "./vendor.interface";
 import { VendorModel } from "./vendor.model";
 import { uploadFile } from "../uploadFile/awsUpload";
+import { VENDOR_STATUS } from "./vendor.constant";
 
 
 const becomeVendor = async (
@@ -9,6 +10,18 @@ const becomeVendor = async (
   payload: Omit<IVendor, "user" | "status">,
   verificationImg: Express.Multer.File
 ) => {
+  const vendorExist : any = await VendorModel.findOne({user:userId})
+
+  // if(vendorExist) {
+  //   return {
+  //     vendor_exist: true
+  //   }
+  // }
+  if( vendorExist?.status  === VENDOR_STATUS.PENDING) {
+    return {
+      vendor_pending :true
+    }
+  }
   // type TOptional = "status" | "products"
   const uploadVerificationImg = await uploadFile(verificationImg,'vendor')
   const result = await new VendorModel({
@@ -20,7 +33,7 @@ const becomeVendor = async (
     verificationId:  uploadVerificationImg.Location,
   }).save()
 
-  return result;
+  return {create:result};
 };
 
 

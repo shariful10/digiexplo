@@ -20,7 +20,8 @@ const loginUser = catchAsync(async (req, res) => {
   //   message: "User Login successful",
   //   data: { userToken },
   // });
-  const signedUser = jwt.sign({user},config.jwt_access_secret as string)
+  const userId = user?._id
+  const signedUser = jwt.sign({userId},config.jwt_access_secret as string)
 
   sendResponseWithCookie(
     res,
@@ -30,9 +31,9 @@ const loginUser = catchAsync(async (req, res) => {
       message: "User Login successful",
 
       session_id: undefined,
-      user: signedUser,
+      user_id: signedUser,
     },
-    "user"
+    "user_id"
   );
 });
 

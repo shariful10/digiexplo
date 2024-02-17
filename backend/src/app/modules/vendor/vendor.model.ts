@@ -7,7 +7,6 @@ const VendorSchema = new Schema<IVendor>(
       type: Schema.Types.ObjectId,
       required: [true, "user ID is required"],
       ref: "User",
-      unique: true,
     },
     companyName: { type: String, required: true },
     ownerName: { type: String, required: true },
@@ -29,8 +28,8 @@ const VendorSchema = new Schema<IVendor>(
     wallet: {
       type: Number,
     },
-    commissionPercentage : {
-      type: Number
+    commissionPercentage: {
+      type: Number,
     },
     soldProducts: [
       {

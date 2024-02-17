@@ -37,42 +37,42 @@ const BecomeVendor = () => {
     });
   };
 
-  // const { companyName, ownerName, website, address, verificationId } = inputVal
+  const { companyName, ownerName, website, address, verificationId } = inputVal;
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      const form = e.target as HTMLFormElement;
-      const companyName = form.companyName.value;
-      const ownerName = form.ownerName.value;
-      const website = form.website.value;
-      const address = form.address.value;
-      const verificationId = form.verificationId.files[0].name;
+      // const form = e.target as HTMLFormElement;
+      // const companyName = form.companyName.value;
+      // const ownerName = form.ownerName.value;
+      // const website = form.website.value;
+      // const address = form.address.value;
+      // const verificationId = form.verificationId.files[0].name;
 
-      const vendorData = {
-        companyName,
-        ownerName,
-        website,
-        address,
-        verificationId,
-      };
+      // const vendorData = {
+      //   companyName,
+      //   ownerName,
+      //   website,
+      //   address,
+      //   verificationId,
+      // };
 
-      // formData.append("companyName", companyName);
-      // formData.append("ownerName", ownerName);
-      // formData.append("website", website);
-      // formData.append("address", address);
-      // formData.append("verificationId", verificationId);
+      formData.append("companyName", companyName);
+      formData.append("ownerName", ownerName);
+      formData.append("website", website);
+      formData.append("address", address);
+      formData.append("verificationId", verificationId);
 
-      console.log(vendorData);
+      // console.log(formData);
 
       const res = await axios.post(
-        `${BASE_URL}/vendor/become-vendor/65b5372bc98ba207969df9f1`,
-        vendorData,
+        `${BASE_URL}/vendor/become-vendor/65d0accdc60870a90be9113a`,
+        formData,
         { withCredentials: true }
       );
       const data = res.data;
-      console.log(data.response);
+      console.log(data);
     } catch (err: any) {
       console.log(err.response.data);
     }

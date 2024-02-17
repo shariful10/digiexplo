@@ -21,13 +21,13 @@ const moduleRotes = [
     route: VendorRoutes,
   },
   {
-    path: '/admin',
-    route : AdminRoutes
+    path: "/admin",
+    route: AdminRoutes,
   },
   {
-    path: '/product',
-    route: ProductRoutes
-  }
+    path: "/product",
+    route: ProductRoutes,
+  },
 ];
 
 moduleRotes.forEach((route) => router.use(route.path, route.route));

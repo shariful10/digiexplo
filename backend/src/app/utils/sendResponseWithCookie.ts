@@ -9,13 +9,13 @@ interface IResponse {
   message?: string;
 }
 
-const sendResponseWithCookie = <T>(
+const sendResponseWithCookie = (
   res: Response,
   data: IResponse,
   cookieKey: string
 ) => {
-  // const cookieExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const cookieExpires = new Date(Date.now() + 30000);
+  const cookieExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  // const cookieExpires = new Date(Date.now() + 30000);
   res
     .status(data.statusCode)
     .cookie(

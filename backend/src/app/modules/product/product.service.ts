@@ -8,6 +8,7 @@ import Stripe from "stripe";
 import config from "../../config";
 import { OrderModel } from "../order/order.model";
 import { uploadFile } from "../uploadFile/awsUpload";
+import { Express } from "express";
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 
@@ -24,8 +25,8 @@ const createProduct = async (
       profile_not_update: true,
     };
   }
-  const thumbnailUpload = await uploadFile(thumbnail);
-  const fileUpload = await uploadFile(productFile);
+  const thumbnailUpload = await uploadFile(thumbnail, "product");
+  const fileUpload = await uploadFile(productFile, "product");
   const product = await new ProductModel({
     productName: payload.productName,
     description: payload.description,

@@ -5,6 +5,7 @@ import { ProductServices } from "./product.service";
 import { Types } from "mongoose";
 import { Multer } from "multer";
 import { uploadFile } from "../uploadFile/awsUpload";
+import { Express } from "express";
 
 const createProduct = catchAsync(async (req, res) => {
   const file = req.files as { [fieldname: string]: Express.Multer.File[] };

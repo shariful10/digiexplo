@@ -4,10 +4,13 @@ import { VendorServices } from "./vendor.service";
 import catchAsync from "../../utils/catchAsync";
 import { Types } from "mongoose";
 import { AppError } from "../../errors/AppError";
+import { Express } from "express";
 
 const becomeVendor = catchAsync(async (req, res) => {
+  const verificationImg = req.file as Express.Multer.File;
   const userId = req.params.userId as unknown as Types.ObjectId;
-  console.log("Message: ", req.body);
+
+  console.log("req user", req.user);
 
   if (userId !== req.user._id) {
     throw new AppError(
@@ -15,7 +18,11 @@ const becomeVendor = catchAsync(async (req, res) => {
       "You are not authorized to perform this action"
     );
   }
-  const result = await VendorServices.becomeVendor(userId, req.body);
+  const result = await VendorServices.becomeVendor(
+    userId,
+    req.body,
+    verificationImg
+  );
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,

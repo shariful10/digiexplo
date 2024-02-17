@@ -5,7 +5,6 @@ import { IoMail } from "react-icons/io5";
 import { IoIosLock } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 import Link from "next/link";
-import AWS from "aws-sdk";
 import { FaUser } from "react-icons/fa";
 import { auth } from "@/lib/auth";
 
@@ -13,75 +12,71 @@ const SignUp = () => {
   const [uploadButtonText, setUploadButtonText] = useState("");
   // const s3 = new AWS.S3();
 
+  const [inputVal, setInputVal] = useState<{
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+    profileImg: any;
+  }>({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    profileImg: null,
+  });
+
   const handleImageChange = (image: { name: React.SetStateAction<string> }) => {
     setUploadButtonText(image.name);
   };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const profileImg = event.target.files && event.target?.files[0];
+    setInputVal({
+      ...inputVal,
+      profileImg,
+    });
+  };
 
-  // const uploadProfileImageToS3 = async (file: File) => {
-  //    const params = {
-  //      Bucket: 'digiexplo',
-  //      Key: `profiles/${file.name}`,
-  //      Body: file,
-  //      ACL: 'public-read',
-  //    };
-
-  //    try {
-  //      const data = await s3.upload(params).promise();
-  //      console.log('File uploaded successfully:', data.Location);
-  //      return data.Location; // Return the URL of the uploaded file
-  //    } catch (error) {
-  //      console.error('Error uploading file:', error);
-  //      throw error;
-  //    }
-  //  };
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setInputVal({
+      ...inputVal,
+      [name]: value,
+    });
+  };
 
   const handleSignUp = async (e: any) => {
     e.preventDefault();
+
+    const formData = new FormData();
 
     const form = e.target;
 
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
-    const name = { firstName, lastName };
     const phone = form.phone.value;
+    const name = { firstName, lastName };
     const username = form.username.value;
     const email = form.email.value;
     const password = form.password.value;
-    const profileImg = form.profileImg.files[0].name;
+    const profileImg = form.profileImg.files[0];
 
-    // setUploadButtonText("Uploading...");
+    formData.append("name", JSON.stringify(name));
+    formData.append("phone", phone);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("profileImg", profileImg);
 
-    // try {
-    //    const profileImg = await uploadProfileImageToS3(file);
-    //    const userData = {
-    //       name,
-    //       username,
-    //       email,
-    //       password,
-    //       phone,
-    //       profileImg,
-    //    };
-    //    registerUser(userData);
-    //  } catch (error) {
-    //    console.error('Error uploading profile image:', error);
-    //    // Handle error
-    //  }
-
-    const userData = {
-      name,
-      username,
-      email,
-      password,
-      phone,
-      profileImg,
-    };
-
-    // auth.registerUser(userData);
+    auth.registerUser(formData);
   };
 
   return (
-    <div className="md:h-screen bg-gradient-to-tr from-cyan-400 to-fuchsia-500">
-      <div className="py-6 md:py-12 xl:py-20 px-5 md:px-10 lg:px-0 flex justify-center items-center">
+    <div className="md:h-screen flex justify-center items-center bg-gradient-to-tr from-cyan-400 to-fuchsia-500">
+      <div className="py-6 lg:py-10 px-5 md:px-10 lg:px-0 flex justify-center items-center">
         <div className="bg-white px-7 md:px-10 lg:px-16 py-14 rounded-xl w-full max-w-xl">
           <h2 className="text-2xl xl:text-4xl font-semibold text-center">
             Sign Up
@@ -103,6 +98,7 @@ const SignUp = () => {
                   <input
                     type="text"
                     name="firstName"
+                    onChange={handleInputChange}
                     className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
                     placeholder="John"
                     required
@@ -225,6 +221,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     const files = e.target.files;
                     if (files && files.length > 0) {
+                      handleFileChange;
                       handleImageChange(files[0]);
                     }
                   }}

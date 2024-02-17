@@ -2,10 +2,10 @@ import { z } from "zod";
 
 const BecomeVendorZodValidation = z.object({
   body: z.object({
-    companyName: z.string().optional(),
+    companyName: z.string(),
     ownerName: z.string(),
     website: z.string().optional(),
-    verificationId: z.string(),
+    // verificationId: z.string(),
     address: z.string(),
   }),
 });

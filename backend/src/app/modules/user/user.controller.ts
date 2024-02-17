@@ -1,8 +1,11 @@
 // import studentZodSchema from '../student/student.validation';
 import httpStatus from "http-status";
+import jwt from 'jsonwebtoken'
+import config from '../../config/index'
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
+import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
 
 const createUser = catchAsync(async (req, res) => {
   const profileImg = req.file as Express.Multer.File
@@ -23,12 +26,20 @@ const createUser = catchAsync(async (req, res) => {
       data: null,
     })
   }
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User created successfully",
-    data: user,
-  });
+  const signedUser = jwt.sign({user},config.jwt_access_secret as string)
+
+  sendResponseWithCookie(
+    res,
+    {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "User Login successful",
+
+      session_id: undefined,
+      user: signedUser,
+    },
+    "user"
+  );
 });
 
 const getUser = catchAsync(async (req,res)=> {

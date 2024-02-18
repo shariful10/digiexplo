@@ -30,7 +30,7 @@ const createProduct = catchAsync(async (req, res) => {
     data: product,
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "product created successfull let admin it to approve ",
+    message: "product created successful let admin it to approve ",
   });
 });
 
@@ -46,7 +46,7 @@ const getProductsByCategory = catchAsync(async (req, res) => {
     data: products,
     statusCode: httpStatus.OK,
     success: true,
-    message: "category wise products get successfull ",
+    message: "category wise products get successful ",
   });
 });
 
@@ -72,7 +72,7 @@ const getCartProducts = catchAsync(async (req, res) => {
     data: cart,
     statusCode: httpStatus.OK,
     success: true,
-    message: "cart get successfull",
+    message: "cart get successful",
   });
 });
 

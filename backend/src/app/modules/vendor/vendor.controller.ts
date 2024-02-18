@@ -9,25 +9,38 @@ import { Express } from "express";
 const becomeVendor = catchAsync(async (req, res) => {
   const verificationImg = req.file as Express.Multer.File;
   const userId = req.params.userId as unknown as Types.ObjectId;
-
-  console.log("req user", req.user);
-
-  if (userId !== req.user._id) {
+  if (userId !== req.user?.id) {
     throw new AppError(
       httpStatus.UNAUTHORIZED,
       "You are not authorized to perform this action"
     );
   }
-  const result = await VendorServices.becomeVendor(
+  const { create, vendor_pending } = await VendorServices.becomeVendor(
     userId,
     req.body,
     verificationImg
   );
+  // if(vendor_exist) {
+  //   return  sendResponse(res, {
+  //     statusCode: httpStatus.CONFLICT,
+  //     success: true,
+  //     message: "vendor already exist",
+  //     data: null,
+  //   });
+  // }
+  if (vendor_pending) {
+    return sendResponse(res, {
+      statusCode: httpStatus.CONFLICT,
+      success: true,
+      message: "You have already applly your application is on processing",
+      data: null,
+    });
+  }
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
     message: "Become Vendor request was sent successfully",
-    data: result,
+    data: create,
   });
 });
 

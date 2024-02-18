@@ -4,7 +4,7 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 
-const registerUser = async (userData) => {
+const registerUser = async (userData: any) => {
   console.log(userData);
 
   try {

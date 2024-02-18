@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Types } from "mongoose";
+import { CartModel } from "../cart/cart.model";
+import { uploadFile } from "../uploadFile/awsUpload";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
-import { uploadFile } from "../uploadFile/awsUpload";
 import { Express } from "express";
 
 const createUser = async ({
@@ -34,12 +34,20 @@ const createUser = async ({
 };
 
 const getUser = async (userId: string) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).select(
+    "name  profileImg  email  role  phone"
+  );
 
+  return user;
+};
+
+const getCart = async (userId: string) => {
+  const user = await CartModel.findOne({ user: userId }).populate("products");
   return user;
 };
 
 export const UserServices = {
   createUser,
   getUser,
+  getCart,
 };

@@ -15,7 +15,7 @@ const VendorSchema = new Schema<IVendor>(
     address: { type: String, required: true },
     status: {
       type: String,
-      enum: ["Approved", "Pending", "Cancel", "Restrict"],
+      enum: ["Approved", "Pending", "Cancel"],
       default: "Pending",
     },
     products: [

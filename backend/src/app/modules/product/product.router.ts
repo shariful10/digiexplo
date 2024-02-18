@@ -25,7 +25,7 @@ router.get('/get-products-by-category/:category',ProductControllers.getProductsB
 // all route are associate with both user and vendor
 
 router.post('/add-cart/:productId',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.addProductToCart)
-router.get('/get-cart',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.getCartProducts)
+// router.get('/get-cart',auth(USER_ROLE.USER,USER_ROLE.VENDOR),ProductControllers.getCartProducts)
 
 
 

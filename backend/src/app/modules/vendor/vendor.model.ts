@@ -7,7 +7,6 @@ const VendorSchema = new Schema<IVendor>(
       type: Schema.Types.ObjectId,
       required: [true, "user ID is required"],
       ref: "User",
-      unique: true,
     },
     companyName: { type: String, required: true },
     ownerName: { type: String, required: true },
@@ -16,7 +15,7 @@ const VendorSchema = new Schema<IVendor>(
     address: { type: String, required: true },
     status: {
       type: String,
-      enum: ["Approved", "Pending", "Cancel", "Restrict"],
+      enum: ["Approved", "Pending", "Cancel"],
       default: "Pending",
     },
     products: [

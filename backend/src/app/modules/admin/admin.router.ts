@@ -13,9 +13,9 @@ router.get(
   AdminController.getPendingVendorRequest
 );
 router.patch(
-  "/accept-vendor-request/:vendorId",
+  "/update-vendor-request/:vendorId",
   auth(USER_ROLE.ADMIN),
-  AdminController.acceptVendorRequest
+  AdminController.updateVendorRequest
 );
 
 router.patch("/vendor-profile-update/:vendorId",validateRequest(VendorValidation.UpdateVendorProfile),AdminController.updateVendorProfile)

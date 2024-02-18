@@ -3,7 +3,7 @@ import config from "../config";
 
 interface IResponse {
   session_id?: any;
-  user?: any;
+  user_id?: any;
   statusCode: number;
   success: boolean;
   message?: string;
@@ -19,8 +19,8 @@ const sendResponseWithCookie = <T>(
     .status(data.statusCode)
     .cookie(
       cookieKey,
-      cookieKey === "user"
-        ? data.user
+      cookieKey === "user_id"
+        ? data.user_id
         : cookieKey === "session_id"
           ? data.session_id
           : null,

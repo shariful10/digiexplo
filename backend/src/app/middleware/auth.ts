@@ -12,17 +12,17 @@ type TRequiredRole = Array<(typeof USER_ROLE)[keyof typeof USER_ROLE]>;
 const auth = (...requiredRoles: TRequiredRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;
-    const user = req.cookies.user
-    if(!user) {
+    const user_id = req.cookies.user_id
+    if(!user_id) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
-    const token = jwt.verify(user,config.jwt_access_secret!) as {user: {_id:string,role:any}}
+    const token = jwt.verify(user_id,config.jwt_access_secret!) as any
 
     // if no token received throw error
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
-    const { _id: userId, role } = token.user;
+    const userId = token.userId;
     // console.log(userId)
     // checking if the given token is valid | verify the received token
     // const decoded = jwt.verify(
@@ -36,8 +36,8 @@ const auth = (...requiredRoles: TRequiredRole) => {
     if (!isUserExist) {
       throw new AppError(httpStatus.NOT_FOUND, "User not found !");
     }
-
-    if (requiredRoles && !requiredRoles.includes(role)) {
+    if (requiredRoles && isUserExist.role !== undefined && !requiredRoles.includes(isUserExist?.role)) {
+      console.log('not auithor')
       // checking if user meets the required roles
       throw new AppError(
         httpStatus.UNAUTHORIZED,
@@ -47,7 +47,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
 
     // // Decoded
     // req.user = decoded as JwtPayload;
-    req.user = token.user;
+    req.user = isUserExist;
     next();
   });
 };

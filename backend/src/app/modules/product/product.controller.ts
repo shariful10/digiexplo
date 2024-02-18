@@ -50,10 +50,33 @@ const getProductsByCategory = catchAsync(async (req, res) => {
 });
 
 //cart related function
-const addProductToCart = catchAsync(async (req, res) => {
-  const productId = req.params.productId as unknown as Types.ObjectId;
-  const userId = req.user._id;
-  const cartAdded = await ProductServices.addProductToCart(productId, userId);
+const addProductToCart  = catchAsync(async (req,res)=> {
+    const productId  = req.params.productId as unknown as Types.ObjectId
+    const userId = req.user._id
+    const cartAdded = await ProductServices.addProductToCart(productId,userId)
+
+    sendResponse(res, {
+        data:cartAdded,
+        statusCode:httpStatus.OK,
+        success: true,
+        message: "product added into cart"
+    })
+
+})
+
+
+// const getCartProducts = catchAsync(async (req,res)=> {
+//     const userId = req.user._id;
+//     const cart = await ProductServices.getCartProducts(userId)
+
+//     sendResponse(res, {
+//         data:cart,
+//         statusCode:httpStatus.OK,
+//         success:true,
+//         message:'cart get successfull'
+//     })
+// })
+
 
   sendResponse(res, {
     data: cartAdded,
@@ -102,11 +125,11 @@ const stripeHook = catchAsync(async (req, res) => {
 });
 
 export const ProductControllers = {
-  createProduct,
-  getProductsByCategory,
-  // cart related function
-  addProductToCart,
-  getCartProducts,
+    createProduct,
+    getProductsByCategory,
+    // cart related function
+    addProductToCart,
+    // getCartProducts,
 
   // product by related function
   buyProductPaymentIntend,

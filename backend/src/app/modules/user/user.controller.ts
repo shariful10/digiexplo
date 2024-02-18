@@ -43,7 +43,7 @@ const createUser = catchAsync(async (req, res) => {
       session_id: undefined,
       user_id: signedUser,
     },
-    "user"
+    "user_id"
   );
 });
 

@@ -1154,12 +1154,14 @@ export const productItems = [
     id: 1,
     image: "https://dummyimage.com/365x365/a8a6a6/fff",
     productName: "Digital Art Collection",
+    category: "Audio",
     price: 50,
   },
   {
     id: 2,
     image: "https://dummyimage.com/365x365/a8a6a6/fff",
     productName: "Photography Bundle: Captured Moments",
+    category: "Video",
     price: 60.39,
   }
 ]

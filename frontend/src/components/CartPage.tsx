@@ -78,12 +78,12 @@ const CartPage = ({ showCart, setShowCart }: CartPageProps) => {
 							<FormattedPrice amount={totalPrice} className="text-primary" />
 						</div>
 						<div className="grid md:grid-cols-2 gap-4 mt-5">
-							<Link href="/cart">
+							<Link href="/cart" onClick={() => setShowCart(false)}>
 								<button className="text-sm md:text-base text-primary hover:text-white py-3 border border-primary hover:border-transparent hover:bg-primary duration-300 w-full">
 									View Cart
 								</button>
 							</Link>
-							<Link href="/checkout">
+							<Link href="/checkout" onClick={() => setShowCart(false)}>
 								<button className="text-sm md:text-base text-white hover:text-primary py-3 bg-primary hover:bg-transparent border border-transparent hover:border-primary duration-300 w-full">
 									Checkout
 								</button>

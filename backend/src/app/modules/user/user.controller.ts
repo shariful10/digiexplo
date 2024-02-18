@@ -49,13 +49,14 @@ const createUser = catchAsync(async (req, res) => {
 
 const getUser = catchAsync(async (req, res) => {
   const userId = req.user._id;
+  console.log(userId);
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {
     data: user,
     statusCode: httpStatus.OK,
     success: true,
-    message: "user get successfull",
+    message: "user get successful",
   });
 });
 

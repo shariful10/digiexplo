@@ -1,9 +1,12 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { UserProvider } from "@/components/Context/UserContext";
-import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -14,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster />
-        <UserProvider>{children}</UserProvider>
+        <QueryClientProvider client={queryClient}>
+          <Toaster />
+          <UserProvider>{children}</UserProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

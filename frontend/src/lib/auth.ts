@@ -42,7 +42,6 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     );
 
     const result = res.data;
-    console.log(result);
 
     if (result && result.success) {
       toast.success(result.message);

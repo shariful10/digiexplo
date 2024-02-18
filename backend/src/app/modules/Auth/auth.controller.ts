@@ -10,12 +10,6 @@ const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user } = result;
 
-  // sendResponse(res, {
-  //   statusCode: httpStatus.OK,
-  //   success: true,
-  //   message: "User Login successful",
-  //   data: { userToken },
-  // });
   const userId = user?._id;
   const signedUser = jwt.sign({ userId }, config.jwt_access_secret as string);
 

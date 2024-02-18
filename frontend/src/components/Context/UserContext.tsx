@@ -2,47 +2,37 @@
 "use client";
 
 import { useGetUser } from "@/lib/getUserData";
-import React, { createContext, useContext, useState } from "react";
-
-interface Name {
-  lastName: string;
-  firstName: string;
-}
-
-interface User {
-  _id: string;
-  name: Name;
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  profileImg: string;
-  // verificationID?: string;
-  role: string;
-  status: string;
-  isDeleted: boolean;
-  vendor: string;
-  cart: string;
-  buyedProducts: [];
-}
+import React, { createContext, useContext } from "react";
+import { ICart, IUser } from "../types";
 
 interface UserContextType {
-  user: User | null;
+  data: {
+    userData: IUser | null;
+    userCart: ICart | null;
+  };
+  isLoading: boolean;
 }
 
-const UserContext = createContext<UserContextType>({
-  user: null,
+export const UserContext = createContext<UserContextType>({
+  data: {
+    userData: null,
+    userCart: null,
+  },
+  isLoading: true,
 });
 
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
   const { data, isLoading } = useGetUser();
 
-  console.log({ data: data, isLoading: isLoading });
+  // defaults for userData and userCart in case data is undefined
+  const userData = data?.userData ?? null;
+  const userCart = data?.userCart ?? null;
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ data: { userData, userCart }, isLoading }}>
+      {children}
+    </UserContext.Provider>
   );
 };

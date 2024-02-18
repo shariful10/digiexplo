@@ -10,6 +10,7 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
+  console.log(user)
   return (
     <div
       className={`fixed  right-10 ${
@@ -20,15 +21,10 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
         id="dropdownAvatar"
         className=" bg-white divide-y divide-gray-100 rounded-lg shadow w-[200px] border"
       >
-        <div className="px-4 py-3 text-sm text-gray-900 ">
-          <div>
-            <p>
-              {user?.name?.firstName} {user?.name?.lastName}
-            </p>
-          </div>
-          <div className="font-medium truncate text-xs">
-            <p>{user?.email}</p>
-          </div>
+        <div className="px-4 py-3 text-sm text-gray-900">
+          <p>
+            <span className="font-medium">Hi!</span> {user?.firstName} {user?.lastName}
+          </p>
         </div>
         <ul
           className="py-2 text-sm text-gray-700 text-start"
@@ -44,7 +40,7 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
           </li>
           <li onClick={() => setOpen(false)}>
             <Link
-              href="/dashboard/settings"
+              href="/dashboard/change-password"
               className="block px-4 py-2 hover:bg-gray-100"
             >
               Settings

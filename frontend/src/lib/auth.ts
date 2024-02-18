@@ -32,6 +32,8 @@ const registerUser = async (userData: any) => {
 
 const loginUser = async (loginData: { email: string; password: string }) => {
   try {
+    console.log(loginData);
+
     const res = await axios.post(
       `${BASE_URL}/auth/login`,
       loginData,

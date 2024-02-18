@@ -1,20 +1,10 @@
 "use client";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
-import { useEffect } from "react";
 import { IoMail } from "react-icons/io5";
 import { IoIosLock } from "react-icons/io";
-import { useUser } from "../Context/UserContext";
 
 const LoginForm = () => {
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      window.location.href = "/";
-    }
-  }, [user]);
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const email = e.target.email.value;

@@ -27,3 +27,8 @@ export interface IUser {
   cart: string;
   buyedProducts: [];
 }
+
+export interface ICart {
+  user: string;
+  products: [];
+}

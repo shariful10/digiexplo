@@ -4,35 +4,30 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 
-const registerUser = async (userData: {
-  userData: {
-    email: string;
-    name: string;
-    password: string;
-    phone: string;
-    profileImg: string;
-    username: string;
-  };
-}) => {
+const registerUser = async (userData: any) => {
+  console.log(userData);
+
   try {
     // Make API request to register user
-    const response = await fetch(`${BASE_URL}/users/create-user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await axios.post(
+      `${BASE_URL}/users/create-user`,
+      userData,
+      {
+        withCredentials: true,
+      }
+    );
 
-    const data = await response.json();
+    const data = await response.data;
+    console.log(data);
 
-    if (response.ok && data.success) {
+    if (data && data.success) {
       toast.success(data.message);
     } else {
       toast.error(data.errorMessage);
     }
-  } catch (error) {
-    console.error("Error registering user:", error);
+  } catch (error: any) {
+    console.error("Error registering user:", error.response.data);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -47,11 +42,9 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     );
 
     const result = res.data;
-    console.log(result);
 
     if (result && result.success) {
       toast.success(result.message);
-      window.location.href = "/";
 
       // store userData for global use: data.user
     } else {

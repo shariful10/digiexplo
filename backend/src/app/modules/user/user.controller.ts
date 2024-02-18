@@ -6,6 +6,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
 import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
+import { Express } from "express";
 
 const createUser = catchAsync(async (req, res) => {
   const profileImg = req.file as Express.Multer.File;
@@ -48,13 +49,14 @@ const createUser = catchAsync(async (req, res) => {
 
 const getUser = catchAsync(async (req, res) => {
   const userId = req.user._id;
+  console.log(userId);
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {
     data: user,
     statusCode: httpStatus.OK,
     success: true,
-    message: "user get successfull",
+    message: "user get successful",
   });
 });
 

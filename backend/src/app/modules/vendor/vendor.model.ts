@@ -28,8 +28,8 @@ const VendorSchema = new Schema<IVendor>(
     wallet: {
       type: Number,
     },
-    commissionPercentage : {
-      type: Number
+    commissionPercentage: {
+      type: Number,
     },
     soldProducts: [
       {

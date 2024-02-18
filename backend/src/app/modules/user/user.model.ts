@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import config from "../../config";
-import { IName, IUser, UserModel } from "./user.interface";
 import { AppError } from "../../errors/AppError";
+import { IName, IUser, UserModel } from "./user.interface";
 
 const IName = new Schema<IName>(
   {
@@ -16,8 +16,8 @@ const IName = new Schema<IName>(
 const UserSchema = new Schema<IUser, UserModel>(
   {
     name: {
-      type:String,
-      required: true
+      type: String,
+      required: true,
     },
     username: {
       type: String,

@@ -7,7 +7,7 @@ import { USER_ROLE } from "../user/user.constant";
 import { upload } from "../uploadFile/awsUpload";
 const router = express.Router();
 
-const uploadVerification = upload.single('verificationId')
+const uploadVerification = upload.single("verificationId");
 router.post(
   "/become-vendor/:userId",
   auth(USER_ROLE.USER),

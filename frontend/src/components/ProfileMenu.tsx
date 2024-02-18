@@ -23,7 +23,7 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
         <div className="px-4 py-3 text-sm text-gray-900 ">
           <div>
             <p>
-              {user?.name?.firstName} {user?.name?.lastName}
+              {user?.firstName} {user?.lastName}
             </p>
           </div>
           <div className="font-medium truncate text-xs">

@@ -58,13 +58,13 @@ const SignUp = () => {
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
     const phone = form.phone.value;
-    const name = { firstName, lastName };
     const username = form.username.value;
     const email = form.email.value;
     const password = form.password.value;
     const profileImg = form.profileImg.files[0];
 
-    formData.append("name", JSON.stringify(name));
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     formData.append("phone", phone);
     formData.append("username", username);
     formData.append("email", email);

@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { validateUser } from "./lib/validateUser";
 // This function can be marked `async` if using `await` inside
@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
       console.log(err);
     }));
   if (request.nextUrl.pathname.startsWith("/dashboard") && !user_id) {
-    return new NextRequest(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // return {

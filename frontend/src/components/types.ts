@@ -10,14 +10,10 @@ export interface OrderItemsProps {
   }[];
 }
 
-export interface Name {
-  lastName: string;
-  firstName: string;
-}
-
 export interface IUser {
   _id: string;
-  name: Name;
+  lastName: string;
+  firstName: string;
   username: string;
   email: string;
   password: string;

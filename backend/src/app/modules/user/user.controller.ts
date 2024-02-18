@@ -10,6 +10,7 @@ import { Express } from "express";
 
 const createUser = catchAsync(async (req, res) => {
   const profileImg = req.file as Express.Multer.File;
+
   const { user, email_exist, username_exist } = await UserServices.createUser({
     body: req.body,
     profileImg,
@@ -30,6 +31,7 @@ const createUser = catchAsync(async (req, res) => {
       data: null,
     });
   }
+
   const userId = user?._id;
   const signedUser = jwt.sign({ userId }, config.jwt_access_secret as string);
 
@@ -43,13 +45,12 @@ const createUser = catchAsync(async (req, res) => {
       session_id: undefined,
       user_id: signedUser,
     },
-    "user"
+    "user_id"
   );
 });
 
 const getUser = catchAsync(async (req, res) => {
   const userId = req.user._id;
-  console.log(userId);
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {
@@ -70,7 +71,7 @@ const getCart = catchAsync(async (req, res) => {
     data: cart,
     statusCode: httpStatus.OK,
     success: true,
-    message: "cart get succesfull",
+    message: "cart get successful",
   });
 });
 

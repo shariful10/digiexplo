@@ -27,8 +27,6 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
 
-  console.log();
-
   return (
     <div className="md:px-10 py-5 bg-white">
       <Container>

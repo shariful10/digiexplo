@@ -53,7 +53,7 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
           </li>
         </ul>
         <div className="py-2" onClick={logoutUser}>
-          <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full">
+          <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full cursor-pointer">
             Sign out
           </div>
         </div>

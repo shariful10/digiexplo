@@ -35,7 +35,7 @@ const createUser = async ({
 
 const getUser = async (userId: string) => {
   const user = await User.findById(userId).select(
-    "name  profileImg  email  role  phone"
+    "firstName lastName name  profileImg  email  role  phone"
   );
 
   return user;

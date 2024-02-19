@@ -56,6 +56,6 @@ const getVendor = catchAsync(async (req, res) => {
 });
 
 export const VendorController = {
-  becomeVendor,
-  getVendor,
+	becomeVendor,
+	getVendor,
 };

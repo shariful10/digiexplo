@@ -65,18 +65,23 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
               </div>
               {isLoading ? null : (
                 <div>
-                  {user ? (
-                    <button
-                      onClick={() => setOpen(!open)}
-                      className="p-5 rounded-full"
-                    >
+                  {user.userData ? (
+                    <>
+                      <Image
+                        src={user.userData.profileImg}
+                        width={40}
+                        height={40}
+                        onClick={() => setOpen(!open)}
+                        className="rounded-full object-cover h-10 w-10 cursor-pointer"
+                        alt="ProfileImage"
+                      />
                       <ProfileMenu
                         open={open}
-                        user={user}
+                        user={user.userData!}
                         setOpen={setOpen}
                         logoutUser={logoutUser}
                       />
-                    </button>
+                    </>
                   ) : (
                     <Link href="/login">
                       <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">

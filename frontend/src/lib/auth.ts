@@ -5,7 +5,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const registerUser = async (userData: any) => {
-  console.log(userData);
 
   try {
     // Make API request to register user
@@ -18,10 +17,10 @@ const registerUser = async (userData: any) => {
     );
 
     const data = await response.data;
-    console.log(data);
 
     if (data && data.success) {
       toast.success(data.message);
+      window.location.href = "/";
     } else {
       toast.error(data.errorMessage);
     }
@@ -37,7 +36,7 @@ const loginUser = async (loginData: { email: string; password: string }) => {
 
     const res = await axios.post(
       `${BASE_URL}/auth/login`,
-      loginData, // this this the body of post method
+      loginData,
       {
         withCredentials: true,
       }
@@ -47,8 +46,7 @@ const loginUser = async (loginData: { email: string; password: string }) => {
 
     if (result && result.success) {
       toast.success(result.message);
-
-      // store userData for global use: data.user
+      window.location.href = "/";
     } else {
       toast.error(result.errorMessage);
     }

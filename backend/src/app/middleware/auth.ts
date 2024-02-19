@@ -38,7 +38,6 @@ const auth = (...requiredRoles: TRequiredRole) => {
       throw new AppError(httpStatus.NOT_FOUND, "User not found !");
     }
     if (requiredRoles && isUserExist.role !== undefined && !requiredRoles.includes(isUserExist?.role)) {
-      console.log('not auithor')
       // checking if user meets the required roles
       throw new AppError(
         httpStatus.UNAUTHORIZED,

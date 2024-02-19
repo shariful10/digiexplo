@@ -1,11 +1,11 @@
 import { Router } from "express"
 import auth from "../../middleware/auth";
-import { User } from "../user/user.model";
+
 import { USER_ROLE } from "../user/user.constant";
 import { ProductControllers } from "./product.controller";
 import validateRequest from "../../middleware/validateRequest";
 import { ProductValidation } from "./product.validation";
-import { CartValidation } from "../cart/cart.validation";
+
 import express from 'express'
 import { upload } from "../uploadFile/awsUpload";
 

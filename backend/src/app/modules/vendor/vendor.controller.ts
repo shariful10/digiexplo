@@ -2,12 +2,12 @@ import httpStatus from "http-status";
 import sendResponse from "../../utils/sendResponse";
 import { VendorServices } from "./vendor.service";
 import catchAsync from "../../utils/catchAsync";
-import { Types } from "mongoose";
-import { AppError } from "../../errors/AppError";
 
+import { AppError } from "../../errors/AppError";
+import {Express} from 'express'
 const becomeVendor = catchAsync(async (req, res) => {
   const verificationImg = req.file as Express.Multer.File
-  const userId = req.params.userId as unknown as Types.ObjectId;
+  const userId = req.params.userId as unknown as string
   if(userId !== req.user?.id) {
     throw new AppError(
       httpStatus.UNAUTHORIZED,

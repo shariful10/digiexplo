@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { IProduct } from "../product/product.interface";
+
 
 export interface IVendor {
   user: Types.ObjectId;

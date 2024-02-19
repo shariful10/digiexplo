@@ -1,5 +1,5 @@
 
-import { Types,Schema, model } from "mongoose"
+import { Schema, model } from "mongoose"
 import { IProduct } from "./product.interface"
 
 

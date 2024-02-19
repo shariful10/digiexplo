@@ -16,6 +16,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
     if(!user_id) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const token = jwt.verify(user_id,config.jwt_access_secret!) as any
 
     // if no token received throw error

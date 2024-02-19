@@ -6,7 +6,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
 import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
-
+import {Express} from 'express'
 const createUser = catchAsync(async (req, res) => {
   const profileImg = req.file as Express.Multer.File;
   const { user, email_exist, username_exist } = await UserServices.createUser({
@@ -47,7 +47,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  const userId = req.user._id;
+  const userId = req?.user._id ;
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {

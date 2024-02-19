@@ -3,8 +3,8 @@ import catchAsync from "../../utils/catchAsync"
 import sendResponse from "../../utils/sendResponse";
 import { ProductServices } from "./product.service"
 import { Types } from "mongoose";
-import { Multer } from "multer";
-import { uploadFile } from "../uploadFile/awsUpload";
+
+import { Express } from "express";
 
 
 
@@ -95,7 +95,7 @@ const buyProductPaymentIntend = catchAsync(async (req,res)=> {
 })
 
 
-const stripeHook = catchAsync(async (req,res)=> {
+const stripeHook = catchAsync(async (req)=> {
     const sig = req.headers['stripe-signature'] as unknown as string;
     const body = req.body;
     await ProductServices.stripeHook(body,sig)

@@ -2,14 +2,12 @@
 import { Model, Types } from "mongoose";
 import { USER_ROLE } from "./user.constant";
 
-export interface IName {
-  firstName: string;
-  lastName: string;
-}
 
 export interface IUser {
-  _id: Types.ObjectId;
-  name: string;
+  _id: Types.ObjectId,
+  id:string
+  firstName: string;
+  lastName: string;
   username: string;
   email: string;
   password: string;

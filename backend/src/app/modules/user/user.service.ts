@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Types } from "mongoose";
+import {Types} from 'mongoose'
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import { uploadFile } from "../uploadFile/awsUpload";
 import { CartModel } from "../cart/cart.model";
-
+import {Express} from 'express'
 const createUser = async ({body,profileImg}:{body: IUser,profileImg:Express.Multer.File}) => {
   const userExist = await User.findOne({
     $or: [
@@ -30,14 +30,14 @@ const createUser = async ({body,profileImg}:{body: IUser,profileImg:Express.Mult
   return {user};
 };
 
-const getUser = async (userId: string) =>{
+const getUser = async (userId: Types.ObjectId) =>{
   const user = await User.findById(userId).select('name  profileImg  email  role  phone')
 
   return user;
 }
 
 
-const getCart = async (userId: string) =>{
+const getCart = async (userId:  Types.ObjectId) =>{
   const user = await CartModel.findOne({user:userId}).populate("products")
   return user;
 }

@@ -1,17 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-unused-vars */
-import "./app/mail/sendMail";
+
+
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
 import cookieParser from "cookie-parser";
-import config from "./app/config";
+
 import path from "path";
-import { v4 as uuid } from "uuid";
-import { S3 } from "aws-sdk";
-import multer, { Multer } from "multer";
 
 const app: Application = express();
 
@@ -33,6 +29,7 @@ app.use(
 );
 app.use(cookieParser());
 
+// eslint-disable-next-line no-undef
 const static_folder = path.join(__dirname, "..", "public");
 app.use(express.static(static_folder));
 // application routes

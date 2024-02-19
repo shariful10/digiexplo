@@ -4,15 +4,12 @@ import sendResponse from "../../utils/sendResponse";
 import { AuthServices } from "./auth.service";
 import { AppError } from "../../errors/AppError";
 import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
-import { generateOTP } from "../../mail/OtpGenerate";
-import { SessionModel } from "../sessions/session.model";
-import { User } from "../user/user.model";
-import { sendMail } from "../../mail/sendMail";
+
 import config from "../../config";
 import jwt from 'jsonwebtoken'
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  const { user, userToken } = result;
+  const { user } = result;
 
   // sendResponse(res, {
   //   statusCode: httpStatus.OK,
@@ -40,7 +37,7 @@ const loginUser = catchAsync(async (req, res) => {
 const forgetPasswordMailSend = catchAsync(async (req, res) => {
   const { email } = req.body;
 
-  const { session, user, userNotFound } =
+  const { session, userNotFound } =
     await AuthServices.forgetPasswordMailSend(email);
   if (userNotFound) {
     return sendResponse(res, {
@@ -84,23 +81,23 @@ const forgetPassword = catchAsync(async (req, res) => {
   }
 });
 
-const validateUser = catchAsync(async (req, res) => {
-  const payload = req.headers.authorization;
-  const token = payload?.split(" ")[1];
+// const validateUser = catchAsync(async (req, res) => {
+//   const payload = req.headers.authorization;
+//   const token = payload?.split(" ")[1];
 
-  if (!token) {
-    throw new AppError(404, "Token missing");
-  }
+//   if (!token) {
+//     throw new AppError(404, "Token missing");
+//   }
 
-  const result = await AuthServices.validateUser(token);
+//   const result = await AuthServices.validateUser(token);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User Login successful",
-    data: result,
-  });
-});
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: "User Login successful",
+//     data: result,
+//   });
+// });
 
 const logoutUser = catchAsync(async (req, res) => {
   const response = {

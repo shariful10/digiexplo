@@ -1,17 +1,15 @@
 import { z } from "zod";
 
-const createUserNameZodSchema = z.object({
-  firstName: z
+
+
+const CreateUserZodSchema = z.object({
+  body: z.object({
+    firstName: z
     .string()
     .min(2, { message: "First name should be more than 2 characters" }),
   lastName: z
     .string()
     .min(2, { message: "Last name should be more than 2 characters" }),
-});
-
-const CreateUserZodSchema = z.object({
-  body: z.object({
-    name: z.string(),
     username: z.string(),
     email: z.string(),
     password: z

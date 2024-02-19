@@ -8,12 +8,11 @@ import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
+import "react-loading-skeleton/dist/skeleton.css";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import { UserContext } from "./Context/UserContext";
 import ProfileMenu from "./ProfileMenu";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 interface Props {
   show: boolean;
@@ -23,7 +22,7 @@ interface Props {
 }
 
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
-  const { data: user, isLoading } = useContext(UserContext);
+  const { data: user } = useContext(UserContext);
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
 
@@ -63,35 +62,33 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                   0
                 </div>
               </div>
-              {isLoading ? null : (
-                <div>
-                  {user.userData ? (
-                    <>
-                      <Image
-                        src={user.userData.profileImg}
-                        width={40}
-                        height={40}
-                        onClick={() => setOpen(!open)}
-                        className="rounded-full object-cover h-10 w-10 cursor-pointer"
-                        alt="ProfileImage"
-                      />
-                      <ProfileMenu
-                        open={open}
-                        user={user.userData!}
-                        setOpen={setOpen}
-                        logoutUser={logoutUser}
-                      />
-                    </>
-                  ) : (
-                    <Link href="/login">
-                      <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">
-                        <LuUser2 />
-                        Login
-                      </button>
-                    </Link>
-                  )}
-                </div>
-              )}
+              <div>
+                {user.userData !== null ? (
+                  <>
+                    <Image
+                      src={user.userData.profileImg}
+                      width={40}
+                      height={40}
+                      onClick={() => setOpen(!open)}
+                      className="rounded-full object-cover h-10 w-10 cursor-pointer"
+                      alt="ProfileImage"
+                    />
+                    <ProfileMenu
+                      open={open}
+                      user={user.userData!}
+                      setOpen={setOpen}
+                      logoutUser={logoutUser}
+                    />
+                  </>
+                ) : (
+                  <Link href="/login">
+                    <button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">
+                      <LuUser2 />
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </div>
             </div>
             <div className="md:hidden">
               {!show && (

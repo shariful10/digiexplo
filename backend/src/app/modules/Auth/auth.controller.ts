@@ -101,7 +101,7 @@ const logoutUser = catchAsync(async (req, res) => {
     success: true,
     message: "User Logout successful",
   };
-  res.status(httpStatus.OK).clearCookie("user").json(response);
+  res.status(httpStatus.OK).clearCookie("user_id").json(response);
 });
 
 export const AuthControllers = {

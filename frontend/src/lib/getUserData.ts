@@ -24,6 +24,18 @@ const fetchUserCart = async () => {
   }
 };
 
+const fetchAddToCart = async (cartInfo) => {
+  try {
+    const url = `${BASE_URL}/product/add-cart/${cartInfo.productId}/`;
+    const response = await axios.post(url, cartInfo, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  } catch (error: any) {
+    return error.response.data.errorMessage;
+  }
+};
+
 // Combination of multiple fetch functions and return an object containing all the data
 const fetchUserData = async () => {
   const userData = await fetchUser();

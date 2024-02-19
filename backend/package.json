@@ -4,12 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start:prod": "nodemon ./dist/server.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "lint": "eslint src --ignore-path .eslintignore --ext .ts",
-    "lint:fix": "npx eslint src --fix",
-    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\""
+    "start":"node ./dist/server.js"
   },
   "keywords": [],
   "author": "",

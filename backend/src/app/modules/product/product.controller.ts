@@ -12,8 +12,9 @@ const createProduct = catchAsync(async (req,res)=> {
    const file = req.files as {[fieldname: string]: Express.Multer.File[]}
    const thumbnail = file?.thumbnail[0]
    const productFile = file?.file[0]
-   const vendorId = req.user.vendor;
-   const {product,profile_not_update} = await ProductServices.createProduct(req.body,vendorId,thumbnail,productFile)
+   const user = req.user
+
+   const {product,profile_not_update} = await ProductServices.createProduct(req.body,user.vendor,thumbnail,productFile)
     if(profile_not_update){
         return sendResponse(res, {
             data: null,
@@ -80,7 +81,7 @@ const addProductToCart  = catchAsync(async (req,res)=> {
 
 
 const buyProductPaymentIntend = catchAsync(async (req,res)=> {
-    const userId = req.user._id;
+    const userId = req.user.id
     const productId = req.params.productId
     const session = await ProductServices.buyProductPaymentIntend(userId,productId)
     // sendResponse(res,{

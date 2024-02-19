@@ -53,7 +53,7 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: "otp get successfull",
-      session_id: session?._id,
+      session_id: session?.id,
     },
     "session_id"
   );

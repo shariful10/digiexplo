@@ -3,7 +3,7 @@ import config from "../../config";
 import { AppError } from "../../errors/AppError";
 import { User } from "../user/user.model";
 import { ILoginUser } from "./auth.interface";
-import { CreateToken } from "./auth.utils";
+
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { generateOTP } from "../../mail/OtpGenerate";
 import { sendMail } from "../../mail/sendMail";
@@ -32,31 +32,10 @@ const loginUser = async (payload: ILoginUser) => {
   }
 
   // create token and sent to the client
-  const jwtPayload = {
-    _id: isUserExist._id,
-    name: isUserExist.name,
-    username: isUserExist.username,
-    email: isUserExist.email,
-    phone: isUserExist.phone,
-    profileImg: isUserExist.profileImg,
-    // verificationID?: string,
-    role: isUserExist.role,
-    status: isUserExist.status,
-    isDeleted: isUserExist.isDeleted,
-    vendor: isUserExist.vendor,
-    cart: isUserExist.cart,
-    buyedProducts: isUserExist.buyedProducts,
-  };
 
-  const userToken = CreateToken(
-    jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires as string
-  );
 
   // Access Granted: Send AccessToken, RefreshToken
   return {
-    userToken,
     user,
   };
 };

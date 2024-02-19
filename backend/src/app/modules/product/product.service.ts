@@ -11,7 +11,7 @@ import { uploadFile } from "../uploadFile/awsUpload";
 import { Express } from "express";
 const stripe = new Stripe(config.stripe_secret_key as string);
 
-const createProduct = async (payload: IProduct, vendorId: string,thumbnail:Express.Multer.File, productFile:Express.Multer.File) => {
+const createProduct = async (payload: IProduct, vendorId: Types.ObjectId,thumbnail:Express.Multer.File, productFile:Express.Multer.File) => {
   const findVendor = await VendorModel.findById(vendorId)
   if(!findVendor?.commissionPercentage) {
     return {
@@ -44,7 +44,7 @@ const getProductsByCategory = async(category:string,page:number,limit:number) =>
 
 // cart related function
 
-const addProductToCart = async (productId: Types.ObjectId, userId: string) => {
+const addProductToCart = async (productId: Types.ObjectId, userId: Types.ObjectId) => {
   let cartExist = await CartModel.findOne({ user: userId });
   // If cart doesn't exist, create a new one
   if (!cartExist) {
@@ -77,7 +77,7 @@ const getCartProducts = async (userId: Types.ObjectId) => {
 
 // buy product related function
 
-const buyProductPaymentIntend = async (userId: string, productId: string) => {
+const buyProductPaymentIntend = async (userId: string , productId: string) => {
   const product = await ProductModel.findById(productId);
   const customer = await stripe.customers.create({
     metadata:{

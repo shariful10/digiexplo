@@ -13,6 +13,28 @@ interface Country {
 
 const AddProductForm = () => {
 	const [thumbnail, setItemThumbnail] = useState();
+  const [selectedCountry, setSelectedCountry] = useState<Country>({
+		value: "",
+		label: "",
+	});
+
+  const [inputVal, setInputVal] = useState<{
+		name: string;
+		description: string;
+		price: string;
+		category: string;
+		country: string;
+		thumbnail: any;
+		file: any;
+	}>({
+		name: "",
+		description: "",
+		price: "",
+		category: "",
+		country: "",
+		thumbnail: null,
+		file: null,
+	});
 
 	const handleThumbnailUpload = (event) => {
 		const file = event.target.files[0];
@@ -30,6 +52,8 @@ const AddProductForm = () => {
 	const handleThumbnailReset = () => {
 		setItemThumbnail(null);
 	};
+
+  const { name, description, price, category, country, file, thumbnail } = inputVal;
 
 	const handleProductSubmit = async (e: any) => {
 		e.preventDefault();
@@ -108,7 +132,7 @@ const AddProductForm = () => {
 					</label>
 					<CountrySelector
 						country={country}
-						handleSelectChange={handleSelectChange}
+						handleSelectChange={setSelectedCountry}
 					/>
 				</div>
 				<div className="flex flex-col gap-2 my-5">

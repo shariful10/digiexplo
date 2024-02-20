@@ -32,7 +32,7 @@ function CountrySelector({ country, handleSelectChange }: Tprops) {
     <select
       name="country"
       onChange={handleSelectChange}
-      className={`py-2 pl-3 rounded-md border focus:outline-gray-400 w-full md:w-1/2 ${
+      className={`py-3.5 pl-3 rounded-md border focus:outline-gray-400 w-full ${
         !country && "text-gray-400"
       } cursor-pointer`}
     >

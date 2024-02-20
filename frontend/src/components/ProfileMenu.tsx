@@ -10,7 +10,6 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
-  console.log(user)
   return (
     <div
       className={`fixed  right-10 ${
@@ -23,7 +22,8 @@ const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
       >
         <div className="px-4 py-3 text-sm text-gray-900">
           <p>
-            <span className="font-medium">Hi!</span> {user?.firstName} {user?.lastName}
+            <span className="font-medium">Hi!</span> {user?.firstName}{" "}
+            {user?.lastName}
           </p>
         </div>
         <ul

@@ -8,12 +8,11 @@ import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
+import "react-loading-skeleton/dist/skeleton.css";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import { UserContext } from "./Context/UserContext";
 import ProfileMenu from "./ProfileMenu";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 interface Props {
 	show: boolean;

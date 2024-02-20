@@ -12,7 +12,7 @@ async function main() {
     console.log(`data base connect successfull`);
     server = app.listen(config.port, () => {
       // eslint-disable-next-line no-console
-      console.log(`App is listening on port http://localhost:${config.port}`);
+      console.log(`App is listening on port ${config.base_url! + config.port}`);
     });
   } catch (err) {
     // eslint-disable-next-line no-console

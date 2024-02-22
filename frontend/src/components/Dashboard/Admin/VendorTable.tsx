@@ -20,7 +20,7 @@ interface Vendor {
 
 interface VendorTableProps {
   vendorData: Vendor[];
-  refetch: () => void;
+  refetch?: () => void;
 }
 
 const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {

@@ -6,9 +6,11 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
 import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
-import {Express} from 'express'
+import { Express } from "express";
+
 const createUser = catchAsync(async (req, res) => {
   const profileImg = req.file as Express.Multer.File;
+
   const { user, email_exist, username_exist } = await UserServices.createUser({
     body: req.body,
     profileImg,
@@ -29,6 +31,7 @@ const createUser = catchAsync(async (req, res) => {
       data: null,
     });
   }
+
   const userId = user?._id;
   const signedUser = jwt.sign({ userId }, config.jwt_access_secret as string);
 
@@ -42,7 +45,7 @@ const createUser = catchAsync(async (req, res) => {
       session_id: undefined,
       user_id: signedUser,
     },
-    "user"
+    "user_id"
   );
 });
 
@@ -54,7 +57,7 @@ const getUser = catchAsync(async (req, res) => {
     data: user,
     statusCode: httpStatus.OK,
     success: true,
-    message: "user get successfull",
+    message: "user get successful",
   });
 });
 
@@ -68,7 +71,7 @@ const getCart = catchAsync(async (req, res) => {
     data: cart,
     statusCode: httpStatus.OK,
     success: true,
-    message: "cart get succesfull",
+    message: "cart get successful",
   });
 });
 

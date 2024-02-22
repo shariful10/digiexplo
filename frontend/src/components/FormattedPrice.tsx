@@ -1,9 +1,9 @@
-interface Amount {
+interface FormattedAmountProps {
 	amount: number;
-   className?: string
+	className?: string;
 }
 
-const FormattedPrice = ({ amount, className }: Amount) => {
+const FormattedPrice = ({ amount, className }: FormattedAmountProps) => {
 	const formattedAmount = new Number(amount).toLocaleString("en-US", {
 		style: "currency",
 		currency: "USD",

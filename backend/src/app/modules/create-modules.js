@@ -10,12 +10,11 @@ const extensions = [
   "validation.ts",
   "controller.ts",
   "service.ts",
-  "router.ts",
+  "route.ts",
 ];
 
-
 // Define the folder name
-const folder = "product";
+const folder = "category";
 
 // Function to create files in a folder
 async function createFiles(folder) {

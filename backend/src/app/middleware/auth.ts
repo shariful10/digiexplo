@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { AppError } from "../errors/AppError";
 import catchAsync from "../utils/catchAsync";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 import { USER_ROLE } from "../modules/user/user.constant";
 import { User } from "../modules/user/user.model";
 import config from "../config";
@@ -12,12 +13,11 @@ type TRequiredRole = Array<(typeof USER_ROLE)[keyof typeof USER_ROLE]>;
 const auth = (...requiredRoles: TRequiredRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;
-    const user_id = req.cookies.user_id
-    if(!user_id) {
+    const user_id = req.cookies.user_id;
+    if (!user_id) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const token = jwt.verify(user_id,config.jwt_access_secret!) as any
+    const token = jwt.verify(user_id, config.jwt_access_secret!) as any;
 
     // if no token received throw error
     if (!token) {
@@ -37,7 +37,11 @@ const auth = (...requiredRoles: TRequiredRole) => {
     if (!isUserExist) {
       throw new AppError(httpStatus.NOT_FOUND, "User not found !");
     }
-    if (requiredRoles && isUserExist.role !== undefined && !requiredRoles.includes(isUserExist?.role)) {
+    if (
+      requiredRoles &&
+      isUserExist.role !== undefined &&
+      !requiredRoles.includes(isUserExist?.role)
+    ) {
       // checking if user meets the required roles
       throw new AppError(
         httpStatus.UNAUTHORIZED,

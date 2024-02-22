@@ -8,9 +8,9 @@ import router from "./app/routes";
 import cookieParser from "cookie-parser";
 
 import path from "path";
+import config from "./app/config";
 
 const app: Application = express();
-
 
 // Parser
 app.use((req, res, next) => {
@@ -23,19 +23,16 @@ app.use((req, res, next) => {
 // app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: config.base_url,
     credentials: true,
   })
 );
 app.use(cookieParser());
 
-// eslint-disable-next-line no-undef
-const static_folder = path.join(__dirname, "..", "public");
-app.use(express.static(static_folder));
+// const static_folder = path.join(__dirname, "..", "public");
+// app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
-
-
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>

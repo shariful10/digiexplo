@@ -18,7 +18,9 @@ const config: Config = {
         shadowBorder: "#F1F1F4",
       },
       screens: {
+        small: "1110px",
         laptop: "1368px",
+        xxl: "1448px",
       },
     },
   },

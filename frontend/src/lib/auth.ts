@@ -4,57 +4,44 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 
-const registerUser = async (userData: {
-  userData: {
-    email: string;
-    name: string;
-    password: string;
-    phone: string;
-    profileImg: string;
-    username: string;
-  };
-}) => {
+const registerUser = async (userData: any) => {
   try {
     // Make API request to register user
-    const response = await fetch(`${BASE_URL}/api/v1/users/create-user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      toast.success(data.message);
-    } else {
-      toast.error(data.errorMessage);
-    }
-  } catch (error) {
-    console.error("Error registering user:", error);
-  }
-};
-
-const loginUser = async (loginData: { email: string; password: string }) => {
-  try {
-    const res = await axios.post(
-      `${BASE_URL}/api/v1/auth/login`,
-      loginData, // this this the body of post method
+    const response = await axios.post(
+      `${BASE_URL}/users/create-user`,
+      userData,
       {
         withCredentials: true,
       }
     );
 
+    const data = await response.data;
+
+    if (data && data.success) {
+      toast.success(data.message);
+      window.location.href = "/";
+    } else {
+      toast.error(data.errorMessage);
+    }
+  } catch (error: any) {
+    console.error("Error registering user:", error.response.data);
+    toast.error(error.response.data.message);
+  }
+};
+
+const loginUser = async (loginData: { email: string; password: string }) => {
+  try {
+    console.log(loginData);
+
+    const res = await axios.post(`${BASE_URL}/auth/login`, loginData, {
+      withCredentials: true,
+    });
+
     const result = res.data;
-    console.log(result);
 
     if (result && result.success) {
       toast.success(result.message);
-      // window.location.href = "/ ";
-      localStorage.setItem("digitalization" as string, result.data.userToken);
-
-      // store userData for global use: data.user
+      window.location.href = "/";
     } else {
       toast.error(result.errorMessage);
     }
@@ -65,7 +52,7 @@ const loginUser = async (loginData: { email: string; password: string }) => {
 
 const logoutUser = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/auth/logout`, {
+    const response = await fetch(`${BASE_URL}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,10 +63,9 @@ const logoutUser = async () => {
     const data = await response.json();
 
     if (response.ok && data.success) {
+      console.log(data);
       toast.success(data.message);
       window.location.href = "/ ";
-
-      localStorage.removeItem("digitalization");
     } else {
       toast.error(data.errorMessage);
     }
@@ -88,7 +74,18 @@ const logoutUser = async () => {
   }
 };
 
+const getUser = async () => {
+  const res = await axios.get(
+    `/api/user/me`,
+    // this this the body of post method
+    {
+      withCredentials: true,
+    }
+  );
 
+  const data = res.data;
+  console.log(data.user._id);
+  return data;
+};
 
-
-export const auth = { registerUser, loginUser, logoutUser };
+export const auth = { registerUser, loginUser, logoutUser, getUser };

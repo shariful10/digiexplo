@@ -7,18 +7,18 @@ const createProductSchema = z.object({
       .min(5, { message: "productName must be more than 2 characters" }),
     description: z
       .string()
-      .min(50, { message: "description must be more than 50 chrectar " }),
+      .min(50, { message: "description must be more than 50 characters " }),
     vendorCountryLocation: z.string(),
     category: z.string(),
     price: z.string(),
     // thumbnail: z.string(),
     // file: z.string(),
     // tags: z.array(z.string()).max(5,{message:'tag cannot be more than 5'}),
-    tags: z.string(),
-    slug: z.string().optional()
+    // tags: z.string(),
+    slug: z.string().optional(),
   }),
 });
 
 export const ProductValidation = {
-    createProductSchema
-}
+  createProductSchema,
+};

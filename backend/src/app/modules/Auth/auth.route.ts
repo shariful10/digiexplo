@@ -30,4 +30,10 @@ router.post(
   AuthControllers.logoutUser
 );
 
+// router.post(
+//   "/validate-user",
+//   auth(USER_ROLE.ADMIN, USER_ROLE.VENDOR, USER_ROLE.USER),
+//   AuthControllers.validateUser
+// );
+
 export const AuthRoutes = router;

@@ -1,16 +1,10 @@
 "use client";
-import { auth } from "@/lib/auth";
 import Link from "next/link";
-import { IoIosLock } from "react-icons/io";
+import { auth } from "@/lib/auth";
 import { IoMail } from "react-icons/io5";
+import { IoIosLock } from "react-icons/io";
 
 const LoginForm = () => {
-  // useEffect(() => {
-  //   if (user) {
-  //     window.location.href = "/"; // Replace '/dashboard' with the desired page
-  //   }
-  // }, [user]);
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -65,6 +59,7 @@ const LoginForm = () => {
                   id="password-icon"
                   className="bg-white border-b-2 border-gray-300 text-gray-600 focus:outline-none focus:border-b-gray-400 w-full ps-10 p-2.5  "
                   placeholder="Type your password"
+                  autoComplete="off"
                   required
                 />
               </div>
@@ -92,7 +87,7 @@ const LoginForm = () => {
                 <div className="w-full h-full bg-white rounded-full">
                   <Link
                     href="/signup"
-                    className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500 "
+                    className="rounded-full py-1 px-8 text-sm font-semibold transition-colors duration-500"
                   >
                     Sign Up
                   </Link>

@@ -1,24 +1,17 @@
 import httpStatus from "http-status";
+import jwt from "jsonwebtoken";
+import config from "../../config";
+import { AppError } from "../../errors/AppError";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { AuthServices } from "./auth.service";
-import { AppError } from "../../errors/AppError";
 import sendResponseWithCookie from "../../utils/sendResponseWithCookie";
-
-import config from "../../config";
-import jwt from 'jsonwebtoken'
+import { AuthServices } from "./auth.service";
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
   const { user } = result;
 
-  // sendResponse(res, {
-  //   statusCode: httpStatus.OK,
-  //   success: true,
-  //   message: "User Login successful",
-  //   data: { userToken },
-  // });
-  const userId = user?._id
-  const signedUser = jwt.sign({userId},config.jwt_access_secret as string)
+  const userId = user?._id;
+  const signedUser = jwt.sign({ userId }, config.jwt_access_secret as string);
 
   sendResponseWithCookie(
     res,
@@ -52,8 +45,8 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
     {
       statusCode: httpStatus.OK,
       success: true,
-      message: "otp get successfull",
-      session_id: session?.id,
+      message: "otp get successful",
+      session_id: session?._id,
     },
     "session_id"
   );
@@ -65,53 +58,57 @@ const forgetPassword = catchAsync(async (req, res) => {
   if (!session_id) {
     throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
   }
-  const { no_database_exist, otp_wrong, update } =  await AuthServices.forgetPassword(Number(otp), password, session_id);
+  const { no_database_exist, otp_wrong, update } =
+    await AuthServices.forgetPassword(Number(otp), password, session_id);
   if (no_database_exist) {
     throw new AppError(httpStatus.FORBIDDEN, "session timeout");
   }
   if (otp_wrong) throw new AppError(httpStatus.FORBIDDEN, "wrong otp ");
-  res.clearCookie('session_id')
+  res.clearCookie("session_id");
   if (update) {
     sendResponse(res, {
       data: update,
       statusCode: httpStatus.OK,
       success: true,
-      message: "pass word update successfull",
+      message: "pass word update successful",
     });
   }
 });
 
 // const validateUser = catchAsync(async (req, res) => {
-//   const payload = req.headers.authorization;
-//   const token = payload?.split(" ")[1];
+//   const cookies = req.cookies.user;
+//   // const token = payload?.split(" ")[1];
+//   const decoded = jwt.verify(cookies, config.jwt_access_secret!);
 
-//   if (!token) {
-//     throw new AppError(404, "Token missing");
-//   }
+//   console.log(decoded);
 
-//   const result = await AuthServices.validateUser(token);
+//   // if (!token) {
+//   //   throw new AppError(404, "Token missing");
+//   // }
 
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "User Login successful",
-//     data: result,
-//   });
+//   // const result = await AuthServices.validateUser(token);
+
+//   // sendResponse(res, {
+//   //   statusCode: httpStatus.OK,
+//   //   success: true,
+//   //   message: "User Login successful",
+//   //   data: result,
+//   // });
 // });
 
 const logoutUser = catchAsync(async (req, res) => {
   const response = {
     success: true,
-    message: "User Logour successfull",
+    message: "User Logout successful",
   };
-  res.status(httpStatus.OK).clearCookie("user").json(response);
+  res.status(httpStatus.OK).clearCookie("user_id").json(response);
 });
 
 export const AuthControllers = {
   loginUser,
   logoutUser,
-
+  // validateUser,
   //
   forgetPasswordMailSend,
   forgetPassword,
-}
+};

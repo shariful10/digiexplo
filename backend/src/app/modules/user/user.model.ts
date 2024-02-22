@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import  { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import config from "../../config";
-import {  IUser, UserModel } from "./user.interface";
 import { AppError } from "../../errors/AppError";
+import { IUser, UserModel } from "./user.interface";
 
 const UserSchema = new Schema<IUser, UserModel>(
   {

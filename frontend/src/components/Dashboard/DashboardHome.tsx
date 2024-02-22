@@ -1,16 +1,19 @@
 "use client";
-
-import React, { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+import { Axios } from "@/lib/axios";
+import { useQuery } from "react-query";
+import AllVendorRequest from "./Admin/AllVendorRequest";
 import Table from "./Table";
 import VendorProfile from "./Vendor/VendorProfile";
 
 const DashboardHome = () => {
-  const { user } = useContext(AuthContext);
+  const { data: user = [] } = useQuery(["user"], async () => {
+    const res = await Axios.get(`users/get-user`);
+    return res?.data?.data;
+  });
 
   return (
     <div>
-      {user?.role === "User" ? (
+      {user && user?.role === "User" ? (
         <div className="mx-auto md:px-0 w-full z-10">
           <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full mx-auto">
             <div className="mb-5">
@@ -22,10 +25,10 @@ const DashboardHome = () => {
             <Table />
           </div>
         </div>
+      ) : user && user?.role === "Vendor" ? (
+        <VendorProfile />
       ) : (
-        <>
-          <VendorProfile />
-        </>
+        user && user?.role === "Admin" && <AllVendorRequest />
       )}
     </div>
   );

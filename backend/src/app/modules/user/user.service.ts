@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CartModel } from "../cart/cart.model";
+import { CategoryModel } from "../category/category.model";
 import { uploadFile } from "../uploadFile/awsUpload";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
@@ -46,8 +47,15 @@ const getCart = async (userId: string) => {
   return user;
 };
 
+const getCategory = async () => {
+  const result = await CategoryModel.find();
+
+  return result;
+};
+
 export const UserServices = {
   createUser,
   getUser,
   getCart,
+  getCategory,
 };

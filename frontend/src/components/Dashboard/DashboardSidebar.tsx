@@ -4,12 +4,19 @@ import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaTelegramPlane, FaUser, FaUserCog } from "react-icons/fa";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import {
+  FaMinusSquare,
+  FaTelegramPlane,
+  FaUser,
+  FaUserCog,
+} from "react-icons/fa";
 import { FaCirclePlus, FaGear } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { TbCategoryPlus } from "react-icons/tb";
 import { VscHome } from "react-icons/vsc";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
 
 const dashboardUserItems = [
@@ -57,9 +64,9 @@ const dashboardVendorItems = [
 const dashboardAdminItems = [
   {
     id: 1,
-    title: "Add a Category",
-    url: "/dashboard/add-category",
-    Icon: TbCategoryPlus,
+    title: "Categories",
+    url: "/dashboard/categories",
+    Icon: BiSolidCategoryAlt,
   },
   {
     id: 2,
@@ -77,7 +84,7 @@ const dashboardAdminItems = [
     id: 4,
     title: "Rejected Vendor",
     url: "/dashboard/rejected-vendors",
-    Icon: VscHome,
+    Icon: FaMinusSquare,
   },
   {
     id: 5,
@@ -89,11 +96,10 @@ const dashboardAdminItems = [
 
 const DashboardSidebar = () => {
   const pathName = usePathname();
-  const { data: user = [] } = useQuery(["user"], async () => {
+  const { data: user = [], isLoading } = useQuery(["user"], async () => {
     const res = await Axios.get(`users/get-user`);
     return res?.data?.data;
   });
-
   return (
     <div className="w-64">
       <div className="fixed top-0 bg-[#2D3748]  h-screen w-64 py-10 hidden z-20 lg:flex flex-col justify-between">
@@ -142,18 +148,33 @@ const DashboardSidebar = () => {
           ) : user?.role === "Admin" ? (
             <div className="flex flex-col gap-2 mt-10">
               {dashboardAdminItems.map(({ id, title, url, Icon }) => (
-                <Link
-                  href={url}
-                  key={id}
-                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
-                    pathName === url
-                      ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
-                      : "text-[#9a9cae]"
-                  } px-10`}
-                >
-                  <Icon className="text-xl" />
-                  <span className="">{title}</span>
-                </Link>
+                <div key={id}>
+                  {isLoading ? (
+                    <div className="flex justify-center">
+                      <SkeletonTheme
+                        baseColor="#202020"
+                        highlightColor="#b9b8b8"
+                      >
+                        <p>
+                          <Skeleton width={200} height={30} />
+                        </p>
+                      </SkeletonTheme>
+                    </div>
+                  ) : (
+                    <Link
+                      href={url}
+                      key={id}
+                      className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                        pathName === url
+                          ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
+                          : "text-[#9a9cae]"
+                      } px-10`}
+                    >
+                      <Icon className="text-xl" />
+                      <span className="">{title}</span>
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
           ) : (

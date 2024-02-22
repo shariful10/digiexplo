@@ -1,16 +1,17 @@
 
-
+"use client"
 import React from "react";
 import Table from "./Table";
 import VendorProfile from "./Vendor/VendorProfile";
 import AllVendorRequest from "./Admin/AllVendorRequest";
+import { useUser } from "../Context/UserContext";
 
 const DashboardHome = () => {
-  const user = { role: "Vendor" };
+  const { data: user } = useUser()
 
 	return (
 		<div>
-			{user?.role === "User" ? (
+			{user && user?.userData?.role === "User" ? (
 				<div className="mx-auto md:px-0 w-full z-10">
 					<div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full mx-auto">
 						<div className="mb-5">
@@ -24,11 +25,7 @@ const DashboardHome = () => {
 						<Table />
 					</div>
 				</div>
-			) : user?.role === "Vendor" ? (
-				<VendorProfile />
-			) : (
-				<AllVendorRequest />
-			)}
+			) : <VendorProfile /> }
 		</div>
 	);
 };

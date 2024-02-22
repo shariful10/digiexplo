@@ -15,6 +15,8 @@ import { VscHome } from "react-icons/vsc";
 import { UserContext, useUser } from "../Context/UserContext";
 import { FaCirclePlus, FaGear } from "react-icons/fa6";
 import { FaUser, FaUserCog } from "react-icons/fa";
+import { Axios } from "@/lib/axios";
+import { useQuery } from "react-query";
 
 const dashboardUserItems = [
   {
@@ -62,7 +64,7 @@ const dashboardAdminItems = [
   {
     id: 1,
     title: "All Vendor Request",
-    url: "/dashboard",
+    url: "/dashboard/all-vendor-request",
     Icon: FaUser,
   },
   {
@@ -87,7 +89,12 @@ const dashboardAdminItems = [
 
 const DashboardSidebar = () => {
   const pathName = usePathname();
-  const { data: user } = useContext(UserContext);
+  const { data: user = [], refetch } = useQuery(["user"], async () => {
+    const res = await Axios.get(`users/get-user`);
+    return res?.data?.data;
+  });
+
+  console.log(user);
 
   return (
     <div className="w-64">
@@ -100,7 +107,7 @@ const DashboardSidebar = () => {
               alt="logo"
             />
           </Link>
-          {user.userData?.role === "User" ? (
+          {user?.role === "User" ? (
             <div className="flex flex-col gap-2 mt-10">
               {dashboardUserItems.map(({ id, title, url, Icon }) => (
                 <Link
@@ -117,7 +124,7 @@ const DashboardSidebar = () => {
                 </Link>
               ))}
             </div>
-          ) : user.userData?.role === "Vendor" ? (
+          ) : user?.role === "Vendor" ? (
             <div className="flex flex-col gap-2 mt-10">
               {dashboardVendorItems.map(({ id, title, url, Icon }) => (
                 <Link
@@ -134,7 +141,7 @@ const DashboardSidebar = () => {
                 </Link>
               ))}
             </div>
-          ) : user.userData?.role === "Admin" ? (
+          ) : user?.role === "Admin" ? (
             <div className="flex flex-col gap-2 mt-10">
               {dashboardAdminItems.map(({ id, title, url, Icon }) => (
                 <Link

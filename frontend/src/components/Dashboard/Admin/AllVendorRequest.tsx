@@ -1,19 +1,37 @@
-import React from 'react'
-import Table from '../Table'
-import VendorTable from './VendorTable'
+"use client"
+import React from "react";
+import { useQuery } from "react-query";
+import VendorTable from "./VendorTable";
+import DashboardHeader from "../DashboardHeader";
+import { Axios } from "@/lib/axios";
 
-const AllVendorRequest = () => {
-   return (
-      <div className="mx-auto md:px-0 w-full z-10">
-         <div className='p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full mx-auto'>
-            <div className="mb-5">
-               <h3 className="text-textColor text-[17px] font-semibold">Vendor Request</h3>
-               <p className="text-[#99a1b7] font-medium">All vendor request</p>
-            </div>
-            <VendorTable />
-         </div>
-      </div>
-   )
+interface Vendor {
+  _id: string;
+  status: string;
 }
 
-export default AllVendorRequest
+const AllVendorRequest = () => {
+	const { data: vendors = [], refetch } = useQuery(["vendors"], async () => {
+		const res = await Axios.get(`admin/get-pending-vendor-request`);
+		return res?.data?.data;
+	});
+  
+
+	const pendingStatus = vendors.filter((item: any) => item.status === "Pending");
+  console.log(pendingStatus)
+
+	return (
+		<div className="mx-auto p-5 md:px-0 w-full z-10">
+			<DashboardHeader
+				url="Dashboard"
+				currentPage="All vendor request"
+				title="All vendor request"
+			/>
+			<div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full mt-5 md:mt-10">
+				<VendorTable vendorData={pendingStatus} refetch={refetch} />
+			</div>
+		</div>
+	);
+};
+
+export default AllVendorRequest;

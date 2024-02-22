@@ -1,21 +1,15 @@
 "use client";
-import React, { useContext } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import logo from "@/images/logo-white.png";
-import { auth } from "@/lib/auth";
-import { usePathname } from "next/navigation";
-import { BsPersonGear } from "react-icons/bs";
-import { FaTelegramPlane } from "react-icons/fa";
-import { GoGear } from "react-icons/go";
-import { HiOutlineLogout } from "react-icons/hi";
-import { LuUser2 } from "react-icons/lu";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import { VscHome } from "react-icons/vsc";
-import { UserContext, useUser } from "../Context/UserContext";
-import { FaCirclePlus, FaGear } from "react-icons/fa6";
-import { FaUser, FaUserCog } from "react-icons/fa";
 import { Axios } from "@/lib/axios";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaTelegramPlane, FaUser, FaUserCog } from "react-icons/fa";
+import { FaCirclePlus, FaGear } from "react-icons/fa6";
+import { HiOutlineLogout } from "react-icons/hi";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { TbCategoryPlus } from "react-icons/tb";
+import { VscHome } from "react-icons/vsc";
 import { useQuery } from "react-query";
 
 const dashboardUserItems = [
@@ -63,24 +57,30 @@ const dashboardVendorItems = [
 const dashboardAdminItems = [
   {
     id: 1,
+    title: "Add a Category",
+    url: "/dashboard/add-category",
+    Icon: TbCategoryPlus,
+  },
+  {
+    id: 2,
     title: "All Vendor Request",
     url: "/dashboard/all-vendor-request",
     Icon: FaUser,
   },
   {
-    id: 2,
+    id: 3,
     title: "All Vendors",
     url: "/dashboard/all-vendors",
     Icon: FaUserCog,
   },
   {
-    id: 3,
+    id: 4,
     title: "Rejected Vendor",
     url: "/dashboard/rejected-vendors",
     Icon: VscHome,
   },
   {
-    id: 4,
+    id: 5,
     title: "Change Password",
     url: "/dashboard/change-password",
     Icon: FaGear,
@@ -89,12 +89,10 @@ const dashboardAdminItems = [
 
 const DashboardSidebar = () => {
   const pathName = usePathname();
-  const { data: user = [], refetch } = useQuery(["user"], async () => {
+  const { data: user = [] } = useQuery(["user"], async () => {
     const res = await Axios.get(`users/get-user`);
     return res?.data?.data;
   });
-
-  console.log(user);
 
   return (
     <div className="w-64">

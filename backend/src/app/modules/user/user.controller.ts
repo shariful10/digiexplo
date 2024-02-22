@@ -75,9 +75,20 @@ const getCart = catchAsync(async (req, res) => {
   });
 });
 
+const getCategory = catchAsync(async (req, res) => {
+  const result = await UserServices.getCategory();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Categories retrieved successful",
+    data: result,
+  });
+});
+
 export const UserController = {
   createUser,
   getUser,
-
   getCart,
+  getCategory,
 };

@@ -32,3 +32,8 @@ export interface ICart {
   user: string;
   products: [];
 }
+
+export interface CategoryType {
+  _id: string,
+  title: string,
+}

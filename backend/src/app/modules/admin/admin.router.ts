@@ -4,6 +4,8 @@ import auth from "../../middleware/auth";
 import { USER_ROLE } from "../user/user.constant";
 import validateRequest from "../../middleware/validateRequest";
 import { VendorValidation } from "../vendor/vendor.validation";
+import { CategoryControllers } from "../category/category.controller";
+import { CategoryValidation } from "../category/category.validation";
 
 const router = Router();
 
@@ -36,6 +38,19 @@ router.patch(
   "/product-status-update/:productId",
   auth(USER_ROLE.ADMIN),
   AdminController.updateProductStatus
+);
+
+router.post(
+  "/add-category",
+  auth(USER_ROLE.ADMIN),
+  validateRequest(CategoryValidation.CreateCategoryValidation),
+  CategoryControllers.createCategory
+);
+
+router.post(
+  "/delete-category/:categoryId",
+  auth(USER_ROLE.ADMIN),
+  CategoryControllers.deleteCategory
 );
 
 export const AdminRoutes = router;

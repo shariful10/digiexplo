@@ -1,95 +1,95 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { Axios } from "@/lib/axios";
-import { useQuery } from "react-query";
-import { VscHome } from "react-icons/vsc";
 import logo from "@/images/logo-white.png";
+import { Axios } from "@/lib/axios";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { TbCategoryPlus } from "react-icons/tb";
-import { HiOutlineLogout } from "react-icons/hi";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 import { FaCirclePlus, FaGear } from "react-icons/fa6";
+import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { VscHome } from "react-icons/vsc";
+import { useQuery } from "react-query";
 import {
-	FaUser,
-	FaUserCog,
-	FaMinusCircle,
-	FaTelegramPlane,
+  FaMinusSquare,
+  FaTelegramPlane,
+  FaUser,
+  FaUserCog,
 } from "react-icons/fa";
 
 const dashboardUserItems = [
-	{
-		id: 1,
-		title: "My Order Items",
-		url: "/dashboard",
-		Icon: MdOutlineShoppingCart,
-	},
-	{
-		id: 2,
-		title: "Change Password",
-		url: "/dashboard/change-password",
-		Icon: FaGear,
-	},
-	{
-		id: 3,
-		title: "Message to Admin",
-		url: "/dashboard/send-message",
-		Icon: FaTelegramPlane,
-	},
+  {
+    id: 1,
+    title: "My Order Items",
+    url: "/dashboard",
+    Icon: MdOutlineShoppingCart,
+  },
+  {
+    id: 2,
+    title: "Change Password",
+    url: "/dashboard/change-password",
+    Icon: FaGear,
+  },
+  {
+    id: 3,
+    title: "Message to Admin",
+    url: "/dashboard/send-message",
+    Icon: FaTelegramPlane,
+  },
 ];
 
 const dashboardVendorItems = [
-	{
-		id: 1,
-		title: "Vendor Profile",
-		url: "/dashboard",
-		Icon: FaUser,
-	},
-	{
-		id: 3,
-		title: "Change Password",
-		url: "/dashboard/change-password",
-		Icon: FaGear,
-	},
-	{
-		id: 4,
-		title: "Add Product",
-		url: "/dashboard/add-product",
-		Icon: FaCirclePlus,
-	},
+  {
+    id: 1,
+    title: "Vendor Profile",
+    url: "/dashboard",
+    Icon: FaUser,
+  },
+  {
+    id: 3,
+    title: "Change Password",
+    url: "/dashboard/change-password",
+    Icon: FaGear,
+  },
+  {
+    id: 4,
+    title: "Add Product",
+    url: "/dashboard/add-product",
+    Icon: FaCirclePlus,
+  },
 ];
 
 const dashboardAdminItems = [
-	{
-		id: 1,
-		title: "Add a Category",
-		url: "/dashboard/add-category",
-		Icon: TbCategoryPlus,
-	},
-	{
-		id: 2,
-		title: "All Vendor Request",
-		url: "/dashboard/all-vendor-request",
-		Icon: FaUser,
-	},
-	{
-		id: 3,
-		title: "All Vendors",
-		url: "/dashboard/all-vendors",
-		Icon: FaUserCog,
-	},
-	{
-		id: 4,
-		title: "Rejected Vendor",
-		url: "/dashboard/rejected-vendors",
-		Icon: FaMinusCircle,
-	},
-	{
-		id: 5,
-		title: "Change Password",
-		url: "/dashboard/change-password",
-		Icon: FaGear,
-	},
+  {
+    id: 1,
+    title: "Categories",
+    url: "/dashboard/categories",
+    Icon: BiSolidCategoryAlt,
+  },
+  {
+    id: 2,
+    title: "All Vendor Request",
+    url: "/dashboard/all-vendor-request",
+    Icon: FaUser,
+  },
+  {
+    id: 3,
+    title: "All Vendors",
+    url: "/dashboard/all-vendors",
+    Icon: FaUserCog,
+  },
+  {
+    id: 4,
+    title: "Rejected Vendor",
+    url: "/dashboard/rejected-vendors",
+    Icon: FaMinusSquare,
+  },
+  {
+    id: 5,
+    title: "Change Password",
+    url: "/dashboard/change-password",
+    Icon: FaGear,
+  },
 ];
 
 interface DashboardNavbarProps {

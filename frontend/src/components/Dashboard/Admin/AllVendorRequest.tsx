@@ -27,8 +27,10 @@ const AllVendorRequest = () => {
         currentPage="All vendor request"
         title="All vendor request"
       />
-      <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full mt-5 md:mt-10">
-        <VendorTable vendorData={pendingStatus} refetch={refetch} />
+      <div className="px-7 md:px-10">
+        <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
+          <VendorTable vendorData={pendingStatus} refetch={refetch} />
+        </div>
       </div>
     </div>
   );

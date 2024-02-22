@@ -3,6 +3,7 @@ import logo from "@/images/logo.webp";
 import { auth } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { useContext, useState } from "react";
 import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
@@ -13,6 +14,9 @@ import CartPage from "./CartPage";
 import Container from "./Container";
 import { UserContext } from "./Context/UserContext";
 import ProfileMenu from "./ProfileMenu";
+import { BASE_URL } from "./helper";
+import { Axios } from "@/lib/axios";
+import { useQuery } from "react-query";
 
 interface Props {
 	show: boolean;
@@ -22,9 +26,15 @@ interface Props {
 }
 
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
-	const { data: user, isLoading } = useContext(UserContext);
 	const { logoutUser } = auth;
 	const [open, setOpen] = useState(false);
+  // console.log(user)
+
+  const { data: user = [], refetch } = useQuery(["user"], async () => {
+		const res = await Axios.get(`/users/get-user`);
+		return res?.data?.data;
+	});
+  // console.log(user)
 
 	return (
 		<div className="md:px-10 py-5 bg-white">
@@ -62,10 +72,10 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 									0
 								</div>
 							</div>
-							{user.userData ? (
+							{user.profileImg ? (
 									<div>
 										<Image
-											src={user.userData.profileImg}
+											src={user.profileImg}
 											width={40}
 											height={40}
 											onClick={() => setOpen(!open)}
@@ -74,7 +84,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 										/>
 										<ProfileMenu
 											open={open}
-											user={user.userData!}
+											user={user}
 											setOpen={setOpen}
 											logoutUser={logoutUser}
 										/>

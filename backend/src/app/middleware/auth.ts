@@ -14,11 +14,12 @@ const auth = (...requiredRoles: TRequiredRole) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;
     const user_id = req.cookies.user_id;
+    console.log(user_id);
     if (!user_id) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
     }
     const token = jwt.verify(user_id, config.jwt_access_secret!) as any;
-
+    
     // if no token received throw error
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized");
@@ -48,7 +49,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
         "You are not authorized to perform this action"
       );
     }
-
+    
     // // Decoded
     // req.user = decoded as JwtPayload;
     req.user = isUserExist;

@@ -62,9 +62,8 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 									0
 								</div>
 							</div>
-							<div>
-								{user.userData ? (
-									<>
+							{user.userData ? (
+									<div>
 										<Image
 											src={user.userData.profileImg}
 											width={40}
@@ -79,7 +78,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 											setOpen={setOpen}
 											logoutUser={logoutUser}
 										/>
-									</>
+									</div>
 								) : (
 									<Link href="/login">
 										<button className="hidden hover:bg-primary transition-all ease-in-out duration-700 py-2 px-5 rounded-lg font-semibold text-black hover:text-white lg:flex items-center gap-2">
@@ -88,7 +87,6 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
 										</button>
 									</Link>
 								)}
-							</div>
 						</div>
 						<div className="md:hidden">
 							{!show && (

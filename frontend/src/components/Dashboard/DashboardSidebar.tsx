@@ -68,7 +68,7 @@ const dashboardAdminItems = [
   {
     id: 1,
     title: "All Vendor Request",
-    url: "/dashboard",
+    url: "/dashboard/all-vendor-request",
     Icon: FaUser,
   },
   {

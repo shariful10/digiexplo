@@ -2,8 +2,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { BASE_URL } from "../helper";
+import { useUser } from "../Context/UserContext";
 
 const BecomeVendor = () => {
+  const { data: user } = useUser();
+
 	const [inputVal, setInputVal] = useState<{
 		companyName: string;
 		ownerName: string;
@@ -67,7 +70,7 @@ const BecomeVendor = () => {
       // console.log(formData);
 
       const res = await axios.post(
-        `${BASE_URL}/vendor/become-vendor/65d0accdc60870a90be9113a`,
+        `${BASE_URL}/vendor/become-vendor/${user && user?.userData?._id}`,
         formData,
         { withCredentials: true }
       );

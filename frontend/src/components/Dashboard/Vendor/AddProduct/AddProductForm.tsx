@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import CountrySelector from "./CountrySelector";
 import { categoriesItems } from "@/components/data";
 import { BASE_URL } from "@/components/helper";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 interface Country {
 	value: string;
@@ -12,13 +10,7 @@ interface Country {
 }
 
 const AddProductForm = () => {
-	const [thumbnail, setItemThumbnail] = useState();
-  const [selectedCountry, setSelectedCountry] = useState<Country>({
-		value: "",
-		label: "",
-	});
-
-  const [inputVal, setInputVal] = useState<{
+	const [inputVal, setInputVal] = useState<{
 		name: string;
 		description: string;
 		price: string;
@@ -35,40 +27,57 @@ const AddProductForm = () => {
 		thumbnail: null,
 		file: null,
 	});
-
-	const handleThumbnailUpload = (event) => {
-		const file = event.target.files[0];
-		const reader = new FileReader();
-
-		reader.onloadend = () => {
-			setItemThumbnail(reader.result);
-		};
-
-		if (file) {
-			reader.readAsDataURL(file);
-		}
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files && event.target?.files[0];
+		setInputVal({
+			...inputVal,
+			file,
+		});
 	};
 
-	const handleThumbnailReset = () => {
-		setItemThumbnail(null);
+	const handleThumbnailChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const file = event.target.files && event.target?.files[0];
+		setInputVal({
+			...inputVal,
+			thumbnail: file,
+		});
 	};
 
-  const { name, description, price, category, country, file, thumbnail } = inputVal;
+	const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = event.target.value;
+		const name = event.target.name;
+		setInputVal({
+			...inputVal,
+			[name]: value,
+		});
+	};
+	const handleInputChange = (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		const value = event.target.value;
+		const name = event.target.name;
+		setInputVal({
+			...inputVal,
+			[name]: value,
+		});
+	};
+	const { name, description, price, category, country, file, thumbnail } =
+		inputVal;
 
-	const handleProductSubmit = async (e: any) => {
-		e.preventDefault();
+	const handleProductSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData();
+		formData.append("productName", name);
+		formData.append("description", description);
+		formData.append("category", category);
+		formData.append("vendorCountryLocation", country);
+		formData.append("price", price);
+		formData.append("thumbnail", thumbnail);
+		formData.append("file", file);
 
-		const form = e.target;
-
-		const name = form.name.value;
-		const description = form.description.value;
-		const category = form.category.value;
-		const vendorCountryLocation = form.country.value;
-		const price = form.price.value;
-		const thumbnail = form.thumbnail.files && form.thumbnail.files[0];
-		const file = form.productFile.files;
-
-		console.log("file", file);
+    console.log(formData);
 	};
 
 	return (
@@ -82,6 +91,7 @@ const AddProductForm = () => {
 						Name <span className="text-red-600">*</span>
 					</label>
 					<input
+						onChange={handleInputChange}
 						name="name"
 						type="text"
 						placeholder="Product name"
@@ -93,6 +103,7 @@ const AddProductForm = () => {
 						Description <span className="text-red-600">*</span>
 					</label>
 					<textarea
+						onChange={handleInputChange}
 						name="description"
 						rows={5}
 						placeholder="Product description"
@@ -104,6 +115,7 @@ const AddProductForm = () => {
 						Price <span className="text-red-600">*</span>
 					</label>
 					<input
+						onChange={handleInputChange}
 						name="price"
 						type="number"
 						placeholder="Price"
@@ -115,6 +127,7 @@ const AddProductForm = () => {
 						Category <span className="text-red-600">*</span>
 					</label>
 					<select
+						onChange={handleSelectChange}
 						name="category"
 						className="py-3.5 pl-3 rounded-md border focus:outline-gray-400 w-full cursor-pointer"
 					>
@@ -132,7 +145,7 @@ const AddProductForm = () => {
 					</label>
 					<CountrySelector
 						country={country}
-						handleSelectChange={setSelectedCountry}
+						handleSelectChange={handleSelectChange}
 					/>
 				</div>
 				<div className="flex flex-col gap-2 my-5">
@@ -141,6 +154,7 @@ const AddProductForm = () => {
 					</p>
 					<div className="flex items-center border border-gray-300 rounded-md p-2 w-full">
 						<input
+							onChange={handleThumbnailChange}
 							type="file"
 							name="thumbnail"
 							id="custom-input-thumbnail"
@@ -160,37 +174,19 @@ const AddProductForm = () => {
 						Product File <span className="text-red-600">*</span>
 					</p>
 					<div className="flex items-center border border-gray-300 rounded-md p-2 w-full">
-						{thumbnail ? (
-							<div className="rounded-lg border-2 max-w-[122px] lg:max-w-[155px] max-h-[122px] lg:min-h-[155px] relative">
-								<img
-									src={thumbnail}
-									alt="thumbnail"
-									className="absolute inset-0 w-full h-full object-cover rounded-lg p-1.5"
-									onClick={handleThumbnailReset}
-								/>
-							</div>
-						) : (
-							<label
-								htmlFor="thumbnail"
-								className="flex flex-col items-center justify-center w-[100px] lg:w-[160px] h-[100px] lg:h-[160px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-50"
-							>
-								<div className="flex flex-col items-center justify-center">
-									<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-										<span className="">Add</span>
-									</p>
-									<p className="text-xs text-gray-500 dark:text-gray-400">
-										Add from file
-									</p>
-								</div>
-								<input
-									id="thumbnail"
-									type="file"
-									className="hidden"
-									onChange={handleThumbnailUpload}
-									multiple
-								/>
-							</label>
-						)}
+						<input
+							onChange={handleFileChange}
+							type="file"
+							name="profileImg"
+							id="custom-input-file"
+							hidden
+						/>
+						<label
+							htmlFor="custom-input-file"
+							className="block text-sm mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 cursor-pointer"
+						>
+							Choose file
+						</label>
 					</div>
 				</div>
 				<input

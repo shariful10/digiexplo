@@ -15,7 +15,6 @@ import multer, { Multer } from "multer";
 
 const app: Application = express();
 
-
 // Parser
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
@@ -33,12 +32,10 @@ app.use(
 );
 app.use(cookieParser());
 
-const static_folder = path.join(__dirname, "..", "public");
-app.use(express.static(static_folder));
+// const static_folder = path.join(__dirname, "..", "public");
+// app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
-
-
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<!DOCTYPE html>

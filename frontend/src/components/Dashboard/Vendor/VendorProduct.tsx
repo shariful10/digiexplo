@@ -30,7 +30,7 @@ const VendorProduct = () => {
       </div>
 
       <div className="flex items-center justify-between mt-8">
-        <p>Showing 1 to 10 of 50 entries</p>
+        <p className="hidden md:block">Showing 1 to 10 of 50 entries</p>
         <Pagination />
       </div>
     </>

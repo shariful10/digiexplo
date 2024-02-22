@@ -2,7 +2,7 @@ import React from "react";
 
 const Pagination = () => {
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end mx-auto md:mx-0">
       <nav aria-label="Page navigation example">
         <ul className="flex items-center -space-x-px h-10 text-base">
           <li>

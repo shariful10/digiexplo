@@ -1,8 +1,7 @@
+import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import httpStatus from "http-status";
 import { AdminServices } from "./admin.service";
-import { VendorModel } from "../vendor/vendor.model";
 
 // vendor related function
 
@@ -23,7 +22,7 @@ const getPendingVendorRequest = catchAsync(async (req, res) => {
 const updateVendorRequest = catchAsync(async (req, res) => {
   const { vendorId } = req.params;
   const { status } = req.body;
-  const {cancel,update} = await AdminServices.updateVendorRequest(
+  const { cancel, update } = await AdminServices.updateVendorRequest(
     vendorId,
     status
   );

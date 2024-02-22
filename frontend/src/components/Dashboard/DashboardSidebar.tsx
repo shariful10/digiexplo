@@ -13,7 +13,7 @@ import { LuUser2 } from "react-icons/lu";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { VscHome } from "react-icons/vsc";
 import { UserContext, useUser } from "../Context/UserContext";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus, FaGear } from "react-icons/fa6";
 import { FaUser, FaUserCog } from "react-icons/fa";
 
 const dashboardUserItems = [
@@ -27,7 +27,7 @@ const dashboardUserItems = [
     id: 2,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: GoGear,
+    Icon: FaGear,
   },
   {
     id: 3,
@@ -45,16 +45,10 @@ const dashboardVendorItems = [
     Icon: FaUser,
   },
   {
-    id: 2,
-    title: "Profile Settings",
-    url: "/dashboard/profle-settings",
-    Icon: FaUserCog,
-  },
-  {
     id: 3,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: GoGear,
+    Icon: FaGear,
   },
   {
     id: 4,
@@ -87,7 +81,7 @@ const dashboardAdminItems = [
     id: 4,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: GoGear,
+    Icon: FaGear,
   },
 ];
 
@@ -97,7 +91,7 @@ const DashboardSidebar = () => {
 
   return (
     <div className="w-64">
-      <div className="fixed top-0 bg-sidebar  h-screen w-64 py-10 hidden z-20 md:flex flex-col justify-between">
+      <div className="fixed top-0 bg-[#2D3748]  h-screen w-64 py-10 hidden z-20 lg:flex flex-col justify-between">
         <div>
           <Link href="/" className="">
             <Image

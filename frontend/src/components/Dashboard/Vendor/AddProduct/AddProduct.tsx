@@ -3,7 +3,7 @@ import AddProductForm from "./AddProductForm";
 
 const AddProduct = () => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-4xl mx-auto lg:mx-0">
       {/* Breadcrumbs */}
       <p className="flex items-center gap-1 font-medium italic">
         <Link

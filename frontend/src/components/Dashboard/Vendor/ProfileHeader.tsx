@@ -7,8 +7,6 @@ import { MdKeyboardDoubleArrowUp } from "react-icons/md";
 import { IVendor } from "@/components/types";
 
 const ProfileHeader = ({ vendor }: { vendor: IVendor }) => {
-  console.log(vendor);
-
   return (
     <>
       <div className="mb-5">

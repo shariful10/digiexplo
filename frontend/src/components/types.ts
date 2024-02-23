@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export interface OrderItemsProps {
   data: {
     id: number;
@@ -60,7 +62,7 @@ export interface IProduct {
   category: string;
   price: number;
   thumbnail: string;
-  vendor: string;
+  vendor: IVendor;
   file: string;
   tags: string[];
   status: string;
@@ -69,3 +71,8 @@ export interface IProduct {
   "meta-title"?: string;
   createdAt: string;
 }
+
+export type HandleProductStatusUpdateType = (
+  productId: string,
+  status: string
+) => Promise<void>;

@@ -8,6 +8,7 @@ import { BiSolidCategoryAlt } from "react-icons/bi";
 import { FaCirclePlus, FaGear } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { BsBoxFill } from "react-icons/bs";
 import { VscHome } from "react-icons/vsc";
 import { useQuery } from "react-query";
 import {
@@ -72,6 +73,12 @@ const dashboardAdminItems = [
     title: "All Vendor Request",
     url: "/dashboard/all-vendor-request",
     Icon: FaUser,
+  },
+  {
+    id: 6,
+    title: "Pending Products",
+    url: "/dashboard/pending-products",
+    Icon: BsBoxFill,
   },
   {
     id: 3,

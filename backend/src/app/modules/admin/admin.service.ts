@@ -50,7 +50,12 @@ const updateVendorProfile = async (
 const getPendingProducts = async (page: number, limit: number) => {
   const skip = !page ? 0 : limit * page;
   const products = await ProductModel.find({ status: PRODUCT_STATUS.PENDING })
-    .populate("vendor")
+    .populate({
+      path: "vendor",
+      populate: {
+        path: "user",
+      },
+    })
     .skip(skip)
     .limit(limit);
   return products;
@@ -60,7 +65,7 @@ const updateProductStatus = async (
   productId: string,
   productStatus: (typeof PRODUCT_STATUS)[keyof typeof PRODUCT_STATUS]
 ) => {
-  // console.log(productId,productStatus)
+  // console.log(productId, productStatus);
   const updateProduct = await ProductModel.findByIdAndUpdate(productId, {
     status: productStatus,
   });

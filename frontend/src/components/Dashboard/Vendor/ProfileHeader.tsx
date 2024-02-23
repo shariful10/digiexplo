@@ -78,7 +78,7 @@ const ProfileHeader = ({ vendor }: { vendor: IVendor }) => {
             </div>
 
             {/*  Vendor Stats */}
-            <div className="mt-5 lg:flex gap-x-4 items-center space-y-3">
+            <div className="mt-5 lg:flex gap-x-4 items-center space-y-3 lg:space-y-0">
               <div className="border rounded-lg p-3 sm:max-w-[125px] w-full text-center">
                 <div className="flex items-center gap-2 justify-center sm:justify-start">
                   <MdKeyboardDoubleArrowUp

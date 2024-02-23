@@ -75,6 +75,8 @@ const getPendingProducts = catchAsync(async (req, res) => {
 const updateProductStatus = catchAsync(async (req, res) => {
   const { productId } = req.params;
   const { productStatus } = req.body;
+
+  // console.log(productId, productStatus);
   const updatedProduct = await AdminServices.updateProductStatus(
     productId,
     productStatus

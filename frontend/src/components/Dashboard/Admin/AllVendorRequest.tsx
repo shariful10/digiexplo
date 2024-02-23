@@ -36,9 +36,13 @@ const AllVendorRequest = () => {
         title="All vendor request"
       />
       <div className="px-7 md:px-10">
-        <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
-          <VendorTable vendorData={pendingStatus} refetch={refetch} />
-        </div>
+        {vendors.length > 0 ? (
+          <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
+            <VendorTable vendorData={pendingStatus} refetch={refetch} />
+          </div>
+        ) : (
+          <p>No pending request</p>
+        )}
       </div>
     </div>
   );

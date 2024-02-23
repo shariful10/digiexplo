@@ -1,5 +1,5 @@
-import VendorProfile from "@/components/Dashboard/Vendor/VendorProfile";
 import React from "react";
+import VendorProfile from "@/components/Dashboard/Vendor/VendorProfile";
 
 const Vendor = () => {
   return (

@@ -18,7 +18,12 @@ const registerUser = async (userData: any) => {
 
     if (data && data.success) {
       toast.success(data.message);
-      window.location.href = "/";
+      const isVendorRequest = localStorage.getItem("vendorRequest");
+      if (isVendorRequest) {
+        window.location.href = "/vendor-request";
+      } else {
+        window.location.href = "/";
+      }
     } else {
       toast.error(data.errorMessage);
     }
@@ -44,7 +49,8 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     } else {
       toast.error(result.errorMessage);
     }
-  } catch (error) {
+  } catch (error: any) {
+    toast.error(error.response.data.errorMessage);
     console.log("Error logging in user:", error);
   }
 };
@@ -65,11 +71,10 @@ const logoutUser = async () => {
       console.log(data);
       toast.success(data.message);
       window.location.href = "/ ";
-    } else {
-      toast.error(data.errorMessage);
     }
-  } catch (error) {
-    console.log("Error logging in user:", error);
+  } catch (error: any) {
+    toast.error(error.response.data.errorMessage);
+    console.log("Error logging in user:", error.response.data);
   }
 };
 

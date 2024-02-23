@@ -1,8 +1,8 @@
-import React from "react";
+import { Axios } from "@/lib/axios";
 import Link from "next/link";
-import Image from "next/image";
+import { ChangeEvent } from "react";
+import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
-import { useQuery } from "react-query";
 
 interface User {
   firstName: string;
@@ -24,6 +24,28 @@ interface VendorTableProps {
 }
 
 const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
+  const handleVendorRequest = async (
+    vendorId: string,
+    e: ChangeEvent<HTMLSelectElement>
+  ) => {
+    const status = e.target.value;
+    try {
+      const res = await Axios.patch(`admin/update-vendor-request/${vendorId}`, {
+        status,
+      });
+      if (res?.data.success) {
+        toast.success(res?.data.message);
+      }
+      refetch;
+      return res?.data?.data;
+    } catch (error: any) {
+      if (error.response.data.success === false) {
+        toast.error(error.response.data.errorMessage);
+      }
+      console.log("Vendor Update error", error);
+    }
+  };
+
   return (
     <div className="overflow-x-scroll lg:overflow-hidden w-full">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -46,7 +68,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
           {vendorData.map((vendor) => (
             <tr
               key={vendor?._id}
-              className="bg-white border-b last:border-none hover:bg-gray-50 text-base"
+              className="bg-white border-b last:border-none hover:bg-gray-50 text-sm"
             >
               <td>
                 <p className="whitespace-nowrap px-3 md:px-0">
@@ -74,7 +96,18 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
                 </p>
               </td>
               <td className="whitespace-nowrap">
-                <select className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none">
+                <select
+                  className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none"
+                  onChange={(e) => handleVendorRequest(vendor._id, e)}
+                >
+                  <option
+                    disabled
+                    defaultChecked
+                    selected
+                    className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
+                  >
+                    Status
+                  </option>
                   <option
                     value="Approved"
                     className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
@@ -82,7 +115,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
                     Approve
                   </option>
                   <option
-                    value="Canceled"
+                    value="Cancel"
                     className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
                   >
                     Cancel

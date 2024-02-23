@@ -4,8 +4,11 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoMailUnread, IoWarningOutline } from "react-icons/io5";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
+import { IVendor } from "@/components/types";
 
-const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
+const ProfileHeader = ({ vendor }: { vendor: IVendor }) => {
+  console.log(vendor);
+
   return (
     <>
       <div className="mb-5">
@@ -24,11 +27,11 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
         <div className="sm:flex gap-5 w-full">
           {/* Vendor Image */}
           <Image
-            src="https://cdn.pixabay.com/photo/2017/08/01/08/29/woman-2563491_960_720.jpg"
+            src={vendor?.user?.profileImg}
             alt="Vendor Profile Pic"
             width={160}
             height={160}
-            className="rounded-lg w-full mb-2.5 sm:mb-0 sm:max-w-[160px] bg-cover bg-center"
+            className="rounded-lg w-full mb-2.5 sm:mb-0 lg:max-w-[160px] bg-cover bg-center"
           />
           {/* Vendor Image End */}
           <div className="w-full">
@@ -37,9 +40,9 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                 {/* Vendor Name */}
                 <div className="flex items-center gap-2 ">
                   <h4 className="text-lg lg:text-xl font-semibold hover:text-primary">
-                    Shane Watson
+                    {vendor?.user?.firstName + " " + vendor?.user?.lastName}
                   </h4>
-                  {vendorStatus !== "Approved" ? (
+                  {vendor.status !== "Approved" ? (
                     <div className="relative inline-block group">
                       <div className="text-amber-500 cursor-pointer">
                         <IoWarningOutline className="hover:opacity-75" />
@@ -64,12 +67,12 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                     <FaLocationDot /> California, USA
                   </p>
                   <p className="flex items-center gap-1 text-sm font-medium text-neutral-400">
-                    <IoMailUnread /> shanewatson@photography.com
+                    <IoMailUnread /> {vendor?.user?.email}
                   </p>
                 </div>
                 {/* vendor location End*/}
               </div>
-              <button className="bg-primary text-sm px-3 py-2 lg:py-2 text-white rounded-md max-w-[105px] w-full">
+              <button className="bg-primary text-sm px-3 py-2 lg:py-2 text-white rounded-md max-w-[105px] w-full hidden min-[890px]:block">
                 View Profile
               </button>
             </div>
@@ -93,7 +96,9 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                     className="text-green-500"
                     size={15}
                   />
-                  <h4 className="text-lg font-semibold">80</h4>
+                  <h4 className="text-lg font-semibold">
+                    {vendor?.products?.length}
+                  </h4>
                 </div>
                 <p className="text-[12px] text-neutral-400">Products</p>
               </div>
@@ -104,7 +109,11 @@ const ProfileHeader = ({ vendorStatus }: { vendorStatus: string }) => {
                     className="text-green-500"
                     size={15}
                   />
-                  <h4 className="text-lg font-semibold">20+</h4>
+                  <h4 className="text-lg font-semibold">
+                    {vendor?.soldProducts?.length! > 0
+                      ? vendor?.soldProducts?.length + "+"
+                      : vendor?.soldProducts?.length}
+                  </h4>
                 </div>
                 <p className="text-[12px] text-neutral-400">Sales</p>
               </div>

@@ -1,11 +1,10 @@
-import React from "react";
-import { products } from "@/components/data";
 import VendorProductCard from "@/components/Dashboard/Vendor/VendorProductCard";
+import { IProduct } from "@/components/types";
+import Link from "next/link";
 import { FaPlus } from "react-icons/fa6";
 import Pagination from "./Pagination";
-import Link from "next/link";
 
-const VendorProduct = () => {
+const VendorProduct = ({ products }: { products: IProduct[] }) => {
   return (
     <>
       <div className="flex items-center justify-between mt-10 mb-5">
@@ -21,12 +20,11 @@ const VendorProduct = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-        {products
-          .map((product, index) => (
-            <VendorProductCard product={product} key={index} />
-          ))
-          .slice(0, 9)}
+      <div className="grid grid-cols-1 md:grid-cols-2 min-[1390px]:grid-cols-3 gap-10">
+        {products &&
+          products.map((product) => (
+            <VendorProductCard product={product} key={product._id} />
+          ))}
       </div>
 
       <div className="flex items-center justify-between mt-8">

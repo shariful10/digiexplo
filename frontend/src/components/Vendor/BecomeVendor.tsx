@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { BASE_URL } from "../helper";
 import { Axios } from "@/lib/axios";
 import { useQuery } from "react-query";
+import toast from "react-hot-toast";
 
 const BecomeVendor = () => {
   const { data: user = [] } = useQuery(["user"], async () => {
@@ -50,20 +51,6 @@ const BecomeVendor = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      // const form = e.target as HTMLFormElement;
-      // const companyName = form.companyName.value;
-      // const ownerName = form.ownerName.value;
-      // const website = form.website.value;
-      // const address = form.address.value;
-      // const verificationId = form.verificationId.files[0].name;
-
-      // const vendorData = {
-      //   companyName,
-      //   ownerName,
-      //   website,
-      //   address,
-      //   verificationId,
-      // };
 
       formData.append("companyName", companyName);
       formData.append("ownerName", ownerName);
@@ -73,13 +60,13 @@ const BecomeVendor = () => {
 
       // console.log(formData);
 
-      const res = await axios.post(
+      await axios.post(
         `${BASE_URL}/vendor/become-vendor/${user && user?._id}`,
         formData,
         { withCredentials: true }
       );
-      const data = res.data;
-      console.log(data);
+      toast.success("Your request has been sent");
+      window.location.href = "/";
     } catch (err: any) {
       console.log(err.response.data);
     }
@@ -90,7 +77,7 @@ const BecomeVendor = () => {
       <div className="py-6 md:py-12 px-5 md:px-10 lg:px-0 flex justify-center items-center">
         <div className="bg-white px-7 md:px-10 lg:px-16 py-14 rounded-xl w-full max-w-xl">
           <h2 className="text-2xl xl:text-4xl font-semibold text-center">
-            Vendor Info
+            Additional Info
           </h2>
 
           <form onSubmit={handleFormSubmit} className="mt-10 ">

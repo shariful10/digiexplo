@@ -34,6 +34,38 @@ export interface ICart {
 }
 
 export interface CategoryType {
-  _id: string,
-  title: string,
+  _id: string;
+  title: string;
+}
+
+export interface IVendor {
+  user: IUser;
+  companyName: string;
+  ownerName: string;
+  website: string;
+  verificationId: string;
+  address: string;
+  status?: string;
+  products: string[];
+  soldProducts?: string[];
+  wallet?: number;
+  commissionPercentage: number;
+}
+
+export interface IProduct {
+  _id: string;
+  productName: string;
+  description: string;
+  vendorCountryLocation: string;
+  category: string;
+  price: number;
+  thumbnail: string;
+  vendor: string;
+  file: string;
+  tags: string[];
+  status: string;
+  // for seo
+  slug?: string;
+  "meta-title"?: string;
+  createdAt: string;
 }

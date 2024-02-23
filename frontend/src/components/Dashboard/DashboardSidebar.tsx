@@ -16,6 +16,7 @@ import {
   FaUser,
   FaUserCog,
 } from "react-icons/fa";
+import { auth } from "@/lib/auth";
 
 const dashboardUserItems = [
   {
@@ -93,118 +94,117 @@ const dashboardAdminItems = [
 ];
 
 interface DashboardNavbarProps {
-	open: boolean;
-	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
-	const pathName = usePathname();
-	const { data: user = [] } = useQuery(["user"], async () => {
-		const res = await Axios.get(`users/get-user`);
-		return res?.data?.data;
-	});
+  const pathName = usePathname();
+  const { logoutUser } = auth;
+  const { data: user = [] } = useQuery(["user"], async () => {
+    const res = await Axios.get(`users/get-user`);
+    return res?.data?.data;
+  });
 
-	return (
-		<div className="w-64">
-				<div
-					className={`fixed top-0 bg-[#2D3748] h-screen w-64 ${
-						open
-							? "left-0 duration-500"
-							: "-left-[500px] lg:left-0 duration-500"
-					} py-10 z-20 flex flex-col justify-between`}
-				>
-					<div>
-						<Link href="/" className="">
-							<Image
-								src={logo}
-								className="w-[65%] rounded-md px-10 mx-auto"
-								alt="logo"
-							/>
-						</Link>
-						{user?.role === "User" ? (
-							<div className="flex flex-col gap-2 mt-10">
-								{dashboardUserItems.map(({ id, title, url, Icon }) => (
-									<Link
-										href={url}
-										key={id}
-                    onClick={() => setOpen(false)}
-										className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
-											pathName === url
-												? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
-												: "text-[#9a9cae]"
-										} px-10`}
-									>
-										<Icon className="text-xl" />
-										<span className="">{title}</span>
-									</Link>
-								))}
-							</div>
-						) : user?.role === "Vendor" ? (
-							<div className="flex flex-col gap-2 mt-10">
-								{dashboardVendorItems.map(({ id, title, url, Icon }) => (
-									<Link
-										href={url}
-										key={id}
-                    onClick={() => setOpen(false)}
-										className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
-											pathName === url
-												? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
-												: "text-[#9a9cae]"
-										} px-10`}
-									>
-										<Icon className="text-xl" />
-										<span className="">{title}</span>
-									</Link>
-								))}
-							</div>
-						) : user?.role === "Admin" ? (
-							<div className="flex flex-col gap-2 mt-10">
-								{dashboardAdminItems.map(({ id, title, url, Icon }) => (
-									<Link
-										href={url}
-										key={id}
-                    onClick={() => setOpen(false)}
-										className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
-											pathName === url
-												? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
-												: "text-[#9a9cae]"
-										} px-10`}
-									>
-										<Icon className="text-xl" />
-										<span className="">{title}</span>
-									</Link>
-								))}
-							</div>
-						) : (
-							<></>
-						)}
-					</div>
-					<div>
-						<div className="px-5">
-							<hr />
-						</div>
-						<div className="flex flex-col gap-2 mt-5 px-5">
-							<Link
-								href="/"
-								className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
-							>
-								<VscHome className="text-xl" />
-								<span className="">Home</span>
-							</Link>
-							<Link href="/">
-								<button
-									// onClick={logoutUser}
-									className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
-								>
-									<HiOutlineLogout className="text-xl" />
-									<span className="">Logout</span>
-								</button>
-							</Link>
-						</div>
-					</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="w-64">
+      <div
+        className={`fixed top-0 bg-[#2D3748] h-screen w-64 ${
+          open ? "left-0 duration-500" : "-left-[500px] lg:left-0 duration-500"
+        } py-10 z-20 flex flex-col justify-between`}
+      >
+        <div>
+          <Link href="/" className="">
+            <Image
+              src={logo}
+              className="w-[65%] rounded-md px-10 mx-auto"
+              alt="logo"
+            />
+          </Link>
+          {user?.role === "User" ? (
+            <div className="flex flex-col gap-2 mt-10">
+              {dashboardUserItems.map(({ id, title, url, Icon }) => (
+                <Link
+                  href={url}
+                  key={id}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                    pathName === url
+                      ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
+                      : "text-[#9a9cae]"
+                  } px-10`}
+                >
+                  <Icon className="text-xl" />
+                  <span className="">{title}</span>
+                </Link>
+              ))}
+            </div>
+          ) : user?.role === "Vendor" ? (
+            <div className="flex flex-col gap-2 mt-10">
+              {dashboardVendorItems.map(({ id, title, url, Icon }) => (
+                <Link
+                  href={url}
+                  key={id}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                    pathName === url
+                      ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
+                      : "text-[#9a9cae]"
+                  } px-10`}
+                >
+                  <Icon className="text-xl" />
+                  <span className="">{title}</span>
+                </Link>
+              ))}
+            </div>
+          ) : user?.role === "Admin" ? (
+            <div className="flex flex-col gap-2 mt-10">
+              {dashboardAdminItems.map(({ id, title, url, Icon }) => (
+                <Link
+                  href={url}
+                  key={id}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
+                    pathName === url
+                      ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
+                      : "text-[#9a9cae]"
+                  } px-10`}
+                >
+                  <Icon className="text-xl" />
+                  <span className="">{title}</span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div>
+          <div className="px-5">
+            <hr />
+          </div>
+          <div className="flex flex-col gap-2 mt-5 px-5">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
+            >
+              <VscHome className="text-xl" />
+              <span className="">Home</span>
+            </Link>
+            <Link href="/">
+              <button
+                onClick={logoutUser}
+                className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
+              >
+                <HiOutlineLogout className="text-xl" />
+                <span className="">Logout</span>
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DashboardSidebar;

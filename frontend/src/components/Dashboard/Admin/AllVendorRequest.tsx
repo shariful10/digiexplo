@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import VendorTable from "./VendorTable";
 import DashboardHeader from "../DashboardHeader";
 import { Axios } from "@/lib/axios";
+import toast from "react-hot-toast";
 
 interface Vendor {
   _id: string;
@@ -12,8 +13,15 @@ interface Vendor {
 
 const AllVendorRequest = () => {
   const { data: vendors = [], refetch } = useQuery(["vendors"], async () => {
-    const res = await Axios.get(`admin/get-pending-vendor-request`);
-    return res?.data?.data;
+    try {
+      const res = await Axios.get(`admin/get-pending-vendor-request`);
+      return res?.data?.data;
+    } catch (error: any) {
+      if (error.response.data.success === false) {
+        toast.error(error.response.data.errorMessage);
+      }
+      console.log("add category error", error.response.data);
+    }
   });
 
   const pendingStatus = vendors.filter(
@@ -21,10 +29,10 @@ const AllVendorRequest = () => {
   );
 
   return (
-    <div className="mx-auto p-5 md:px-0 w-full z-10">
+    <div className="mx-auto w-full z-10">
       <DashboardHeader
-        url="Dashboard"
-        currentPage="All vendor request"
+        url="dashboard"
+        currentPage="all vendor request"
         title="All vendor request"
       />
       <div className="px-7 md:px-10">

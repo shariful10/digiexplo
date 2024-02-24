@@ -74,7 +74,10 @@ const SignUp = () => {
     auth.registerUser(formData);
   };
 
-  const isVendorRequest = localStorage.getItem("vendorRequest");
+  let isVendorRequest;
+  if (typeof window !== "undefined") {
+    isVendorRequest = localStorage.getItem("vendorRequest");
+  }
 
   return (
     <div className="md:h-screen flex justify-center items-center bg-gradient-to-tr from-cyan-400 to-fuchsia-500">

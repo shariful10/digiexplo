@@ -18,11 +18,13 @@ const registerUser = async (userData: any) => {
 
     if (data && data.success) {
       toast.success(data.message);
-      const isVendorRequest = localStorage.getItem("vendorRequest");
-      if (isVendorRequest) {
-        window.location.href = "/vendor-request";
-      } else {
-        window.location.href = "/";
+      if (typeof window !== "undefined") {
+        const isVendorRequest = localStorage.getItem("vendorRequest");
+        if (isVendorRequest) {
+          window.location.href = "/vendor-request";
+        } else {
+          window.location.href = "/";
+        }
       }
     } else {
       toast.error(data.errorMessage);

@@ -85,7 +85,7 @@ const ImageCard = ({ product, className }: ProductTypes) => {
 				<p className="text-neutral-400">
 					by{" "}
 					<span className="font-medium text-neutral-600">
-						{author.authorName}
+						{author?.authorName}
 					</span>{" "}
 					in{" "}
 					<span className="font-medium text-neutral-600">{category}</span>

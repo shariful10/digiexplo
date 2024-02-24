@@ -25,8 +25,9 @@
 		"react-loading-skeleton": "^3.4.0",
 		"react-query": "^3.39.3",
 		"react-select": "^5.8.0",
-		"sweetalert2": "^11.10.5",
-		"swiper": "^11.0.5"
+		"swiper": "^11.0.5",
+		"react-spinners": "^0.13.8",
+		"sweetalert2": "^11.10.5"
 	},
 	"devDependencies": {
 		"@tanstack/eslint-plugin-query": "^5.20.1",

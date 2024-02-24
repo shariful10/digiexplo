@@ -6,12 +6,6 @@ import React from "react";
 import { PiEye } from "react-icons/pi";
 
 const VendorProductCard = ({ product }: { product: IProduct }) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const formattedDate = date.toLocaleString(); // Adjust the format based on your requirements
-    return formattedDate;
-  };
-
   return (
     <div className="box-shadow p-8 rounded-lg border border-shadowBorder hover:shadow-lg hover:-translate-y-0.5 duration-500">
       <div className="flex justify-between ">
@@ -68,3 +62,12 @@ const VendorProductCard = ({ product }: { product: IProduct }) => {
 };
 
 export default VendorProductCard;
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleString();
+  // Adjust the format based on your requirements
+  const onlyDate = formattedDate.split(",");
+
+  return onlyDate[0];
+};

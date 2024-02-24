@@ -63,7 +63,7 @@ const Sidebar = ({ show, setShow }: Props) => {
           />
         </div>
         <div className="my-[30px]">
-          <div className="">
+          <div className="flex flex-col">
             <Link
               href="/"
               className={`px-10 py-[13px] cursor-pointer ${

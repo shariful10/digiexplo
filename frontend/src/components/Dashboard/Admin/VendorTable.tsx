@@ -1,11 +1,12 @@
 import { Axios } from "@/lib/axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChangeEvent } from "react";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 import PendingVendorModal from "./PendingVendorModal";
 import { IVendor } from "@/components/types";
+import { IoChevronDownOutline } from "react-icons/io5";
 
 interface VendorTableProps {
 	vendorData: IVendor[];
@@ -15,11 +16,17 @@ interface VendorTableProps {
 const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedVendor, setSelectedVendor] = useState<IVendor | null>(null);
-	const handleVendorRequest = async (
-		vendorId: string,
-		e: ChangeEvent<HTMLSelectElement>
-	) => {
-		const status = e.target.value;
+	const [openStatusMenu, setOpenStatusMenu] = useState<boolean[]>([]);
+
+	// status menu
+	useEffect(() => {
+		// Update the openStatusMenu state only if its length is not equal to the products array's length
+		if (openStatusMenu.length !== vendorData.length) {
+			setOpenStatusMenu(new Array(vendorData.length).fill(false));
+		}
+	}, [vendorData.length]);
+
+	const handleVendorRequest = async (vendorId: string, status: string) => {
 		try {
 			const res = await Axios.patch(`admin/update-vendor-request/${vendorId}`, {
 				status,
@@ -27,7 +34,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 			if (res?.data.success) {
 				toast.success(res?.data.message);
 			}
-			refetch;
+			refetch?.();
 			return res?.data?.data;
 		} catch (error: any) {
 			if (error.response.data.success === false) {
@@ -37,17 +44,22 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 		}
 	};
 
-	console.log(vendorData);
-
 	const handleViewVendor = (vendor: IVendor) => {
 		setSelectedVendor(vendor);
 		setOpenModal(true);
 	};
 
+	// toggle status menu
+	const handleToggleStatusMenu = (index: number) => {
+		const updatedOpenStatusMenu = [...openStatusMenu];
+		updatedOpenStatusMenu[index] = !updatedOpenStatusMenu[index];
+		setOpenStatusMenu(updatedOpenStatusMenu);
+	};
+
 	return (
 		<div className="">
-			<div className="overflow-x-scroll lg:overflow-hidden w-full">
-				<table className="w-full text-sm text-left rtl:text-right text-gray-500">
+			<div className=" w-full">
+				<table className="w-full text-sm text-left rtl:text-right text-gray-500 overflow-x-scroll lg:overflow-x-hidden">
 					<thead className="">
 						<tr>
 							<th className="pb-3 px-3 md:px-0 whitespace-nowrap">Name</th>
@@ -66,9 +78,9 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 						</tr>
 					</thead>
 					<tbody>
-						{vendorData.map((vendor) => (
+						{vendorData.map((vendor, index) => (
 							<tr
-								key={vendor?._id}
+								key={index}
 								className="bg-white border-b last:border-none hover:bg-gray-50 text-sm"
 							>
 								<td>
@@ -97,31 +109,36 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 									</p>
 								</td>
 								<td className="whitespace-nowrap">
-									<select
-										className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none"
-										onChange={(e) => handleVendorRequest(vendor._id, e)}
+									<div
+										className="text-white bg-primary rounded-md px-3 py-2 relative cursor-pointer flex items-center justify-between w-full max-w-[100px]"
+										onClick={() => handleToggleStatusMenu(index)}
 									>
-										<option
-											disabled
-											defaultChecked
-											selected
-											className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
+										Status <IoChevronDownOutline size={16} />
+										<div
+											className={`rounded-md p-5 border shadow-md bg-white absolute left-0 ${
+												openStatusMenu[index]
+													? "top-10 z-30 visible"
+													: "top-20 -z-50 invisible"
+											} duration-200 text-black flex flex-col items-center gap-4`}
 										>
-											Status
-										</option>
-										<option
-											value="Approved"
-											className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
-										>
-											Approve
-										</option>
-										<option
-											value="Cancel"
-											className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
-										>
-											Cancel
-										</option>
-									</select>
+											<button
+												className="px-5 py-1.5 bg-green-500 text-white rounded-md "
+												onClick={() =>
+													handleVendorRequest(vendor?._id, "Approved")
+												}
+											>
+												Approve
+											</button>
+											<button
+												className="px-5 py-1.5 bg-amber-500 text-white rounded-md "
+												onClick={() =>
+													handleVendorRequest(vendor?._id, "Cancel")
+												}
+											>
+												Cancel
+											</button>
+										</div>
+									</div>
 								</td>
 								<td className="flex justify-center items-center">
 									<button
@@ -138,7 +155,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
 			</div>
 			{openModal && selectedVendor && (
 				<PendingVendorModal
-					// handleVendorStatusUpdate={handleVendorStatusUpdate}
+					handleVendorStatusUpdate={handleVendorRequest}
 					onClose={() => setOpenModal(false)}
 					vendor={selectedVendor}
 				/>

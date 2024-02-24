@@ -1,19 +1,17 @@
 "use client";
-
-import Link from "next/link";
+import { HandleVendorStatusUpdateType, IVendor } from "@/components/types";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
-import { HandleVendorStatusUpdateType, IVendor } from "@/components/types";
 
 interface Props {
 	vendor: IVendor;
-	// handleVendorStatusUpdate: HandleVendorStatusUpdateType;
+	handleVendorStatusUpdate: HandleVendorStatusUpdateType;
 	onClose: () => void;
 }
 
 const PendingVendorModal = ({
 	vendor,
-	// handleVendorStatusUpdate,
+	handleVendorStatusUpdate,
 	onClose,
 }: Props) => {
 	if (!vendor) {
@@ -32,7 +30,7 @@ const PendingVendorModal = ({
 					<IoClose size={25} />
 				</div>
 				<div className="rounded-2xl">
-            <p className="text-lg mb-2">Verification ID:</p>
+					<p className="text-lg mb-2">Verification ID:</p>
 					<div className="flex flex-col gap-10">
 						<div className="xl:p-2 rounded-2xl mb-6 xl:mb-0 w-full">
 							<Image
@@ -53,26 +51,26 @@ const PendingVendorModal = ({
 								Company Name: {vendor?.companyName}
 							</p>
 							<p className="text-lg mb-2">Company Address: {vendor?.address}</p>
-							{/* <div className="flex justify-end items-center gap-3">
+							<div className="flex justify-end items-center gap-3">
 								<button
 									className="text-white capitalize bg-green-500 duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold"
-									// onClick={() => {
-									//   handleVendorStatusUpdate(vendor?._id, "Approved");
-									//   onClose;
-									// }}
+									onClick={() => {
+										handleVendorStatusUpdate(vendor?._id, "Approved");
+										onClose;
+									}}
 								>
 									Approve
 								</button>
 								<button
 									className="text-black  capitalize bg-amber-400  duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold"
-									// onClick={() => {
-									//   handleVendorStatusUpdate(vendor?._id, "Cancel");
-									//   onClose;
-									// }}
+									onClick={() => {
+										handleVendorStatusUpdate(vendor?._id, "Cancel");
+										onClose;
+									}}
 								>
 									Cancel
 								</button>
-							</div> */}
+							</div>
 						</div>
 					</div>
 				</div>

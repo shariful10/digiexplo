@@ -48,7 +48,7 @@ const PendingProduct = () => {
       if (error.response.data.success === false) {
         toast.error(error.response.data.errorMessage);
       }
-      console.log("add category error", error.response.data);
+      console.log("Product update error", error.response.data);
     }
   };
 

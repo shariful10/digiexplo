@@ -172,6 +172,7 @@ const BecomeVendor = () => {
                     name="verificationId"
                     id="verificationId"
                     onChange={handleFileChange}
+                    accept=".jpg, .jpeg, .png, .webp"
                     hidden
                   />
                   <label

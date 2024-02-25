@@ -40,7 +40,7 @@ const ProfileHeader = ({ vendor }: { vendor: IVendor }) => {
                   <h4 className="text-lg lg:text-xl font-semibold hover:text-primary">
                     {vendor?.user?.firstName + " " + vendor?.user?.lastName}
                   </h4>
-                  {vendor.status !== "Approved" ? (
+                  {vendor?.status !== "Approved" ? (
                     <div className="relative inline-block group">
                       <div className="text-amber-500 cursor-pointer">
                         <IoWarningOutline className="hover:opacity-75" />

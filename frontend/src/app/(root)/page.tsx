@@ -16,8 +16,8 @@ const Home = () => {
 	return (
 		<Container>
 			<Banner />
-			<BrowseByCategory />
 			<FeaturedItems />
+			{/* <BrowseByCategory /> */}
 			<SubscribeBanner />
 			<LatestItems />
 			<RecentBlogs />

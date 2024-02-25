@@ -26,12 +26,14 @@ const registerUser = async (userData: any) => {
           window.location.href = "/";
         }
       }
-    } else {
-      toast.error(data.errorMessage);
     }
   } catch (error: any) {
     console.error("Error registering user:", error.response.data);
-    toast.error(error.response.data.message);
+    if (error.response.data.message === "Mongoose Validation failure") {
+      toast.error(error.response.data.errorDetails.message);
+    } else {
+      toast.error(error.response.data.message);
+    }
   }
 };
 

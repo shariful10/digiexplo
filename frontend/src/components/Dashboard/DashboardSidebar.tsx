@@ -98,6 +98,12 @@ const dashboardAdminItems = [
     url: "/dashboard/change-password",
     Icon: FaGear,
   },
+  // {
+  //   id: 6,
+  //   title: "Add Product",
+  //   url: "/dashboard/add-product",
+  //   Icon: FaCirclePlus,
+  // },
 ];
 
 interface DashboardNavbarProps {

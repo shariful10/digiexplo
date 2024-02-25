@@ -41,6 +41,7 @@ export interface CategoryType {
 }
 
 export interface IVendor {
+  _id: string;
   user: IUser;
   companyName: string;
   ownerName: string;
@@ -76,3 +77,15 @@ export type HandleProductStatusUpdateType = (
   productId: string,
   status: string
 ) => Promise<void>;
+
+export type HandleVendorStatusUpdateType = (
+  vendorId: string,
+  status: string
+) => Promise<void>;
+
+
+export interface QueryParams {
+  category?: string;
+  limit?: number;
+  page?: number;
+}

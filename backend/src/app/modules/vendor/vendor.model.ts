@@ -22,7 +22,7 @@ const VendorSchema = new Schema<IVendor>(
       {
         type: Schema.Types.ObjectId,
         ref: "product",
-        unique: true,
+        // unique: true,
       },
     ],
     wallet: {

@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
+import { Axios } from "@/lib/axios";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import VendorTable from "./VendorTable";
 import DashboardHeader from "../DashboardHeader";
-import { Axios } from "@/lib/axios";
-import toast from "react-hot-toast";
 
 interface Vendor {
   _id: string;
@@ -24,12 +24,8 @@ const AllVendorRequest = () => {
     }
   });
 
-  const pendingStatus = vendors.filter(
-    (item: any) => item.status === "Pending"
-  );
-
   return (
-    <div className="mx-auto w-full z-10">
+    <div className="relative">
       <DashboardHeader
         url="dashboard"
         currentPage="all vendor request"
@@ -37,8 +33,8 @@ const AllVendorRequest = () => {
       />
       <div className="px-7 md:px-10">
         {vendors.length > 0 ? (
-          <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
-            <VendorTable vendorData={pendingStatus} refetch={refetch} />
+          <div className="rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
+            <VendorTable vendorData={vendors} refetch={refetch} />
           </div>
         ) : (
           <p>No pending request</p>

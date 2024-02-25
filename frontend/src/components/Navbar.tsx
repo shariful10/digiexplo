@@ -1,21 +1,19 @@
 "use client";
 import logo from "@/images/logo.webp";
 import { auth } from "@/lib/auth";
+import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useQuery } from "react-query";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
-import { BASE_URL } from "./helper";
-import { Axios } from "@/lib/axios";
-import { useQuery } from "react-query";
 
 interface Props {
   show: boolean;
@@ -33,7 +31,6 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
     const res = await Axios.get(`/users/get-user`);
     return res?.data?.data;
   });
-  // console.log(user)
 
   return (
     <div className="md:px-10 py-5 bg-white">

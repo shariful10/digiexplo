@@ -16,7 +16,6 @@ import { TbFidgetSpinner } from "react-icons/tb";
 const SignUp = () => {
   const [uploadButtonText, setUploadButtonText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const s3 = new AWS.S3();
 
   const [inputVal, setInputVal] = useState<{
     name: string;

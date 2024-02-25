@@ -189,6 +189,7 @@ const AddProductForm = () => {
               type="file"
               name="thumbnail"
               id="custom-input-thumbnail"
+              accept=".jpg, .jpeg, .png, .webp"
               hidden
             />
             <label

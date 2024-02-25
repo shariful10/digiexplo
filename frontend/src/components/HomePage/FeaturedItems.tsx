@@ -12,6 +12,7 @@ import { useGetApprovedProducts } from "@/lib/getProducts";
 
 const FeaturedItems = () => {
   const { data: products = [], isLoading, refetch } = useGetApprovedProducts();
+  console.log(products);
 
   return (
     <div className="my-16">

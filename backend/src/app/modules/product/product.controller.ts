@@ -33,7 +33,7 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 const getProductsByCategory = catchAsync(async (req, res) => {
-  const category = req.params.category as unknown as string;
+  const category = req.query;
   const { page, limit } = req.query;
   const products = await ProductServices.getProductsByCategory(
     category,

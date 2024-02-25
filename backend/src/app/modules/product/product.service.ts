@@ -43,14 +43,21 @@ const createProduct = async (
 };
 
 const getProductsByCategory = async (
-  category: string,
+  category: Record<string, unknown>,
   page: number,
   limit: number
 ) => {
   const skip = !page ? 0 : limit * page;
-  const products = await ProductModel.find({ category })
-    .limit(limit)
-    .skip(skip);
+  const query: Record<string, unknown> = { status: "Approved" };
+
+  if (category?.category) {
+    const decodedCategory = decodeURIComponent(category?.category as string);
+
+    query.category = decodedCategory;
+  }
+
+  const products = await ProductModel.find(query).limit(limit).skip(skip);
+
   return products;
 };
 

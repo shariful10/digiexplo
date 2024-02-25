@@ -22,7 +22,7 @@ router.post(
 // get product by cateogry
 
 router.get(
-  "/get-products-by-category/:category",
+  "/get-products-by-category",
   ProductControllers.getProductsByCategory
 );
 

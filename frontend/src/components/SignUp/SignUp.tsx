@@ -7,9 +7,15 @@ import { FaPhone } from "react-icons/fa6";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 import { auth } from "@/lib/auth";
+import { Axios } from "@/lib/axios";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { BASE_URL } from "../helper";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const SignUp = () => {
   const [uploadButtonText, setUploadButtonText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   // const s3 = new AWS.S3();
 
   const [inputVal, setInputVal] = useState<{
@@ -50,6 +56,7 @@ const SignUp = () => {
 
   const handleSignUp = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData();
 
@@ -71,13 +78,42 @@ const SignUp = () => {
     formData.append("password", password);
     formData.append("profileImg", profileImg);
 
-    auth.registerUser(formData);
-  };
+    // auth.registerUser(formData);
+    try {
+      // Make API request to register user
+      const response = await axios.post(
+        `${BASE_URL}/users/create-user`,
+        formData,
+        { withCredentials: true }
+      );
 
-  let isVendorRequest;
-  if (typeof window !== "undefined") {
-    isVendorRequest = localStorage.getItem("vendorRequest");
-  }
+      const data = await response.data;
+
+      if (data && data.success) {
+        toast.success(data.message);
+        if (typeof window !== "undefined") {
+          const isVendorRequest = localStorage.getItem("vendorRequest");
+          if (isVendorRequest) {
+            window.location.href = "/vendor-request";
+          } else {
+            window.location.href = "/";
+          }
+        }
+        setIsLoading(false);
+      } else {
+        toast.error(data.errorMessage);
+      }
+    } catch (error: any) {
+      console.error("Error registering user:", error.response.data);
+      if (error.response.data.message === "Mongoose Validation failure") {
+        toast.error(error.response.data.errorDetails.message);
+        setIsLoading(false);
+      } else {
+        toast.error(error.response.data.message);
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <div className="md:h-screen flex justify-center items-center bg-gradient-to-tr from-cyan-400 to-fuchsia-500">
@@ -262,7 +298,11 @@ const SignUp = () => {
                 type="submit"
                 className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 rounded-full py-2 px-8 w-full text-lg font-semibold text-white transition-colors duration-500"
               >
-                {isVendorRequest ? "Continue" : "Sign Up"}
+                {isLoading ? (
+                  <TbFidgetSpinner className="animate-spin mx-auto" size={28} />
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
 

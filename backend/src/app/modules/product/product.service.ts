@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Types } from "mongoose";
 import { CartModel } from "../cart/cart.model";
 import { VendorModel } from "../vendor/vendor.model";
@@ -135,8 +136,7 @@ const stripeHook = async (body: any, sig: string) => {
   let data;
   let eventType;
   if (endpointSecret) {
-    let event;
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+    const event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
     data = event.data.object;
     eventType = event.type;
   } else {
@@ -146,7 +146,7 @@ const stripeHook = async (body: any, sig: string) => {
 
   if (eventType === "checkout.session.completed") {
     const customerInfo: any = await stripe.customers.retrieve(data.customer);
-    let userId = customerInfo.metadata.userId;
+    const userId = customerInfo.metadata.userId;
     const product = JSON.parse(customerInfo.metadata.product);
     const order = await OrderModel.create({
       user: userId,

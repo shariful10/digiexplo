@@ -4,15 +4,50 @@ import sendResponse from "../../utils/sendResponse";
 import { ProductServices } from "./product.service";
 import { Types } from "mongoose";
 import { Express } from "express";
+import { VendorModel } from "../vendor/vendor.model";
+
+// const createProduct = catchAsync(async (req, res) => {
+//   const file = req.files as { [fieldname: string]: Express.Multer.File[] };
+//   const thumbnail = file?.thumbnail[0];
+//   const productFile = file?.file[0];
+//   const vendorId = req.user._id;
+//   const { product, profile_not_update } = await ProductServices.createProduct(
+//     req.body,
+//     vendorId,
+//     thumbnail,
+//     productFile
+//   );
+//   if (profile_not_update) {
+//     return sendResponse(res, {
+//       data: null,
+//       statusCode: httpStatus.FORBIDDEN,
+//       success: false,
+//       message: "profile not updated",
+//     });
+//   }
+//   return sendResponse(res, {
+//     data: product,
+//     statusCode: httpStatus.CREATED,
+//     success: true,
+//     message: "product created successfully let admin to approve it",
+//   });
+// });
 
 const createProduct = catchAsync(async (req, res) => {
   const file = req.files as { [fieldname: string]: Express.Multer.File[] };
   const thumbnail = file?.thumbnail[0];
   const productFile = file?.file[0];
-  const vendorId = req.user._id;
+
+  const userId = req.user._id;
+  const vendor = await VendorModel.findOne({ user: userId });
+
+  if (!vendor) {
+    throw new Error("Vendor does not match");
+  }
+
   const { product, profile_not_update } = await ProductServices.createProduct(
     req.body,
-    vendorId,
+    vendor?._id,
     thumbnail,
     productFile
   );
@@ -28,7 +63,7 @@ const createProduct = catchAsync(async (req, res) => {
     data: product,
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "product created successfully let admin to approve it",
+    message: "Success: Waiting Admin Approval",
   });
 });
 

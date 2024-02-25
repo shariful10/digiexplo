@@ -82,3 +82,10 @@ export type HandleVendorStatusUpdateType = (
   vendorId: string,
   status: string
 ) => Promise<void>;
+
+
+export interface QueryParams {
+  category?: string;
+  limit?: number;
+  page?: number;
+}

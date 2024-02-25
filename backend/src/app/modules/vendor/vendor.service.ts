@@ -22,7 +22,7 @@ const becomeVendor = async (
       vendor_pending: true,
     };
   }
-  // type TOptional = "status" | "products"
+  
   const uploadVerificationImg = await uploadFile(verificationImg, "vendor");
   const result = await new VendorModel({
     address: payload.address,

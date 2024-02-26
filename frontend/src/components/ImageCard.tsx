@@ -7,12 +7,7 @@ import { Axios } from "@/lib/axios";
 import FormattedPrice from "./FormattedPrice";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
-export type ProductTypes = {
-	product: IProduct;
-	className: string;
-};
-
-const ImageCard = ({ product, className }: ProductTypes) => {
+const ImageCard = ({ product }: { product: IProduct }) => {
 	if (!product) {
 		return null;
 	}

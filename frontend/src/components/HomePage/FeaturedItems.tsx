@@ -22,7 +22,7 @@ const FeaturedItems = () => {
       >
         {products
           .map((product: IProduct) => (
-            <ImageCard key={product._id} product={product} className="" />
+            <ImageCard key={product._id} product={product} />
           ))
           .slice(0, 8)}
       </div>

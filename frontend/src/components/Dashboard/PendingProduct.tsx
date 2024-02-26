@@ -75,8 +75,8 @@ const PendingProduct = () => {
         {isLoading ? (
           <Loader />
         ) : products.length > 0 ? (
-          <div className=" rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
-            <div className="overflow-x-scroll lg:overflow-hidden w-full">
+          <div className=" rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full overflow-x-scroll lg:overflow-hidden min-h-[300px]">
+            <div className="w-full">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="">
                   <tr>
@@ -111,34 +111,32 @@ const PendingProduct = () => {
                       key={product?._id}
                     >
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0 capitalize">
+                        <p className="whitespace-nowrap  capitalize">
                           {index + 1}
                         </p>
                       </td>
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0 capitalize">
+                        <p className="whitespace-nowrap  capitalize">
                           {product?.productName}
                         </p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0">
-                          ${product?.price}
-                        </p>
+                        <p className="whitespace-nowrap ">${product?.price}</p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0">
+                        <p className="whitespace-nowrap ">
                           {product?.vendor?.user?.firstName +
                             " " +
                             product?.vendor?.user?.lastName}
                         </p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0">
+                        <p className="whitespace-nowrap ">
                           {product?.category}
                         </p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
-                        <p className="whitespace-nowrap px-3 md:px-0">
+                        <p className="whitespace-nowrap ">
                           {formatDate(product?.createdAt)}
                         </p>
                       </td>
@@ -154,9 +152,6 @@ const PendingProduct = () => {
                                 ? "top-10 z-30 visible"
                                 : "top-48 -z-50 invisible"
                             } duration-300 text-black flex flex-col items-center gap-4`}
-                            style={{
-                              top: index >= products.length - 2 ? "-130px" : "",
-                            }}
                           >
                             <button
                               className="px-5 py-1.5 bg-green-500 text-white rounded-md "

@@ -90,33 +90,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
                     {vendor?.website}
                   </p>
                 </td>
-                <td className="whitespace-nowrap">
-                  <select
-                    className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none"
-                    onChange={(e) => handleVendorRequest(vendor._id, e)}
-                    defaultValue="default"
-                  >
-                    <option
-                      disabled
-                      value="default"
-                      className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
-                    >
-                      Status
-                    </option>
-                    <option
-                      value="Approved"
-                      className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
-                    >
-                      Approve
-                    </option>
-                    <option
-                      value="Cancel"
-                      className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
-                    >
-                      Cancel
-                    </option>
-                  </select>
-                </td>
+
                 <td className="flex justify-center items-center py-4 px-8">
                   <button
                     onClick={() => handleViewVendor(vendor)}

@@ -5,12 +5,12 @@ import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
+import CartIcon from "./CartIcon";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
@@ -59,15 +59,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <div
-                onClick={() => setShowCart(true)}
-                className="relative cursor-pointer"
-              >
-                <IoMdCart className="text-2xl" />
-                <div className="bg-primary rounded-full p-0.5 h-4 w-4 flex justify-center items-center text-white text-[10px] absolute -top-1 -right-1">
-                  0
-                </div>
-              </div>
+              <CartIcon setShowCart={setShowCart} />
               {user.profileImg ? (
                 <div>
                   <Image

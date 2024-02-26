@@ -1,15 +1,21 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { auth } from "@/lib/auth";
 import { IoMail } from "react-icons/io5";
 import { IoIosLock } from "react-icons/io";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setIsLoading(true)
     const email = e.target.email.value;
     const password = e.target.password.value;
     auth.loginUser({ email, password });
+    setIsLoading(false)
   };
 
   return (
@@ -77,7 +83,11 @@ const LoginForm = () => {
                 type="submit"
                 className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 rounded-full py-2 px-8 w-full text-lg font-semibold text-white transition-colors duration-500"
               >
-                Login
+                {isLoading ? (
+									<TbFidgetSpinner className="animate-spin mx-auto" size={28} />
+								) : (
+									"Login"
+								)}
               </button>
             </div>
 

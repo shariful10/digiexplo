@@ -4,7 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { ProductServices } from "./product.service";
 import { Types } from "mongoose";
 import { Express } from "express";
-import { VendorModel } from "../vendor/vendor.model";
+// import { VendorModel } from "../vendor/vendor.model";
 
 // const createProduct = catchAsync(async (req, res) => {
 //   const file = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -39,15 +39,10 @@ const createProduct = catchAsync(async (req, res) => {
   const productFile = file?.file[0];
 
   const userId = req.user._id;
-  const vendor = await VendorModel.findOne({ user: userId });
-
-  if (!vendor) {
-    throw new Error("Vendor does not match");
-  }
 
   const { product, profile_not_update } = await ProductServices.createProduct(
     req.body,
-    vendor?._id,
+    userId,
     thumbnail,
     productFile
   );

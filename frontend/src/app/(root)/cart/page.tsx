@@ -1,11 +1,9 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 import { Axios } from "@/lib/axios";
 import { useQuery } from "react-query";
 import { IoClose } from "react-icons/io5";
 import { IProduct } from "@/components/types";
-import { productItems } from "@/components/data";
 import FormattedPrice from "@/components/FormattedPrice";
 
 const CartPage = () => {

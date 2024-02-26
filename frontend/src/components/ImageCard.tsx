@@ -1,13 +1,11 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { IProduct } from "./types";
 import toast from "react-hot-toast";
-import { useQuery } from "react-query";
 import { Axios } from "@/lib/axios";
 import FormattedPrice from "./FormattedPrice";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { IProduct } from "./types";
 
 export type ProductTypes = {
 	product: IProduct;

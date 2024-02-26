@@ -5,16 +5,15 @@ import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { IoMdCart } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
+import CartIcon from "./CartIcon";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
-import CartIcon from "./CartIcon";
 
 interface Props {
   show: boolean;

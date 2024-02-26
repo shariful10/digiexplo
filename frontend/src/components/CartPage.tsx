@@ -1,11 +1,13 @@
 "use client";
+import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
-import { productItems } from "./data";
-import React, { useState } from "react";
+import React from "react";
 import { CgClose } from "react-icons/cg";
-import { TiDelete } from "react-icons/ti";
+import { useQuery } from "react-query";
 import FormattedPrice from "./FormattedPrice";
+import { productItems } from "./data";
+import { IProduct } from "./types";
 
 interface CartPageProps {
   showCart: boolean;
@@ -14,13 +16,21 @@ interface CartPageProps {
 
 const CartPage = ({ showCart, setShowCart }: CartPageProps) => {
   // Calculate total price
-  const totalPrice = productItems.reduce((acc, { price }) => acc + price, 0);
+  
+  const { data: cart = [], refetch } = useQuery(["cart"], async () => {
+    const res = await Axios.get(`/users/get-cart`);
+    return res?.data?.data;
+  });
+  
+  const totalPrice = cart?.products?.reduce((acc: number, { price }: IProduct) => acc + price, 0) || 0;
+
+  console.log(cart);
 
   return (
     <div className="">
       <div
         className={`${
-          productItems.length > 0 ? "w-[300px] md:w-[400px]" : "w-[300px]"
+          cart?.products?.length > 0 ? "w-[300px] md:w-[400px]" : "w-[300px]"
         }  bg-white h-screen p-5 fixed top-0 z-[99999] ${
           showCart
             ? "right-0 duration-500 overflow-hidden"
@@ -30,20 +40,20 @@ const CartPage = ({ showCart, setShowCart }: CartPageProps) => {
         <div className="flex flex-row-reverse md:flex-row justify-between items-center text-[#1b2430] mb-10">
           <div className="flex items-center gap-2">
             <h3 className="text-xl font-medium">Cart</h3>
-            <span>({productItems.length})</span>
+            <span>({cart?.products?.length})</span>
           </div>
           <CgClose
             onClick={() => setShowCart(false)}
             className="cursor-pointer text-xl md:text-2xl"
           />
         </div>
-        {productItems.length > 0 ? (
+        {cart?.products?.length > 0 ? (
           <div className="flex flex-col gap-4">
-            {productItems.map(({ id, image, productName, price }) => (
-              <div key={id} className="border-t-2">
+            {cart?.products?.map(({ _id, thumbnail, productName, price }: IProduct) => (
+              <div key={_id} className="border-t-2">
                 <div className="flex gap-4 pt-5 pb-2">
                   <Image
-                    src={image}
+                    src={thumbnail}
                     width={100}
                     height={20}
                     className="rounded-md w-[100px] height-[40px]"
@@ -70,7 +80,6 @@ const CartPage = ({ showCart, setShowCart }: CartPageProps) => {
         ) : (
           <h4 className="text-lg text-[#1b2430] mt-10">Your cart is empty!</h4>
         )}
-        {/* Display total price */}
         {productItems.length > 0 && (
           <>
             <div className="text-lg font-semibold mt-5 flex justify-between items-center">

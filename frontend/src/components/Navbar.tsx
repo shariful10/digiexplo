@@ -14,6 +14,7 @@ import { useQuery } from "react-query";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
+import CartIcon from "./CartIcon";
 
 interface Props {
   show: boolean;
@@ -59,15 +60,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <div
-                onClick={() => setShowCart(true)}
-                className="relative cursor-pointer"
-              >
-                <IoMdCart className="text-2xl" />
-                <div className="bg-primary rounded-full p-0.5 h-4 w-4 flex justify-center items-center text-white text-[10px] absolute -top-1 -right-1">
-                  0
-                </div>
-              </div>
+              <CartIcon setShowCart={setShowCart} />
               {user.profileImg ? (
                 <div>
                   <Image

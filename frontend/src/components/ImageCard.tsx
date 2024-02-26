@@ -47,7 +47,10 @@ const ImageCard = ({ product, className }: ProductTypes) => {
 					alt="image"
 				/>
 				<div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 duration-500 flex flex-col justify-center items-center gap-4">
-					<button className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center">
+					<button
+						onClick={() => handleAddToCart(_id)}
+						className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center"
+					>
 						<MdOutlineShoppingCart size={16} /> <span>Add to cart</span>
 					</button>
 					<Link href={`/product/${_id}`}>

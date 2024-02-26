@@ -1,4 +1,3 @@
-import { ProductInterface } from "@/components/ImageCard";
 import { IProduct } from "@/components/types";
 import Image from "next/image";
 import Link from "next/link";

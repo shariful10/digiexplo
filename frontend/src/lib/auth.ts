@@ -2,6 +2,7 @@ import { BASE_URL } from "@/components/helper";
 import axios from "axios";
 
 import toast from "react-hot-toast";
+import { Axios } from "./axios";
 
 const registerUser = async (userData: any) => {
   try {
@@ -54,28 +55,15 @@ const loginUser = async (loginData: { email: string; password: string }) => {
       toast.error(result.errorMessage);
     }
   } catch (error: any) {
-    toast.error(error.response.data.errorMessage);
+    toast.error(error?.response?.data?.errorMessage);
     console.log("Error logging in user:", error);
   }
 };
 
 const logoutUser = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      console.log(data);
-      toast.success(data.message);
-      window.location.href = "/ ";
-    }
+    await Axios.post("auth/logout");
+    window.location.href = "/ ";
   } catch (error: any) {
     toast.error(error.response.data.errorMessage);
     console.log("Error logging in user:", error.response.data);

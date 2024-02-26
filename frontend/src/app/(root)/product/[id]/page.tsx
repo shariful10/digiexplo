@@ -3,8 +3,6 @@ import { formatDate } from "@/components/Dashboard/Vendor/VendorProductCard";
 import AuthorInfo from "@/components/ProductDetails/AuthorInfo";
 import ProductDescription from "@/components/ProductDetails/ProductDescription";
 import ProductInformation from "@/components/ProductDetails/ProductInformation";
-import Tags from "@/components/Tags";
-import { IProduct } from "@/components/types";
 import { useGetApprovedProducts } from "@/lib/getProducts";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -18,7 +16,6 @@ const ProductDetails = () => {
   if (!product) {
     return null;
   }
-
 
   return (
     <div>
@@ -42,10 +39,18 @@ const ProductDetails = () => {
               <span className="font-medium cursor-pointer">
                 {product?.vendor.user.username}
               </span>{" "}
-              in <span className="font-medium cursor-pointer">{product?.category}</span>{" "}
-              on <span className="font-medium cursor-pointer">{formatDate(product?.createdAt)}</span>
+              in{" "}
+              <span className="font-medium cursor-pointer">
+                {product?.category}
+              </span>{" "}
+              on{" "}
+              <span className="font-medium cursor-pointer">
+                {formatDate(product?.createdAt)}
+              </span>
             </p>
-            <p className="text-xl md:text-3xl font-extrabold my-6">${product?.price}</p>
+            <p className="text-xl md:text-3xl font-extrabold my-6">
+              ${product?.price}
+            </p>
             <button className="text-black hover:text-white capitalize bg-gray-100 hover:bg-primary duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold">
               Purchase
             </button>

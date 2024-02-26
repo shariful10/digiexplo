@@ -1,6 +1,5 @@
 "use client";
 import logo from "@/images/logo.webp";
-import { auth } from "@/lib/auth";
 import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import CartIcon from "./CartIcon";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
+import { auth } from "@/lib/auth";
 
 interface Props {
   show: boolean;
@@ -71,10 +71,10 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                     alt="ProfileImage"
                   />
                   <ProfileMenu
+                    logoutUser={logoutUser}
                     open={open}
                     user={user}
                     setOpen={setOpen}
-                    logoutUser={logoutUser}
                   />
                 </div>
               ) : (

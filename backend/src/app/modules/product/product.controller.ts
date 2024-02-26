@@ -82,10 +82,22 @@ const getProductsByCategory = catchAsync(async (req, res) => {
 const addProductToCart = catchAsync(async (req, res) => {
   const productId = req.params.productId as unknown as Types.ObjectId;
   const userId = req.user._id;
-  const cartAdded = await ProductServices.addProductToCart(productId, userId);
+  const { cartExist, cartDuplicate } = await ProductServices.addProductToCart(
+    productId,
+    userId
+  );
+
+  if (cartDuplicate) {
+    return sendResponse(res, {
+      data: cartExist,
+      statusCode: httpStatus.OK,
+      success: false,
+      message: "product already added",
+    });
+  }
 
   sendResponse(res, {
-    data: cartAdded,
+    data: cartExist,
     statusCode: httpStatus.OK,
     success: true,
     message: "product added into cart",

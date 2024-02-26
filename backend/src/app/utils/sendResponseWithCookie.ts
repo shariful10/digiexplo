@@ -1,15 +1,14 @@
 import { Response } from "express";
-import config from "../config";
 
 interface IResponse {
-  session_id?: any;
-  user_id?: any;
+  session_id?: undefined | string;
+  user_id?: undefined | string;
   statusCode: number;
   success: boolean;
   message?: string;
 }
 
-const sendResponseWithCookie = <T>(
+const sendResponseWithCookie = (
   res: Response,
   data: IResponse,
   cookieKey: string
@@ -24,7 +23,11 @@ const sendResponseWithCookie = <T>(
         : cookieKey === "session_id"
           ? data.session_id
           : null,
-      { expires: cookieExpires, secure: true, sameSite: "none" }
+      {
+        expires: cookieExpires,
+        secure: true,
+        sameSite: "none",
+      }
     )
     .json({
       success: data.success,

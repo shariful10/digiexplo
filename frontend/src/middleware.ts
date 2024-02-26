@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
     (await validateUser(token).catch((err) => {
       console.log(err);
     }));
+  console.log(user_id);
   if (request.nextUrl.pathname.startsWith("dashboard") && !user_id) {
     return NextResponse.redirect(new URL("/", request.url));
   }

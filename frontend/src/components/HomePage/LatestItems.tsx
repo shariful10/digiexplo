@@ -1,11 +1,14 @@
+"use client";
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import SectionDesc from "../SectionDesc";
 import ImageCard from "../ImageCard";
 import Tabs from "../Tabs";
-import { products } from "../data";
+import { useGetApprovedProducts } from "@/lib/getProducts";
 
 const LatestItems = () => {
+  const { data: products = [], isLoading, refetch } = useGetApprovedProducts();
+
   return (
     <div className="my-16">
       <SectionTitle title="Latest" subtitle="Items" />
@@ -16,7 +19,7 @@ const LatestItems = () => {
       >
         {products
           .map((product) => (
-            <ImageCard key={product.id} product={product} className="" />
+            <ImageCard key={product._id} product={product} className="" />
           ))
           .slice(8, 16)}
       </div>

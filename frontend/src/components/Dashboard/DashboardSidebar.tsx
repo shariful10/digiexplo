@@ -88,22 +88,10 @@ const dashboardAdminItems = [
   },
   {
     id: 4,
-    title: "Rejected Vendor",
-    url: "/dashboard/rejected-vendors",
-    Icon: FaMinusSquare,
-  },
-  {
-    id: 5,
     title: "Change Password",
     url: "/dashboard/change-password",
     Icon: FaGear,
   },
-  // {
-  //   id: 6,
-  //   title: "Add Product",
-  //   url: "/dashboard/add-product",
-  //   Icon: FaCirclePlus,
-  // },
 ];
 
 interface DashboardNavbarProps {

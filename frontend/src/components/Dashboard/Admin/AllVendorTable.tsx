@@ -60,7 +60,10 @@ const AllVendorTable = ({
 										</p>
 									</td>
 									<td className="py-4 px-8 whitespace-nowrap">
-										<Link href={vendor?.website} className="px-3 md:px-0 hover:text-primary hover:underline">
+										<Link
+											href={vendor?.website}
+											className="px-3 md:px-0 hover:text-primary hover:underline"
+										>
 											{vendor?.website}
 										</Link>
 									</td>
@@ -70,9 +73,20 @@ const AllVendorTable = ({
 										</button>
 									</td>
 									<td className="flex justify-center items-center py-4 px-8">
-										<p className="font-medium text-primary flex justify-center items-center mt-1.5">
-											30%
-										</p>
+										<select className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none">
+											<option
+												value="30%"
+												className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
+											>
+												30%
+											</option>
+											<option
+												value="20%"
+												className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"
+											>
+												20%
+											</option>
+										</select>
 									</td>
 								</tr>
 							))

@@ -36,8 +36,12 @@ const AllVendor = () => {
 				{isLoading ? (
 					<Loader />
 				) : vendors.length > 0 ? (
-					<div className="rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full">
-						<AllVendorTable vendorData={vendors} refetch={refetch} isLoading={isLoading} />
+					<div className="rounded-md box-shadow border border-[#F1F1F4] max-w-[1350px] w-full">
+						<AllVendorTable
+							refetch={refetch}
+							vendorData={vendors}
+							isLoading={isLoading}
+						/>
 					</div>
 				) : (
 					<p>No Approve Vendor</p>

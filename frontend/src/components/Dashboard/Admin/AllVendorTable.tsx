@@ -13,11 +13,12 @@ const AllVendorTable = ({
 	isLoading,
 	vendorData,
 }: VendorTableProps) => {
+  console.log(vendorData);
 	return (
-		<div className="">
-			<div className="overflow-x-scroll lg:overflow-hidden w-full">
+		<div className="w-full">
+			<div className="overflow-x-scroll 2xl:overflow-hidden w-full">
 				<table className="w-full text-sm text-left rtl:text-right text-gray-500">
-					<thead className="">
+					<thead>
 						<tr>
 							<th className="py-3 px-8 whitespace-nowrap">Name</th>
 							<th className="py-3 px-8 whitespace-nowrap">Email</th>
@@ -73,7 +74,7 @@ const AllVendorTable = ({
 										</button>
 									</td>
 									<td className="flex justify-center items-center py-4 px-8">
-										<select className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none">
+										<select className="text-white bg-primary rounded-md px-3 py-2 focus:outline-none cursor-pointer">
 											<option
 												value="30%"
 												className="py-2 px-4 text-primary bg-white hover:bg-gray-100 cursor-pointer"

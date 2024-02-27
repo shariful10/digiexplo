@@ -1,11 +1,11 @@
 import { Axios } from "@/lib/axios";
-import Link from "next/link";
 import { useState } from "react";
-import { ChangeEvent } from "react";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 import PendingVendorModal from "./PendingVendorModal";
 import { IVendor } from "@/components/types";
+import { IoOpenSharp } from "react-icons/io5";
+import Link from "next/link";
 
 interface VendorTableProps {
   vendorData: IVendor[];
@@ -15,11 +15,7 @@ interface VendorTableProps {
 const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState<IVendor | null>(null);
-  const handleVendorRequest = async (
-    vendorId: string,
-    e: ChangeEvent<HTMLSelectElement>
-  ) => {
-    const status = e.target.value;
+  const handleVendorRequest = async (vendorId: string, status: string) => {
     try {
       const res = await Axios.patch(`admin/update-vendor-request/${vendorId}`, {
         status,
@@ -27,7 +23,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
       if (res?.data.success) {
         toast.success(res?.data.message);
       }
-      refetch;
+      refetch?.();
       return res?.data?.data;
     } catch (error: any) {
       if (error.response.data.success === false) {
@@ -36,8 +32,6 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
       console.log("Vendor Update error", error);
     }
   };
-
-  console.log(vendorData);
 
   const handleViewVendor = (vendor: IVendor) => {
     setSelectedVendor(vendor);
@@ -56,7 +50,9 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
               <th className="py-3 px-8 whitespace-nowrap">Owner Name</th>
               <th className="py-3 px-8 whitespace-nowrap">Website</th>
               <th className="py-3 px-8 whitespace-nowrap">Status</th>
-              <th className="py-3 px-8 whitespace-nowrap text-center">View</th>
+              <th className="py-3 px-8 whitespace-nowrap text-center">
+                Preview
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -87,7 +83,18 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
                 </td>
                 <td className="py-4 px-8">
                   <p className="whitespace-nowrap px-3 md:px-0">
-                    {vendor?.website}
+                    <Link
+                      href={vendor?.website}
+                      target="_blank"
+                      className="text-blue-500 underline hover:text-[#E5185D] duration-300"
+                    >
+                      {vendor?.website}
+                    </Link>
+                  </p>
+                </td>
+                <td className="py-4 px-8">
+                  <p className="bg-amber-500 py-1 px-3.5 text-white rounded-full text-xs">
+                    {vendor?.status}
                   </p>
                 </td>
 
@@ -96,7 +103,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
                     onClick={() => handleViewVendor(vendor)}
                     className="font-medium text-primary flex justify-center items-center mt-1.5"
                   >
-                    <FaEye size={20} />
+                    <IoOpenSharp size={25} />
                   </button>
                 </td>
               </tr>
@@ -106,7 +113,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
       </div>
       {openModal && selectedVendor && (
         <PendingVendorModal
-          // handleVendorStatusUpdate={handleVendorStatusUpdate}
+          handleVendorStatusUpdate={handleVendorRequest}
           onClose={() => setOpenModal(false)}
           vendor={selectedVendor}
         />

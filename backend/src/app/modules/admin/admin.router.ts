@@ -53,4 +53,10 @@ router.post(
   CategoryControllers.deleteCategory
 );
 
+router.get(
+  "/get-approved-vendors",
+  auth(USER_ROLE.ADMIN),
+  AdminController.getApprovedVendor
+);
+
 export const AdminRoutes = router;

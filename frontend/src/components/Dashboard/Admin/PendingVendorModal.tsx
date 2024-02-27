@@ -2,18 +2,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { HandleVendorStatusUpdateType, IVendor } from "@/components/types";
 
 interface Props {
 	vendor: IVendor;
 	// handleVendorStatusUpdate: HandleVendorStatusUpdateType;
 	onClose: () => void;
+	isLoading: boolean;
 }
 
 const PendingVendorModal = ({
 	vendor,
 	// handleVendorStatusUpdate,
 	onClose,
+	isLoading,
 }: Props) => {
 	if (!vendor) {
 		return null;
@@ -31,16 +35,20 @@ const PendingVendorModal = ({
 					<IoClose size={25} />
 				</div>
 				<div className="rounded-2xl">
-            <p className="text-lg mb-2">Verification ID:</p>
+					<p className="text-lg mb-2">Verification ID:</p>
 					<div className="flex flex-col gap-10">
 						<div className="xl:p-2 rounded-2xl mb-6 xl:mb-0 w-full">
-							<Image
-								src={vendor?.verificationId}
-								width={655}
-								height={437}
-								alt={vendor?.verificationId}
-								className="rounded-2xl w-full bg-cover xl:h-full"
-							/>
+							{isLoading ? (
+								<Skeleton className="mb-4 rounded-2xl" height={300} />
+							) : (
+								<Image
+									src={vendor?.verificationId}
+									width={655}
+									height={437}
+									alt={vendor?.verificationId}
+									className="rounded-2xl w-full bg-cover xl:h-full"
+								/>
+							)}
 						</div>
 						<div>
 							<p className="text-lg mb-2">Email: {vendor?.user?.email}</p>

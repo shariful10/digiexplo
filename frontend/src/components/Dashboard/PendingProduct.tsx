@@ -21,7 +21,6 @@ const PendingProduct = () => {
 
   // status menu
   useEffect(() => {
-    // Update the openStatusMenu state only if its length is not equal to the products array's length
     if (openStatusMenu.length !== products.length) {
       setOpenStatusMenu(new Array(products.length).fill(false));
     }

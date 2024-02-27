@@ -10,9 +10,10 @@ import { IVendor } from "@/components/types";
 interface VendorTableProps {
   vendorData: IVendor[];
   refetch?: () => void;
+  isLoading: boolean
 }
 
-const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
+const VendorTable = ({ vendorData, refetch, isLoading }: VendorTableProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState<IVendor | null>(null);
   const handleVendorRequest = async (
@@ -55,7 +56,6 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
               <th className="py-3 px-8 whitespace-nowrap">Company Name</th>
               <th className="py-3 px-8 whitespace-nowrap">Owner Name</th>
               <th className="py-3 px-8 whitespace-nowrap">Website</th>
-              <th className="py-3 px-8 whitespace-nowrap">Status</th>
               <th className="py-3 px-8 whitespace-nowrap text-center">View</th>
             </tr>
           </thead>
@@ -109,6 +109,7 @@ const VendorTable = ({ vendorData, refetch }: VendorTableProps) => {
           // handleVendorStatusUpdate={handleVendorStatusUpdate}
           onClose={() => setOpenModal(false)}
           vendor={selectedVendor}
+          isLoading={isLoading}
         />
       )}
     </div>

@@ -71,6 +71,7 @@ export interface IProduct {
   slug?: string;
   "meta-title"?: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export type HandleProductStatusUpdateType = (
@@ -82,7 +83,6 @@ export type HandleVendorStatusUpdateType = (
   vendorId: string,
   status: string
 ) => Promise<void>;
-
 
 export interface QueryParams {
   category?: string;

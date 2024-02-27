@@ -96,7 +96,7 @@ const PendingProduct = () => {
                       Date
                     </th>
                     <th className="px-8 py-5 md:px-10 whitespace-nowrap">
-                      Action
+                      Status
                     </th>
                     <th className="px-8 py-5 md:px-10 whitespace-nowrap text-center">
                       View
@@ -140,42 +140,9 @@ const PendingProduct = () => {
                         </p>
                       </td>
                       <td className="whitespace-nowrap px-8 py-2.5 md:px-10">
-                        <div
-                          className="text-white bg-primary rounded-md px-3 py-2 relative cursor-pointer flex items-center justify-between"
-                          onClick={() => handleToggleStatusMenu(index)}
-                        >
-                          Status <IoChevronDownOutline size={16} />
-                          <div
-                            className={`rounded-md p-5 border shadow-md bg-white absolute right-0 ${
-                              openStatusMenu[index]
-                                ? "top-10 z-30 visible"
-                                : "top-48 -z-50 invisible"
-                            } duration-300 text-black flex flex-col items-center gap-4`}
-                          >
-                            <button
-                              className="px-5 py-1.5 bg-green-500 text-white rounded-md "
-                              onClick={() =>
-                                handleProductStatusUpdate(
-                                  product?._id,
-                                  "Approved"
-                                )
-                              }
-                            >
-                              Approve
-                            </button>
-                            <button
-                              className="px-5 py-1.5 bg-amber-500 text-white rounded-md "
-                              onClick={() =>
-                                handleProductStatusUpdate(
-                                  product?._id,
-                                  "Cancel"
-                                )
-                              }
-                            >
-                              Cancel
-                            </button>
-                          </div>
-                        </div>
+                        <p className="bg-amber-500 py-1 px-3.5 text-white rounded-full text-xs">
+                          {product?.status}
+                        </p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
                         <button

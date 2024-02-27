@@ -15,7 +15,7 @@ const AllVendor = () => {
 		isLoading,
 	} = useQuery(["vendors"], async () => {
 		try {
-			const res = await Axios.get(`admin/get-pending-vendor-request`);
+			const res = await Axios.get(`admin/get-approved-vendors`);
 			return res?.data?.data;
 		} catch (error: any) {
 			if (error.response.data.success === false) {

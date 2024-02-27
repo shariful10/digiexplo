@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import { AppError } from "../../errors/AppError";
 import { PRODUCT_STATUS } from "../product/product.constant";
 import { ProductModel } from "../product/product.model";
 import { USER_ROLE } from "../user/user.constant";
@@ -78,6 +80,19 @@ const updateProductStatus = async (
   return updateProduct;
 };
 
+const getApprovedVendor = async (userId: string) => {
+  const isUserExist = await User.findById(userId);
+
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "User does not exist");
+  }
+
+  console.log(isUserExist);
+
+  const vendors = await VendorModel.find({ status: "Approved" });
+  return vendors;
+};
+
 export const AdminServices = {
   getPendingVendorRequest,
   updateVendorRequest,
@@ -85,4 +100,5 @@ export const AdminServices = {
   // product related function
   getPendingProducts,
   updateProductStatus,
+  getApprovedVendor,
 };

@@ -4,7 +4,7 @@ const Loader = () => {
   return (
     <div
       className="
-      h-[70vh]
+      h-[30vh]
       flex 
       flex-col 
       justify-center 

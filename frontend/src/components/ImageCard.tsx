@@ -7,15 +7,10 @@ import { Axios } from "@/lib/axios";
 import FormattedPrice from "./FormattedPrice";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
-export type ProductTypes = {
-  product: IProduct;
-  className: string;
-};
-
-const ImageCard = ({ product, className }: ProductTypes) => {
-  if (!product) {
-    return null;
-  }
+const ImageCard = ({ product }: { product: IProduct }) => {
+	if (!product) {
+		return null;
+	}
 
   const handleAddToCart = async (productId: string) => {
     try {
@@ -73,7 +68,7 @@ const ImageCard = ({ product, className }: ProductTypes) => {
           <span className="font-medium text-neutral-600">
             {vendor?.user?.firstName + " " + vendor?.user?.lastName}
           </span>{" "}
-          in <span className="font-medium text-neutral-600">{category}</span>
+          in <span className="font-medium text-neutral-600 capitalize">{category}</span>
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import ProductPageComponent from "@/components/Product/ProductPageComponent";
 import React from "react";
+import ProductPageComponent from "@/components/Product/ProductPageComponent";
 
 const Product = () => {
   return (

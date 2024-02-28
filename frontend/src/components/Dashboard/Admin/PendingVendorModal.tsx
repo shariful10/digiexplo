@@ -2,18 +2,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { HandleVendorStatusUpdateType, IVendor } from "@/components/types";
 
 interface Props {
-  vendor: IVendor;
-  handleVendorStatusUpdate: HandleVendorStatusUpdateType;
-  onClose: () => void;
+	vendor: IVendor;
+	handleVendorStatusUpdate: HandleVendorStatusUpdateType;
+	onClose: () => void;
+	isLoading: boolean;
 }
 
 const PendingVendorModal = ({
-  vendor,
-  handleVendorStatusUpdate,
-  onClose,
+	vendor,
+	handleVendorStatusUpdate,
+	onClose,
+	isLoading,
 }: Props) => {
   if (!vendor) {
     return null;

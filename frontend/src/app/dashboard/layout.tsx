@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
-import DashboardSidebar from "@/components/Dashboard/DashboardSidebar";
 import DashboardNavbar from "@/components/Dashboard/DashboardNavbar";
+import DashboardSidebar from "@/components/Dashboard/DashboardSidebar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);

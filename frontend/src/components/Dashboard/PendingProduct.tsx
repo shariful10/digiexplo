@@ -1,27 +1,23 @@
 "use client";
-
-import { useGetPendingProducts } from "@/lib/getProducts";
-import Link from "next/link";
-import { IoOpenSharp } from "react-icons/io5";
-import DashboardHeader from "./DashboardHeader";
-import { IProduct } from "../types";
-import { formatDate } from "./Vendor/VendorProductCard";
-import Loader from "@/components/Loader/Loader";
 import { Axios } from "@/lib/axios";
 import toast from "react-hot-toast";
-import { ChangeEvent, useEffect, useState } from "react";
+import { IProduct } from "../types";
+import { useEffect, useState } from "react";
+import { IoOpenSharp } from "react-icons/io5";
+import DashboardHeader from "./DashboardHeader";
+import Loader from "@/components/Loader/Loader";
 import PendingProductModal from "./PendingProductModal";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { formatDate } from "./Vendor/VendorProductCard";
+import { useGetPendingProducts } from "@/lib/getProducts";
 
 const PendingProduct = () => {
-  const { data: products = [], isLoading, refetch } = useGetPendingProducts();
   const [openModal, setOpenModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
   const [openStatusMenu, setOpenStatusMenu] = useState<boolean[]>([]);
+  const { data: products = [], isLoading, refetch } = useGetPendingProducts();
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
 
   // status menu
   useEffect(() => {
-    // Update the openStatusMenu state only if its length is not equal to the products array's length
     if (openStatusMenu.length !== products.length) {
       setOpenStatusMenu(new Array(products.length).fill(false));
     }
@@ -75,7 +71,7 @@ const PendingProduct = () => {
         {isLoading ? (
           <Loader />
         ) : products.length > 0 ? (
-          <div className=" rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full overflow-x-scroll lg:overflow-hidden min-h-[300px]">
+          <div className=" rounded-md box-shadow border border-[#F1F1F4] max-w-7xl w-full overflow-x-scroll lg:overflow-hidden">
             <div className="w-full">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="">
@@ -111,12 +107,12 @@ const PendingProduct = () => {
                       key={product?._id}
                     >
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap  capitalize">
+                        <p className="whitespace-nowrap capitalize">
                           {index + 1}
                         </p>
                       </td>
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap  capitalize">
+                        <p className="whitespace-nowrap capitalize">
                           {product?.productName}
                         </p>
                       </td>

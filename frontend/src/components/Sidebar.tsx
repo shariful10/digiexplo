@@ -90,7 +90,7 @@ const Sidebar = ({ show, setShow }: Props) => {
 											pathName === categoryToUrl(title) && "text-primary"
 										} hover:text-primary capitalize text-lg font-medium`}
 									>
-										<Link href={`/${categoryToUrl(title)}`}>{title}</Link>
+										<Link href={`/category/${categoryToUrl(title)}`}>{title}</Link>
 									</li>
 								</ul>
 							))}

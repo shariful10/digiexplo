@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 import config from "../../config";
-import { AppError } from "../../errors/AppError";
+// import { AppError } from "../../errors/AppError";
 import { IUser, UserModel } from "./user.interface";
 
 const UserSchema = new Schema<IUser, UserModel>(
@@ -73,17 +73,17 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.pre("findOneAndUpdate", async function (next) {
-  const query = this.getQuery();
+// UserSchema.pre("findOneAndUpdate", async function (next) {
+//   const query = this.getQuery();
 
-  const idExists = await User.findOne(query);
+//   const idExists = await User.findOne(query);
 
-  if (!idExists) {
-    throw new AppError(404, `User with id: '${query._id}' doesn't exists`);
-  }
+//   if (!idExists) {
+//     throw new AppError(404, `User with id: '${query._id}' doesn't exists`);
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // check if password matches:
 UserSchema.statics.isPasswordMatch = async (plainPass, hashedPass) => {

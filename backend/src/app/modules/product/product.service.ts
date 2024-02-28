@@ -110,11 +110,10 @@ const getCartProducts = async (userId: Types.ObjectId) => {
 
 const buyProductPaymentIntend = async (userId: string, productId: string) => {
   const product = await ProductModel.findById(productId);
-  console.log(product);
   const customer = await stripe.customers.create({
     metadata: {
       product: JSON.stringify(product),
-      userId,
+      userId: JSON.stringify(userId),
     },
   });
 
@@ -163,8 +162,9 @@ const stripeHook = async (body: any, sig: string) => {
 
   if (eventType === "checkout.session.completed") {
     const customerInfo: any = await stripe.customers.retrieve(data.customer);
-    const userId = customerInfo.metadata.userId;
+    const userId = JSON.parse(customerInfo.metadata.userId);
     const product = JSON.parse(customerInfo.metadata.product);
+    console.log({ userId: userId, productId: product });
     const order = await OrderModel.create({
       user: userId,
       product: product._id,
@@ -174,7 +174,20 @@ const stripeHook = async (body: any, sig: string) => {
     await User.findByIdAndUpdate(order.user, {
       $push: { buyedProducts: order._id },
     });
-    // await VendorModel.findByIdAndUpdate
+
+    const vendor = await VendorModel.findById(product?.vendor);
+    if (!vendor) {
+      throw new AppError(
+        httpStatus.NOT_FOUND,
+        "Vendor not found: stripeHook()"
+      );
+    }
+
+    const vendorEarning = product.price / vendor?.commissionPercentage;
+
+    await VendorModel.findByIdAndUpdate(product?.vendor, {
+      $push: { soldProducts: order._id, wallet: vendorEarning },
+    });
   }
 };
 

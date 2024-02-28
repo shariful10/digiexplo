@@ -8,6 +8,7 @@ import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
+import morgan from "morgan";
 
 const app: Application = express();
 
@@ -19,6 +20,9 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
+
+app.use(morgan("dev"));
+
 // app.use(express.json())
 app.use(
   cors({

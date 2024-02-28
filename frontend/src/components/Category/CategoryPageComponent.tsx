@@ -1,20 +1,23 @@
 "use client";
+
+import { useGetApprovedProducts } from "@/lib/getProducts";
+import { useParams } from "next/navigation";
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import SectionDesc from "../SectionDesc";
 import ImageCard from "../ImageCard";
-import Tabs from "../Tabs";
-import { useGetApprovedProducts } from "@/lib/getProducts";
 import Loader from "../Loader/Loader";
 
-const LatestItems = () => {
-	const { data: products = [], isLoading } = useGetApprovedProducts();
+const CategoryPageComponent = () => {
+	const { category } = useParams();
+	const query = { category: Array.isArray(category) ? category[0] : category };
+
+	const { data: products = [], isLoading } = useGetApprovedProducts(query);
 
 	return (
 		<div className="my-16">
-			<SectionTitle title="Latest" subtitle="Items" />
-			<SectionDesc description="Browse All Latest Charms" />
-			<Tabs />
+			<SectionTitle title="" subtitle={query?.category} />
+			<SectionDesc description={`All ${query?.category} Items`} />
 			{isLoading ? (
 				<Loader />
 			) : (
@@ -30,4 +33,4 @@ const LatestItems = () => {
 	);
 };
 
-export default LatestItems;
+export default CategoryPageComponent;

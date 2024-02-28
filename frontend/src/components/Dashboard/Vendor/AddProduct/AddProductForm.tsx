@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import CountrySelector from "./CountrySelector";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useQuery } from "react-query";
+import { Axios } from "@/lib/axios";
 
 interface Country {
   value: string;
@@ -31,6 +33,7 @@ const AddProductForm = () => {
     thumbnail: null,
     file: null,
   });
+
   const [loading, setLoading] = useState(false);
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target?.files[0];
@@ -39,6 +42,19 @@ const AddProductForm = () => {
       file,
     });
   };
+
+  const { data: categories = [], isLoading } = useQuery(
+		["categories"],
+		async () => {
+			try {
+				const res = await Axios.get(`users/get-categories`);
+				return res?.data?.data;
+			} catch (error) {
+				console.log(error);
+				throw new Error("Failed to fetch category data");
+			}
+		}
+	);
 
   const handleThumbnailChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -166,9 +182,9 @@ const AddProductForm = () => {
             className="py-3.5 pl-3 rounded-md border focus:outline-gray-400 w-full cursor-pointer"
           >
             <option defaultChecked>Category</option>
-            {categoriesItems.map(({ id, category }) => (
-              <option key={id} value={category}>
-                {category}
+            {categories.map(({ _id, title } : { _id: string, title: string }) => (
+              <option key={_id} value={title}>
+                {title}
               </option>
             ))}
           </select>

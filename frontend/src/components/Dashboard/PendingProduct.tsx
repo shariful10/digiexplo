@@ -107,12 +107,12 @@ const PendingProduct = () => {
                       key={product?._id}
                     >
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap  capitalize">
+                        <p className="whitespace-nowrap capitalize">
                           {index + 1}
                         </p>
                       </td>
                       <td className="px-8 py-5 md:px-10">
-                        <p className="whitespace-nowrap  capitalize">
+                        <p className="whitespace-nowrap capitalize">
                           {product?.productName}
                         </p>
                       </td>

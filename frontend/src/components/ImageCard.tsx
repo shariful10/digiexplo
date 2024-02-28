@@ -68,7 +68,7 @@ const ImageCard = ({ product }: { product: IProduct }) => {
           <span className="font-medium text-neutral-600">
             {vendor?.user?.firstName + " " + vendor?.user?.lastName}
           </span>{" "}
-          in <span className="font-medium text-neutral-600">{category}</span>
+          in <span className="font-medium text-neutral-600 capitalize">{category}</span>
         </p>
       </div>
     </div>

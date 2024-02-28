@@ -19,6 +19,7 @@ export const sendMail = async ({
       pass: process.env.MAIL_PASS,
     },
   });
+  // eslint-disable-next-line no-undef
   const filePath = path.join(__dirname, "..", "..", "views");
   const fileVal = await ejs.renderFile(`${filePath}/email.ejs`, {
     otp,

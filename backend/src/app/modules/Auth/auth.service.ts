@@ -56,7 +56,6 @@ const loginUser = async (payload: ILoginUser) => {
 
   // Access Granted: Send AccessToken, RefreshToken
   return {
-    userToken,
     user,
   };
 };

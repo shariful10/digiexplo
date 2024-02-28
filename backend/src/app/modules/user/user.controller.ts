@@ -50,7 +50,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  const userId = req.user._id;
+  const userId = req?.user._id ;
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {

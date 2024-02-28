@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+
 import { IVendor } from "./vendor.interface";
 import { VendorModel } from "./vendor.model";
 import { uploadFile } from "../uploadFile/awsUpload";
@@ -6,7 +6,7 @@ import { VENDOR_STATUS } from "./vendor.constant";
 import { Express } from "express";
 
 const becomeVendor = async (
-  userId: Types.ObjectId,
+  userId: string,
   payload: Omit<IVendor, "user" | "status">,
   verificationImg: Express.Multer.File
 ) => {

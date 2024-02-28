@@ -9,6 +9,10 @@ import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+
+import path from "path";
+import config from "./app/config";
 
 const app: Application = express();
 

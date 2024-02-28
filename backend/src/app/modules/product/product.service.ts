@@ -148,6 +148,7 @@ let endpointSecret: string;
 if (config.stripe_endpoing_secret) {
   endpointSecret = config.stripe_endpoing_secret;
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const stripeHook = async (body: any, sig: string) => {
   let data;
   let eventType;

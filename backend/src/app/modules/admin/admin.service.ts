@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import { AppError } from "../../errors/AppError";
 import { PRODUCT_STATUS } from "../product/product.constant";
 import { ProductModel } from "../product/product.model";
 import { USER_ROLE } from "../user/user.constant";
@@ -50,7 +52,12 @@ const updateVendorProfile = async (
 const getPendingProducts = async (page: number, limit: number) => {
   const skip = !page ? 0 : limit * page;
   const products = await ProductModel.find({ status: PRODUCT_STATUS.PENDING })
-    .populate("vendor")
+    .populate({
+      path: "vendor",
+      populate: {
+        path: "user",
+      },
+    })
     .skip(skip)
     .limit(limit);
   return products;
@@ -60,7 +67,7 @@ const updateProductStatus = async (
   productId: string,
   productStatus: (typeof PRODUCT_STATUS)[keyof typeof PRODUCT_STATUS]
 ) => {
-  // console.log(productId,productStatus)
+  // console.log(productId, productStatus);
   const updateProduct = await ProductModel.findByIdAndUpdate(productId, {
     status: productStatus,
   });
@@ -73,6 +80,19 @@ const updateProductStatus = async (
   return updateProduct;
 };
 
+const getApprovedVendor = async (userId: string) => {
+  const isUserExist = await User.findById(userId);
+
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "User does not exist");
+  }
+
+  console.log(isUserExist);
+
+  const vendors = await VendorModel.find({ status: "Approved" });
+  return vendors;
+};
+
 export const AdminServices = {
   getPendingVendorRequest,
   updateVendorRequest,
@@ -80,4 +100,5 @@ export const AdminServices = {
   // product related function
   getPendingProducts,
   updateProductStatus,
+  getApprovedVendor,
 };

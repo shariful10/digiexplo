@@ -27,4 +27,6 @@ router.get(
   UserController.getCart
 );
 
+router.get("/get-categories", UserController.getCategory);
+
 export const UserRoutes = router;

@@ -4,13 +4,20 @@ import { Axios } from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaTelegramPlane, FaUser, FaUserCog } from "react-icons/fa";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 import { FaCirclePlus, FaGear } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { TbCategoryPlus } from "react-icons/tb";
+import { BsBoxFill } from "react-icons/bs";
 import { VscHome } from "react-icons/vsc";
 import { useQuery } from "react-query";
+import {
+  FaMinusSquare,
+  FaTelegramPlane,
+  FaUser,
+  FaUserCog,
+} from "react-icons/fa";
+import { auth } from "@/lib/auth";
 
 const dashboardUserItems = [
   {
@@ -57,15 +64,21 @@ const dashboardVendorItems = [
 const dashboardAdminItems = [
   {
     id: 1,
-    title: "Add a Category",
-    url: "/dashboard/add-category",
-    Icon: TbCategoryPlus,
+    title: "Categories",
+    url: "/dashboard/categories",
+    Icon: BiSolidCategoryAlt,
   },
   {
     id: 2,
     title: "All Vendor Request",
     url: "/dashboard/all-vendor-request",
     Icon: FaUser,
+  },
+  {
+    id: 6,
+    title: "Pending Products",
+    url: "/dashboard/pending-products",
+    Icon: BsBoxFill,
   },
   {
     id: 3,
@@ -75,20 +88,26 @@ const dashboardAdminItems = [
   },
   {
     id: 4,
-    title: "Rejected Vendor",
-    url: "/dashboard/rejected-vendors",
-    Icon: VscHome,
-  },
-  {
-    id: 5,
     title: "Change Password",
     url: "/dashboard/change-password",
     Icon: FaGear,
   },
+  // {
+  //   id: 6,
+  //   title: "Add Product",
+  //   url: "/dashboard/add-product",
+  //   Icon: FaCirclePlus,
+  // },
 ];
 
-const DashboardSidebar = () => {
+interface DashboardNavbarProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
   const pathName = usePathname();
+  const { logoutUser } = auth;
   const { data: user = [] } = useQuery(["user"], async () => {
     const res = await Axios.get(`users/get-user`);
     return res?.data?.data;
@@ -96,7 +115,11 @@ const DashboardSidebar = () => {
 
   return (
     <div className="w-64">
-      <div className="fixed top-0 bg-[#2D3748]  h-screen w-64 py-10 hidden z-20 lg:flex flex-col justify-between">
+      <div
+        className={`fixed top-0 bg-[#2D3748] h-screen w-64 ${
+          open ? "left-0 duration-500" : "-left-[500px] lg:left-0 duration-500"
+        } py-10 z-20 flex flex-col justify-between`}
+      >
         <div>
           <Link href="/" className="">
             <Image
@@ -111,6 +134,7 @@ const DashboardSidebar = () => {
                 <Link
                   href={url}
                   key={id}
+                  onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
                     pathName === url
                       ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
@@ -128,6 +152,7 @@ const DashboardSidebar = () => {
                 <Link
                   href={url}
                   key={id}
+                  onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
                     pathName === url
                       ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
@@ -145,6 +170,7 @@ const DashboardSidebar = () => {
                 <Link
                   href={url}
                   key={id}
+                  onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 hover:text-[#f5f5f5] py-2 w-full ${
                     pathName === url
                       ? "bg-[#53535f] text-[#f5f5f5] py-2 w-full"
@@ -174,7 +200,7 @@ const DashboardSidebar = () => {
             </Link>
             <Link href="/">
               <button
-                // onClick={logoutUser}
+                onClick={logoutUser}
                 className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
               >
                 <HiOutlineLogout className="text-xl" />

@@ -1165,3 +1165,42 @@ export const productItems = [
     price: 60.39,
   }
 ]
+
+export const vendorItems = [
+  {
+    _id: "1",
+    profileImg: "https://dummyimage.com/365x365/a8a6a6/fff",
+    firstName: "Boltu",
+    email: "boltu@gmail.com",
+    companyName: "Boltu SDN BHD.",
+    website: "https//:www.boltu.com",
+    status: "Approved"
+  },
+  {
+    _id: "2",
+    profileImg: "https://dummyimage.com/365x365/a8a6a6/fff",
+    firstName: "Boltu",
+    email: "boltu@gmail.com",
+    companyName: "Boltu SDN BHD.",
+    website: "https//:www.boltu.com",
+    status: "Approved"
+  },
+  {
+    _id: "3",
+    profileImg: "https://dummyimage.com/365x365/a8a6a6/fff",
+    firstName: "Boltu",
+    email: "boltu@gmail.com",
+    companyName: "Boltu SDN BHD.",
+    website: "https//:www.boltu.com",
+    status: "Approved"
+  },
+  {
+    _id: "4",
+    profileImg: "https://dummyimage.com/365x365/a8a6a6/fff",
+    firstName: "Boltu",
+    email: "boltu@gmail.com",
+    companyName: "Boltu SDN BHD.",
+    website: "https//:www.boltu.com",
+    status: "Approved"
+  },
+]

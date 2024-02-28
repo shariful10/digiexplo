@@ -4,7 +4,9 @@ import { BASE_URL } from "@/components/helper";
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import CountrySelector from "./CountrySelector";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 interface Country {
   value: string;
@@ -29,6 +31,7 @@ const AddProductForm = () => {
     thumbnail: null,
     file: null,
   });
+  const [loading, setLoading] = useState(false);
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target?.files[0];
     setInputVal({
@@ -68,10 +71,10 @@ const AddProductForm = () => {
   const { name, description, price, category, country, file, thumbnail } =
     inputVal;
 
-  const handleProductSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleProductSubmit = async (event: any) => {
+    setLoading(true);
     event.preventDefault();
+    const form = event.target;
     const formData = new FormData();
     formData.append("productName", name);
     formData.append("description", description);
@@ -93,19 +96,29 @@ const AddProductForm = () => {
       const data = await response.data;
 
       if (data && data.success) {
-        toast.success(data.message);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: data.message,
+          showConfirmButton: true,
+        });
+        setLoading(false);
+        // toast.success(data.message);
+        form.reset();
       } else {
         toast.error(data.errorMessage);
+        setLoading(false);
       }
     } catch (error: any) {
-      console.error("Error creating product:", error.response.data);
+      console.error("Error creating product:", error);
       toast.error(error.response.data.message);
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleProductSubmit} className="w-full mt-5 md:mt-10">
+    <div className="max-w-5xl px-7 pb-10 md:px-10">
+      <form onSubmit={handleProductSubmit} className="w-full">
         <div className="flex flex-col gap-2 my-5">
           <label htmlFor="name" className="text-sm">
             Name <span className="text-red-600">*</span>
@@ -138,6 +151,7 @@ const AddProductForm = () => {
             onChange={handleInputChange}
             name="price"
             type="number"
+            step="any"
             placeholder="Price"
             className="py-3.5 pl-3 rounded-md border focus:outline-gray-400 w-full placeholder:text-base"
           />
@@ -178,6 +192,7 @@ const AddProductForm = () => {
               type="file"
               name="thumbnail"
               id="custom-input-thumbnail"
+              accept=".jpg, .jpeg, .png, .webp"
               hidden
             />
             <label
@@ -209,11 +224,16 @@ const AddProductForm = () => {
             </label>
           </div>
         </div>
-        <input
+        <button
           type="submit"
-          value="Upload Product"
           className="bg-blue-600 py-3 px-5 rounded-md text-white mt-5 cursor-pointer"
-        />
+        >
+          {loading ? (
+            <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+          ) : (
+            "Upload Product"
+          )}
+        </button>
       </form>
     </div>
   );

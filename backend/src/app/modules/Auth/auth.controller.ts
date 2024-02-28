@@ -46,7 +46,7 @@ const forgetPasswordMailSend = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: "otp get successful",
-      session_id: session?._id,
+      session_id: session?.id,
     },
     "session_id"
   );
@@ -97,11 +97,19 @@ const forgetPassword = catchAsync(async (req, res) => {
 // });
 
 const logoutUser = catchAsync(async (req, res) => {
+  const cookieExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const response = {
     success: true,
     message: "User Logout successful",
   };
-  res.status(httpStatus.OK).clearCookie("user_id").json(response);
+  res
+    .status(httpStatus.OK)
+    .clearCookie("user_id", {
+      expires: cookieExpires,
+      secure: true,
+      sameSite: "none",
+    })
+    .json(response);
 });
 
 export const AuthControllers = {

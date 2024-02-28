@@ -1,8 +1,8 @@
-// import { useUser } from "@/components/Context/UserContext";
 import { BASE_URL } from "@/components/helper";
 import axios from "axios";
 
 import toast from "react-hot-toast";
+import { Axios } from "./axios";
 
 const registerUser = async (userData: any) => {
   try {
@@ -19,13 +19,22 @@ const registerUser = async (userData: any) => {
 
     if (data && data.success) {
       toast.success(data.message);
-      window.location.href = "/";
-    } else {
-      toast.error(data.errorMessage);
+      if (typeof window !== "undefined") {
+        const isVendorRequest = localStorage.getItem("vendorRequest");
+        if (isVendorRequest) {
+          window.location.href = "/vendor-request";
+        } else {
+          window.location.href = "/";
+        }
+      }
     }
   } catch (error: any) {
     console.error("Error registering user:", error.response.data);
-    toast.error(error.response.data.message);
+    if (error.response.data.message === "Mongoose Validation failure") {
+      toast.error(error.response.data.errorDetails.message);
+    } else {
+      toast.error(error.response.data.message);
+    }
   }
 };
 
@@ -45,32 +54,19 @@ const loginUser = async (loginData: { email: string; password: string }) => {
     } else {
       toast.error(result.errorMessage);
     }
-  } catch (error) {
+  } catch (error: any) {
+    toast.error(error?.response?.data?.errorMessage);
     console.log("Error logging in user:", error);
   }
 };
 
 const logoutUser = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      console.log(data);
-      toast.success(data.message);
-      window.location.href = "/ ";
-    } else {
-      toast.error(data.errorMessage);
-    }
-  } catch (error) {
-    console.log("Error logging in user:", error);
+    await Axios.post("auth/logout");
+    window.location.href = "/ ";
+  } catch (error: any) {
+    toast.error(error.response.data.errorMessage);
+    console.log("Error logging in user:", error.response.data);
   }
 };
 

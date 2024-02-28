@@ -1,11 +1,19 @@
 "use client";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { BASE_URL } from "../helper";
-import { useUser } from "../Context/UserContext";
+import { Axios } from "@/lib/axios";
+import { useQuery } from "react-query";
+import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const BecomeVendor = () => {
-  const { data: user } = useUser();
+	const [loading, setLoading] = useState(false);
+
+	const { data: user = [] } = useQuery(["user"], async () => {
+		const res = await Axios.get(`users/get-user`);
+		return res?.data?.data;
+	});
 
 	const [inputVal, setInputVal] = useState<{
 		companyName: string;
@@ -40,53 +48,41 @@ const BecomeVendor = () => {
 		});
 	};
 
-  const { companyName, ownerName, website, address, verificationId } = inputVal;
+	const { companyName, ownerName, website, address, verificationId } = inputVal;
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      // const form = e.target as HTMLFormElement;
-      // const companyName = form.companyName.value;
-      // const ownerName = form.ownerName.value;
-      // const website = form.website.value;
-      // const address = form.address.value;
-      // const verificationId = form.verificationId.files[0].name;
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			const formData = new FormData();
 
-      // const vendorData = {
-      //   companyName,
-      //   ownerName,
-      //   website,
-      //   address,
-      //   verificationId,
-      // };
+			formData.append("companyName", companyName);
+			formData.append("ownerName", ownerName);
+			formData.append("website", website);
+			formData.append("address", address);
+			formData.append("verificationId", verificationId);
 
-      formData.append("companyName", companyName);
-      formData.append("ownerName", ownerName);
-      formData.append("website", website);
-      formData.append("address", address);
-      formData.append("verificationId", verificationId);
-
-      // console.log(formData);
-
-      const res = await axios.post(
-        `${BASE_URL}/vendor/become-vendor/${user && user?.userData?._id}`,
-        formData,
-        { withCredentials: true }
-      );
-      const data = res.data;
-      console.log(data);
-    } catch (err: any) {
-      console.log(err.response.data);
-    }
-  };
+			await axios.post(
+				`${BASE_URL}/vendor/become-vendor/${user && user?._id}`,
+				formData,
+				{ withCredentials: true }
+			);
+			toast.success("Your request has been sent");
+			window.location.href = "/";
+			console.log(user);
+			setLoading(false);
+		} catch (err: any) {
+			console.log(err.response.data);
+			setLoading(false);
+		}
+	};
 
 	return (
 		<div className="bg-gray-200 w-full h-screen flex justify-center items-center">
 			<div className="py-6 md:py-12 px-5 md:px-10 lg:px-0 flex justify-center items-center">
 				<div className="bg-white px-7 md:px-10 lg:px-16 py-14 rounded-xl w-full max-w-xl">
 					<h2 className="text-2xl xl:text-4xl font-semibold text-center">
-						Vendor Info
+						Additional Info
 					</h2>
 
 					<form onSubmit={handleFormSubmit} className="mt-10 ">
@@ -181,6 +177,7 @@ const BecomeVendor = () => {
 										name="verificationId"
 										id="verificationId"
 										onChange={handleFileChange}
+										accept=".jpg, .jpeg, .png, .webp"
 										hidden
 									/>
 									<label
@@ -203,7 +200,11 @@ const BecomeVendor = () => {
 								type="submit"
 								className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:bg-gradient-to-r hover:from-fuchsia-500 hover:to-cyan-400 rounded-full py-2 px-8 w-full text-lg font-semibold text-white transition-colors duration-500"
 							>
-								Complete
+								{loading ? (
+									<TbFidgetSpinner className="animate-spin mx-auto" size={28} />
+								) : (
+									"Complete"
+								)}
 							</button>
 						</div>
 					</form>

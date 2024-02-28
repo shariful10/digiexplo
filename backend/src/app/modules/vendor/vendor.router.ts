@@ -16,6 +16,10 @@ router.post(
   VendorController.becomeVendor
 );
 
-router.get("/get-vendor/:vendorId", VendorController.getVendor);
+router.get(
+  "/get-vendor/:vendorId",
+  auth(USER_ROLE.VENDOR, USER_ROLE.ADMIN),
+  VendorController.getVendor
+);
 
 export const VendorRoutes = router;

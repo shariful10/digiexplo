@@ -22,7 +22,7 @@ const becomeVendor = async (
       vendor_pending: true,
     };
   }
-  // type TOptional = "status" | "products"
+  
   const uploadVerificationImg = await uploadFile(verificationImg, "vendor");
   const result = await new VendorModel({
     address: payload.address,
@@ -37,7 +37,10 @@ const becomeVendor = async (
 };
 
 const getVendor = async (vendorId: string) => {
-  const vendor = await VendorModel.findById(vendorId).populate("products");
+  const vendor = await VendorModel.findOne({ user: vendorId })
+    .populate("products")
+    .populate("soldProducts")
+    .populate("user");
   return vendor;
 };
 

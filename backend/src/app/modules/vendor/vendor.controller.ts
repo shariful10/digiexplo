@@ -8,8 +8,9 @@ import { Express } from "express";
 
 const becomeVendor = catchAsync(async (req, res) => {
   const verificationImg = req.file as Express.Multer.File;
-  const userId = req.params.userId as unknown as Types.ObjectId;
-  if (userId !== req.user?.id) {
+  const userId = req.user?.id;
+  
+  if (!userId) {
     throw new AppError(
       httpStatus.UNAUTHORIZED,
       "You are not authorized to perform this action"
@@ -20,6 +21,7 @@ const becomeVendor = catchAsync(async (req, res) => {
     req.body,
     verificationImg
   );
+  
   // if(vendor_exist) {
   //   return  sendResponse(res, {
   //     statusCode: httpStatus.CONFLICT,

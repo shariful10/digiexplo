@@ -75,6 +75,8 @@ const getPendingProducts = catchAsync(async (req, res) => {
 const updateProductStatus = catchAsync(async (req, res) => {
   const { productId } = req.params;
   const { productStatus } = req.body;
+
+  // console.log(productId, productStatus);
   const updatedProduct = await AdminServices.updateProductStatus(
     productId,
     productStatus
@@ -83,7 +85,22 @@ const updateProductStatus = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     data: updatedProduct,
     success: true,
-    message: "product update successfull",
+    message: "product update successful",
+  });
+});
+
+const getApprovedVendor = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  console.log(userId);
+
+  const result = await AdminServices.getApprovedVendor(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    data: result,
+    success: true,
+    message: "All Approved Vendor Retrieved Successfully",
   });
 });
 
@@ -95,4 +112,5 @@ export const AdminController = {
   // product related function
   getPendingProducts,
   updateProductStatus,
+  getApprovedVendor,
 };

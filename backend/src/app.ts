@@ -1,10 +1,14 @@
-
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
+import config from "./app/config";
+import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
+import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 import path from "path";
@@ -20,6 +24,9 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
+
+app.use(morgan("dev"));
+
 // app.use(express.json())
 app.use(
   cors({

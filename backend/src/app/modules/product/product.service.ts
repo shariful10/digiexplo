@@ -183,7 +183,7 @@ const stripeHook = async (body: any, sig: string) => {
       );
     }
 
-    const vendorEarning = product.price / vendor?.commissionPercentage;
+    const vendorEarning = (product.price / vendor?.commissionPercentage) + vendor?.wallet ;
 
     await VendorModel.findByIdAndUpdate(product?.vendor, {
       $push: { soldProducts: order._id, wallet: vendorEarning },

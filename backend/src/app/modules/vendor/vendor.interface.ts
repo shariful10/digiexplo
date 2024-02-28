@@ -11,6 +11,6 @@ export interface IVendor {
   status?: "Pending" | "Approved" | "Cancel" | "Restrict";
   products: Types.ObjectId[],
   soldProducts? : Types.ObjectId[],
-  wallet?: number
+  wallet: number
   commissionPercentage: number
 }

@@ -27,6 +27,7 @@ const VendorSchema = new Schema<IVendor>(
     ],
     wallet: {
       type: Number,
+      default:0
     },
     commissionPercentage: {
       type: Number,

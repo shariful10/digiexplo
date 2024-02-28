@@ -3,6 +3,7 @@ import { Model, Types } from "mongoose";
 import { USER_ROLE } from "./user.constant";
 
 export interface IUser {
+  id: any;
   _id: Types.ObjectId;
   firstName: string;
   lastName: string;

@@ -50,7 +50,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  const userId = req?.user._id ;
+  const userId = req?.user.id;
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {
@@ -64,7 +64,7 @@ const getUser = catchAsync(async (req, res) => {
 //get cart
 
 const getCart = catchAsync(async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const cart = await UserServices.getCart(userId);
 
   sendResponse(res, {

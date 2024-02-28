@@ -81,7 +81,7 @@ const getProductsByCategory = catchAsync(async (req, res) => {
 //cart related function
 const addProductToCart = catchAsync(async (req, res) => {
   const productId = req.params.productId as unknown as Types.ObjectId;
-  const userId = req.user._id;
+  const userId = req.user.id;
   const { cartExist, cartDuplicate } = await ProductServices.addProductToCart(
     productId,
     userId

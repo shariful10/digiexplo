@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import "./app/mail/sendMail";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
+import config from "./app/config";
+import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-import cookieParser from "cookie-parser";
-import config from "./app/config";
-import path from "path";
-import { v4 as uuid } from "uuid";
-import { S3 } from "aws-sdk";
-import multer, { Multer } from "multer";
+import morgan from "morgan";
 
 const app: Application = express();
 
@@ -23,6 +20,9 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
+
+app.use(morgan("dev"));
+
 // app.use(express.json())
 app.use(
   cors({

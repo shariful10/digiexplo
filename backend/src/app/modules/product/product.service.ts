@@ -87,7 +87,7 @@ const addProductToCart = async (productId: Types.ObjectId, userId: string) => {
   }
   // Check if the product already exists in the cart
   const productIndex = cartExist.products.indexOf(productId);
-  console.log(productIndex);
+  // console.log(productIndex);
   if (productIndex === -1) {
     // Product doesn't exist, add it to the cart
     cartExist.products.push(productId);
@@ -164,7 +164,7 @@ const stripeHook = async (body: any, sig: string) => {
     const customerInfo: any = await stripe.customers.retrieve(data.customer);
     const userId = JSON.parse(customerInfo.metadata.userId);
     const product = JSON.parse(customerInfo.metadata.product);
-    console.log({ userId: userId, productId: product });
+    // console.log({ userId: userId, productId: product });
     const order = await OrderModel.create({
       user: userId,
       product: product._id,

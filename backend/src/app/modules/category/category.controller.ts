@@ -19,7 +19,6 @@ const createCategory = catchAsync(async (req, res) => {
 const deleteCategory = catchAsync(async (req, res) => {
   const { categoryId } = req.params;
 
-  console.log(categoryId);
   const result = await CategoryServices.deleteCategory(categoryId);
 
   sendResponse(res, {

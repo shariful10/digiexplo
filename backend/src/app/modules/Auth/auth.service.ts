@@ -7,7 +7,7 @@ import { sendMail } from "../../mail/sendMail";
 import { SessionModel } from "../sessions/session.model";
 import { User } from "../user/user.model";
 import { ILoginUser } from "./auth.interface";
-import { CreateToken } from "./auth.utils";
+
 const loginUser = async (payload: ILoginUser) => {
   // check if the user exists
   // const isUserExist = await User.findOne({ id: payload?.id });
@@ -31,55 +31,12 @@ const loginUser = async (payload: ILoginUser) => {
   }
 
   // create token and sent to the client
-  const jwtPayload = {
-    _id: isUserExist._id,
-    firstName: isUserExist.firstName,
-    lastName: isUserExist.lastName,
-    username: isUserExist.username,
-    email: isUserExist.email,
-    phone: isUserExist.phone,
-    profileImg: isUserExist.profileImg,
-    // verificationID?: string,
-    role: isUserExist.role,
-    status: isUserExist.status,
-    isDeleted: isUserExist.isDeleted,
-    vendor: isUserExist.vendor,
-    cart: isUserExist.cart,
-    buyedProducts: isUserExist.buyedProducts,
-  };
-
-  const userToken = CreateToken(
-    jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires as string
-  );
 
   // Access Granted: Send AccessToken, RefreshToken
   return {
-    userToken,
     user,
   };
 };
-
-// const validateUser = async (token: string) => {
-//   // checking if the given token is valid | verify the received token
-//   const decoded = jwt.verify(
-//     token,
-//     config.jwt_access_secret as string
-//   ) as JwtPayload;
-
-//   const { _id, username, role } = decoded;
-//   const isUserExist = await User.findOne({
-//     _id: _id,
-//     username: username,
-//     role: role,
-//   }).select("-isDeleted -createdAt -updatedAt -__v");
-//   if (!isUserExist) {
-//     throw new AppError(httpStatus.NOT_FOUND, "User not found !");
-//   }
-
-//   return { user: isUserExist };
-// };
 
 const forgetPasswordMailSend = async (email: string) => {
   const otp = generateOTP();

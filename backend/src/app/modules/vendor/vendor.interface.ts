@@ -1,5 +1,4 @@
 import { Types } from "mongoose";
-import { IProduct } from "../product/product.interface";
 
 export interface IVendor {
   user: Types.ObjectId;
@@ -9,8 +8,8 @@ export interface IVendor {
   verificationId: string;
   address: string;
   status?: "Pending" | "Approved" | "Cancel" | "Restrict";
-  products: Types.ObjectId[],
-  soldProducts? : Types.ObjectId[],
-  wallet?: number
-  commissionPercentage: number
+  products: Types.ObjectId[];
+  soldProducts?: Types.ObjectId[];
+  wallet?: number;
+  commissionPercentage: number;
 }

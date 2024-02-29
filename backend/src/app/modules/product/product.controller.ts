@@ -81,7 +81,7 @@ const getProductsByCategory = catchAsync(async (req, res) => {
 //cart related function
 const addProductToCart = catchAsync(async (req, res) => {
   const productId = req.params.productId as unknown as Types.ObjectId;
-  const userId = req.user._id;
+  const userId = req.user.id;
   const { cartExist, cartDuplicate } = await ProductServices.addProductToCart(
     productId,
     userId
@@ -139,7 +139,6 @@ const buyProductPaymentIntend = catchAsync(async (req, res) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 const stripeHook = catchAsync(async (req, res) => {
   const sig = req.headers["stripe-signature"] as unknown as string;
-  console.log(sig);
   const body = req.body;
   await ProductServices.stripeHook(body, sig);
 });

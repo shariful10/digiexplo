@@ -90,9 +90,7 @@ const updateProductStatus = catchAsync(async (req, res) => {
 });
 
 const getApprovedVendor = catchAsync(async (req, res) => {
-  const userId = req.user._id;
-
-  console.log(userId);
+  const userId = req.user.id;
 
   const result = await AdminServices.getApprovedVendor(userId);
 

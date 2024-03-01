@@ -1,21 +1,20 @@
-import { Axios } from "@/lib/axios";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { Axios } from "@/lib/axios";
+import Loader from "../Loader/Loader";
+import { formatDate } from "../helper";
 import { FaEye } from "react-icons/fa";
 import { useQuery } from "react-query";
 import FormattedPrice from "../FormattedPrice";
-import Loader from "../Loader/Loader";
-import { formatDate } from "../helper";
 
 const Table = () => {
-	const {
-		data: orderHistory = [],
-		refetch,
-		isLoading,
-	} = useQuery(["orderHistory"], async () => {
-		const res = await Axios.get(`/users/get-order-history`);
-		return res?.data?.data;
-	});
+	const { data: orderHistory = [], isLoading } = useQuery(
+		["orderHistory"],
+		async () => {
+			const res = await Axios.get(`/users/get-order-history`);
+			return res?.data?.data;
+		}
+	);
 	console.log(orderHistory);
 
 	return (
@@ -90,7 +89,7 @@ const Table = () => {
 															{formatDate(item?.product?.createdAt)}
 														</span>
 													</td>
-													<td className="px-6 py-4 whitespace-nowrap">
+													<td className="px-6 py-4 whitespace-nowrap capitalize">
 														<span
 															className={`${
 																item?.paymentStatus === "paid"

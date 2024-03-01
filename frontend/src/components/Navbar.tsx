@@ -59,7 +59,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <CartIcon setShowCart={setShowCart} user={user} />
+              {/* <CartIcon setShowCart={setShowCart} user={user} /> */}
               {user.profileImg ? (
                 <div>
                   <Image

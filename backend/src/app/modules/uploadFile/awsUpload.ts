@@ -26,6 +26,8 @@ export const uploadFile = async (file: Express.Multer.File, path: string) => {
     Key: `${path}/${randomValue}-${file.originalname}`,
     Body: file.buffer,
     ContentType: file.mimetype,
+    // Add Content-Disposition header to force download
+    ContentDisposition: "attachment",
   };
   const upload = await s3
     .upload({
@@ -33,6 +35,7 @@ export const uploadFile = async (file: Express.Multer.File, path: string) => {
       Key: params.Key,
       Body: params.Body,
       ContentType: params.ContentType,
+      ContentDisposition: params.ContentDisposition,
     })
     .promise();
   return upload;

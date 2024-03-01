@@ -106,10 +106,17 @@ const getCartProducts = async (userId: Types.ObjectId) => {
   return cart;
 };
 
+// delete the cart
+// const deleteCart = async (cartItemId: Types.ObjectId) => {
+
+// }
+
 // buy product related function
 
 const buyProductPaymentIntend = async (userId: string, productId: string) => {
-  const product = await ProductModel.findById(productId);
+  const product = await ProductModel.findById(productId).select(
+    "thumbnail productName price _id"
+  );
   const customer = await stripe.customers.create({
     metadata: {
       product: JSON.stringify(product),

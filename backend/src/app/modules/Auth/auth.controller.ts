@@ -96,6 +96,53 @@ const forgetPassword = catchAsync(async (req, res) => {
 //   // });
 // });
 
+
+const changePassword = catchAsync(async (req,res) => {
+  const {oldPassword,newPassword,confirmNewPassword} = req.body
+  const userId = req.user.id
+  const {not_same_password,old_password_wrong,update,user_not_found,prevMatchNew} = await AuthServices.changePassword(oldPassword,newPassword,confirmNewPassword,userId)
+  if(user_not_found) {
+    return sendResponse(res,{
+      data:null,
+      statusCode: httpStatus.NOT_FOUND,
+      success:false,
+      message:"user doesn't exist",
+    })
+  }
+  if(old_password_wrong){
+    return sendResponse(res,{
+      data:null,
+      statusCode: httpStatus.FORBIDDEN,
+      success:false,
+      message:"Old password wrong! you may need to do forget password",
+
+    })
+  }
+  if(prevMatchNew) {
+    return sendResponse(res,{
+      data:null,
+      statusCode: httpStatus.FORBIDDEN,
+      success:false,
+      message:"old password and new password are same you should pick another one",
+    })
+  }
+  if(not_same_password){
+    return sendResponse(res,{
+      data:null,
+      statusCode: httpStatus.FORBIDDEN,
+      success:false,
+      message:"New password and confirm new password not same",
+
+    })
+  }
+    return sendResponse(res,{
+      data:update,
+      statusCode: httpStatus.OK,
+      success:true,
+      message:"password update successful",
+    })
+})
+
 const logoutUser = catchAsync(async (req, res) => {
   const cookieExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const response = {
@@ -119,4 +166,5 @@ export const AuthControllers = {
   //
   forgetPasswordMailSend,
   forgetPassword,
+  changePassword
 };

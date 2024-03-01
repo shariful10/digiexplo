@@ -100,7 +100,7 @@ const forgetPassword = catchAsync(async (req, res) => {
 const changePassword = catchAsync(async (req,res) => {
   const {oldPassword,newPassword,confirmNewPassword} = req.body
   const userId = req.user.id
-  const {not_same_password,old_password_wrong,update,user_not_found} = await AuthServices.changePassword(oldPassword,newPassword,confirmNewPassword,userId)
+  const {not_same_password,old_password_wrong,update,user_not_found,prevMatchNew} = await AuthServices.changePassword(oldPassword,newPassword,confirmNewPassword,userId)
   if(user_not_found) {
     return sendResponse(res,{
       data:null,
@@ -116,6 +116,14 @@ const changePassword = catchAsync(async (req,res) => {
       success:false,
       message:"Old password wrong! you may need to do forget password",
 
+    })
+  }
+  if(prevMatchNew) {
+    return sendResponse(res,{
+      data:null,
+      statusCode: httpStatus.FORBIDDEN,
+      success:false,
+      message:"old password and new password are same you should pick another one",
     })
   }
   if(not_same_password){

@@ -102,7 +102,12 @@ const changePassword = async (oldPassword:string,newPassword:string,confirmNewPa
       old_password_wrong:true
     }
   }
-  const samePassword = newPassword === confirmNewPassword;
+
+  const prevMatchNew = oldPassword == newPassword;
+  if(prevMatchNew){
+    return {prevMatchNew}
+  }
+  const samePassword = newPassword == confirmNewPassword;
   if(!samePassword){
     return {
       not_same_password: true

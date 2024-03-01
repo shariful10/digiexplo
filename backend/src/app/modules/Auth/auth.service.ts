@@ -88,10 +88,41 @@ const forgetPassword = async (
   return { update };
 };
 
+
+const changePassword = async (oldPassword:string,newPassword:string,confirmNewPassword:string,userId:string) => {
+  const findUser = await User.findById(userId).select("+password")
+  if(!findUser) {
+    return {
+      user_not_found:true
+    }
+  }
+  const passwordMatch = await bcrypt.compare(oldPassword,findUser?.password)
+  if(!passwordMatch){
+    return {
+      old_password_wrong:true
+    }
+  }
+  const samePassword = newPassword === confirmNewPassword;
+  if(!samePassword){
+    return {
+      not_same_password: true
+    }
+  }
+  const saltNewPassword = await bcrypt.hash(newPassword,Number(config.bcrypt_salt_round ) || 10 )
+
+  const update = await User.findByIdAndUpdate(findUser.id,{
+    password: saltNewPassword
+  })
+  return {
+    update
+  }
+}
+
 export const AuthServices = {
   loginUser,
   // validateUser,
 
   forgetPasswordMailSend,
   forgetPassword,
+  changePassword
 };

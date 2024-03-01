@@ -20,9 +20,19 @@ const credentialChangeOtpAndPassGet = z.object({
   }),
 });
 
+
+const changePasswordValidation = z.object({
+  body: z.object({
+    oldPassword: z.string(),
+    newPassword: z.string(),
+    confirmNewPassword: z.string()
+  })
+})
+
 export const AuthZodValidation = {
   LoginValidationSchema,
 
   credentialChangeMailGet,
   credentialChangeOtpAndPassGet,
+  changePasswordValidation
 };

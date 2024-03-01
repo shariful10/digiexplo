@@ -12,6 +12,10 @@ router.post(
   validateRequest(AuthZodValidation.LoginValidationSchema),
   AuthControllers.loginUser
 );
+
+router.post('/change-password',auth(USER_ROLE.USER,USER_ROLE.VENDOR), validateRequest(AuthZodValidation.changePasswordValidation),
+AuthControllers.changePassword)
+
 router.post(
   "/forget-password-otp-sent",
   validateRequest(AuthZodValidation.credentialChangeMailGet),
@@ -23,6 +27,10 @@ router.post(
   validateRequest(AuthZodValidation.credentialChangeOtpAndPassGet),
   AuthControllers.forgetPassword
 );
+
+
+
+
 
 router.post(
   "/logout",

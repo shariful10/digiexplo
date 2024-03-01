@@ -99,7 +99,7 @@ const images = [
 const Banner = () => {
   return (
     <div className="mt-10 mb-[60px] bg-gradient-to-b from-primary to-[#002562] px-5 py-12 md:px-20 md:py-[120px] rounded-2xl text-white relative overflow-hidden z-0">
-      <div className="absolute -top-20 -right-20 hidden md:grid grid-cols-3 gap-5 rotate-45 rounded-2xl">
+      <div className="absolute -top-20 -right-20 hidden 2xl:grid grid-cols-3 gap-5 rotate-45 rounded-2xl">
         {images.map(({ id, image }) => (
           <div
             key={id}
@@ -116,10 +116,10 @@ const Banner = () => {
         ))}
       </div>
       <div className="">
-        <h1 className="text-3xl sm:text-[45px] leading-[55px] lg:text-[72px] font-bold md:w-[60%] md:leading-[82px] uppercase">
+        <h1 className="text-3xl sm:text-[45px] leading-[55px] lg:text-[60px] xl:text-[72px] font-bold 2xl:w-[60%] md:leading-[82px] uppercase">
           Lorem ipsum dolor sit amet.
         </h1>
-        <p className="text-base md:text-lg my-5 md:w-1/2">
+        <p className="text-base md:text-lg my-5 md:w-[60%] lg:w-[70%] 2xl:w-1/2">
           Have the to of lose he least unmolested receive fixed is the of moving
           by we monstrous in holding you at its little you attempt.
         </p>

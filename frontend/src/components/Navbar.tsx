@@ -25,9 +25,8 @@ interface Props {
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
-  // console.log(user)
 
-  const { data: user = [], refetch } = useQuery(["user"], async () => {
+  const { data: user = [] } = useQuery(["user"], async () => {
     const res = await Axios.get(`/users/get-user`);
     return res?.data?.data;
   });

@@ -49,7 +49,7 @@ const RecentBlogs = () => {
 		<div className="mt-10 mb-12">
 			<SectionTitle title="Recent" subtitle="Blogs" />
 			<SectionDesc description="Be Connected with Us By Read these article" />
-			<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+			<div className="grid lg:grid-cols-2 2xl:grid-cols-4 gap-6 mt-10">
 				{blogs.map(({ id, title, desc, author, category, bg_img }) => (
 					<div
 						key={id}

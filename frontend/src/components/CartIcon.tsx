@@ -1,8 +1,6 @@
-import { Axios } from "@/lib/axios";
-import { useQuery } from "react-query";
+import { IUser } from "./types";
 import { IoMdCart } from "react-icons/io";
 import React, { SetStateAction } from "react";
-import { IUser } from "./types";
 
 const CartIcon = ({
   setShowCart,

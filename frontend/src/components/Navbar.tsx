@@ -1,19 +1,19 @@
 "use client";
-import logo from "@/images/logo.webp";
-import { Axios } from "@/lib/axios";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import CartIcon from "./CartIcon";
+import CartPage from "./CartPage";
+import { auth } from "@/lib/auth";
+import Container from "./Container";
+import { Axios } from "@/lib/axios";
+import logo from "@/images/logo.webp";
+import { useQuery } from "react-query";
+import ProfileMenu from "./ProfileMenu";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useQuery } from "react-query";
-import CartIcon from "./CartIcon";
-import CartPage from "./CartPage";
-import Container from "./Container";
-import ProfileMenu from "./ProfileMenu";
-import { auth } from "@/lib/auth";
 
 interface Props {
   show: boolean;
@@ -71,10 +71,10 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                     alt="ProfileImage"
                   />
                   <ProfileMenu
-                    logoutUser={logoutUser}
                     open={open}
                     user={user}
                     setOpen={setOpen}
+                    logoutUser={logoutUser}
                   />
                 </div>
               ) : (

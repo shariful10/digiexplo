@@ -4,8 +4,8 @@ import { IOrder } from "./order.interface";
 
 
 const orderSchema = new Schema<IOrder>({
-  product: Schema.Types.ObjectId,
-  user: Schema.Types.ObjectId,
+  product: {type: Schema.Types.ObjectId, ref: "Product"},
+  user: {type: Schema.Types.ObjectId, ref: "User"},
   orderStatus: {
     type: String,
     enum: ['Pending',"Delivered"],

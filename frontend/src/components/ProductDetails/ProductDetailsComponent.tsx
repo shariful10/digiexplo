@@ -1,19 +1,17 @@
 "use client";
-import { formatDate } from "@/components/Dashboard/Vendor/VendorProductCard";
+import Link from "next/link";
+import Image from "next/image";
+import { IOrder } from "../types";
+import { Axios } from "@/lib/axios";
+import Loader from "../Loader/Loader";
+import { useQuery } from "react-query";
+import { useParams } from "next/navigation";
+import { FaDownload } from "react-icons/fa6";
+import { useGetApprovedProducts } from "@/lib/getProducts";
 import AuthorInfo from "@/components/ProductDetails/AuthorInfo";
+import { formatDate } from "@/components/Dashboard/Vendor/VendorProductCard";
 import ProductDescription from "@/components/ProductDetails/ProductDescription";
 import ProductInformation from "@/components/ProductDetails/ProductInformation";
-import { Axios } from "@/lib/axios";
-import { useGetApprovedProducts } from "@/lib/getProducts";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useQuery } from "react-query";
-import { IOrder } from "../types";
-import Link from "next/link";
-import { FaDownload } from "react-icons/fa6";
-import Loader from "../Loader/Loader";
-import { useState } from "react";
-import { arch } from "os";
 
 const ProductDetailsComponent = () => {
 	const { id } = useParams();
@@ -23,28 +21,16 @@ const ProductDetailsComponent = () => {
 		return res?.data?.data;
 	});
 
-	const { data: products = [], isLoading, refetch } = useGetApprovedProducts();
+	const { data: products = [], isLoading } = useGetApprovedProducts();
 	const product = products.find((product) => product._id === id);
 
 	if (!product) {
 		return null;
 	}
 
-	// console.log("user", user.buyedProducts);
 	const isProductPurchased = user?.buyedProducts?.some(
 		(order: IOrder) => order.product === product?._id
 	);
-
-	const downloadFile = (url: string) => {
-		const fileName = url.split("https://digiexplo.s3.amazonaws.com/product").pop();
-
-		const aTag = document.createElement("a");
-		aTag.href = url;
-		aTag.setAttribute("download", fileName!);
-		document.body.appendChild(aTag);
-		aTag.click();
-		aTag.remove();
-	};
 
 	return (
 		<>
@@ -85,12 +71,13 @@ const ProductDetailsComponent = () => {
 									${product?.price}
 								</p>
 								{isProductPurchased ? (
-									<button
-										onClick={() => downloadFile(product?.file)}
+									<Link
+										href={product.file}
+										download
 										className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center max-w-36"
 									>
 										<FaDownload size={16} /> <span>Download</span>
-									</button>
+									</Link>
 								) : (
 									<button className="text-black hover:text-white capitalize bg-gray-100 hover:bg-primary duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold">
 										Purchase
@@ -108,7 +95,6 @@ const ProductDetailsComponent = () => {
 						<div className="xl:max-w-[35%] w-full">
 							<ProductInformation productInfo={product} />
 							<AuthorInfo author={product?.vendor} />
-							{/* <Tags tags={tags.slice(0, 17)} title={"Product Tags"} bg={true} /> */}
 						</div>
 					</div>
 				</div>

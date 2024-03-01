@@ -9,13 +9,14 @@ import { formatDate } from "../helper";
 
 const Table = () => {
 	const {
-		data: user = [],
+		data: orderHistory = [],
 		refetch,
 		isLoading,
-	} = useQuery(["user"], async () => {
-		const res = await Axios.get(`/users/get-user`);
+	} = useQuery(["orderHistory"], async () => {
+		const res = await Axios.get(`/users/get-order-history`);
 		return res?.data?.data;
 	});
+	console.log(orderHistory);
 
 	return (
 		<>
@@ -23,7 +24,7 @@ const Table = () => {
 				<Loader />
 			) : (
 				<>
-					{user?.buyedProducts.length > 0 ? (
+					{orderHistory?.length > 0 ? (
 						<div>
 							<div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-5xl">
 								<div className="mb-5">
@@ -54,58 +55,55 @@ const Table = () => {
 											</tr>
 										</thead>
 										<tbody>
-											{user?.buyedProducts?.map((item) => (
+											{orderHistory?.map((item) => (
 												<tr
-													key={item?._id}
+													key={item?.product?._id}
 													className="bg-white border-b last:border-none hover:bg-gray-50"
 												>
 													<td className="flex items-center mr-14 px-6 py-4 text-gray-600 whitespace-nowrap">
 														<Image
 															className="w-10 h-10 rounded-md"
-															src={item?.thumbnail}
+															src={item?.product?.thumbnail}
 															width={100}
 															height={80}
 															alt="Jese image"
 														/>
 														<div className="ps-3">
 															<p className="text-base font-semibold md:hidden">
-																{item?.productName?.slice(0, 20)}...
+																{item?.product?.productName?.slice(0, 20)}...
 															</p>
 															<p className="text-base font-semibold hidden md:block">
-																{item?.productName}
-															</p>
-															<p className="font-normal text-gray-500">
-																{item?.vendor?.user?.username}
+																{item?.product?.productName}
 															</p>
 														</div>
 													</td>
 													<td className="px-6 py-4 font-medium whitespace-nowrap">
 														<button className="text-green-500 bg-green-100 px-2 py-1 rounded-md">
 															<FormattedPrice
-																amount={item?.price}
+																amount={item?.product?.price}
 																className="text-center"
 															/>
 														</button>
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
 														<span className="bg-blue-100 text-blue-500 px-2 py-1 rounded-md font-medium">
-															{formatDate(item?.createdAt)}
+															{formatDate(item?.product?.createdAt)}
 														</span>
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
 														<span
 															className={`${
-																item?.status === "Paid"
+																item?.paymentStatus === "paid"
 																	? "bg-green-100 text-green-500 "
 																	: "bg-amber-100 text-amber-500 "
 															} px-2 py-1 rounded-md font-medium`}
 														>
-															{item?.status}
+															{item?.paymentStatus}
 														</span>
 													</td>
 													<td className="px-6 py-4">
 														<Link
-															href={`product/${item?._id}`}
+															href={`product/${item?.product?._id}`}
 															className="font-medium text-primary"
 														>
 															<FaEye size={20} />

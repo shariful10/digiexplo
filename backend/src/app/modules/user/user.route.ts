@@ -27,6 +27,12 @@ router.get(
 //   UserController.getCart
 // );
 
+router.get(
+  "/get-order-history",
+  auth(USER_ROLE.USER, USER_ROLE.VENDOR, USER_ROLE.ADMIN),
+  UserController.getOrderedItems
+);
+
 router.get("/get-categories", UserController.getCategory);
 
 export const UserRoutes = router;

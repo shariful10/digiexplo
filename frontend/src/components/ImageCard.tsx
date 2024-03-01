@@ -44,6 +44,19 @@ const ImageCard = ({ product }: { product: IProduct }) => {
     (order: IOrder) => order.product === _id
   );
 
+  const handleBuyProduct = async (productId: string) => {
+    try {
+      const res = await Axios.post(`/product/buy-product-intend/${productId}`);
+
+      if (res.status === 200) {
+        window.location.href = res?.data?.url;
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="cursor-pointer group">
       <div className="relative rounded-xl overflow-hidden">
@@ -65,11 +78,17 @@ const ImageCard = ({ product }: { product: IProduct }) => {
               <FaDownload size={16} /> <span>Download</span>
             </Link>
           ) : (
+            // <button
+            //   onClick={() => handleAddToCart(_id)}
+            //   className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center"
+            // >
+            //   <MdOutlineShoppingCart size={16} /> <span>Add to cart</span>
+            // </button>
             <button
-              onClick={() => handleAddToCart(_id)}
+              onClick={() => handleBuyProduct(_id)}
               className="bg-primary text-white px-4 py-2.5 rounded-xl transform translate-y-2 group-hover:translate-y-0 duration-300 flex gap-2 items-center"
             >
-              <MdOutlineShoppingCart size={16} /> <span>Add to cart</span>
+              <MdOutlineShoppingCart size={16} /> <span>Buy Now</span>
             </button>
           )}
           <Link href={`/product/${_id}`}>

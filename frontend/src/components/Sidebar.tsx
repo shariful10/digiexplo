@@ -2,14 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/images/logo.png";
-import { CgClose } from "react-icons/cg";
-import { usePathname } from "next/navigation";
-import { MdOutlineQueueMusic } from "react-icons/md";
-import { LuUser2 } from "react-icons/lu";
 import { Axios } from "@/lib/axios";
+import logo from "@/images/logo.png";
 import { useQuery } from "react-query";
 import { CategoryType } from "./types";
+import { CgClose } from "react-icons/cg";
+import { LuUser2 } from "react-icons/lu";
+import { usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

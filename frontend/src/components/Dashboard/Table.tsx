@@ -8,14 +8,12 @@ import Loader from "../Loader/Loader";
 import { formatDate } from "../helper";
 
 const Table = () => {
-	const {
-		data: user = [],
-		refetch,
-		isLoading,
-	} = useQuery(["user"], async () => {
+	const { data: user = [], isLoading } = useQuery(["user"], async () => {
 		const res = await Axios.get(`/users/get-user`);
 		return res?.data?.data;
 	});
+
+	console.log(user?.buyedProducts);
 
 	return (
 		<>
@@ -62,7 +60,11 @@ const Table = () => {
 													<td className="flex items-center mr-14 px-6 py-4 text-gray-600 whitespace-nowrap">
 														<Image
 															className="w-10 h-10 rounded-md"
-															src={item?.thumbnail}
+															src={
+																item?.thumbnail
+																	? item?.thumbnail
+																	: "https://dummyimage.com/365x245/a8a6a6/fff"
+															}
 															width={100}
 															height={80}
 															alt="Jese image"

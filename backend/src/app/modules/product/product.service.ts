@@ -145,7 +145,7 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
 		],
 		customer: customer.id,
 		mode: "payment",
-		success_url: "http://localhost:3000/payment-success",
+		success_url: "http://localhost:3000/dashboard",
 		cancel_url: "http://localhost:5000/payment-cancel",
 	});
 	return session;

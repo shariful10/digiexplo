@@ -42,7 +42,6 @@ const getUser = async (userId: string) => {
       path: "cart",
       populate: { path: "products" },
     })
-    .populate("buyedProducts");
 
   return user;
 };

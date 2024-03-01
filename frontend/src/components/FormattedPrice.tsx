@@ -10,7 +10,7 @@ const FormattedPrice = ({ amount, className }: FormattedAmountProps) => {
 		maximumFractionDigits: 2,
 	});
 
-	return <div className={className}>{formattedAmount}</div>;
+	return <p className={className}>{formattedAmount}</p>;
 };
 
 export default FormattedPrice;

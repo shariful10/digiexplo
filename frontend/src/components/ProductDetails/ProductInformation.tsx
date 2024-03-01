@@ -13,9 +13,9 @@ const ProductInformation = ({ productInfo }: { productInfo: IProduct }) => {
       <div className="space-y-5 text-sm md:text-base sm:text-lg">
         <p className="grid grid-cols-3  ">
           <span>Price</span>:{" "}
-          <span>
+          <div>
             <FormattedPrice amount={productInfo?.price} />
-          </span>
+          </div>
         </p>
         <p className="grid grid-cols-3  ">
           <span>Released</span>:{" "}

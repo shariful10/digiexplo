@@ -16,7 +16,7 @@ const MyOrderItems = () => {
         url="dashboard"
       />
       <div className="px-8 md:px-10">
-        <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-7xl">
+        <div className="p-8 md:p-10 rounded-md box-shadow border border-[#F1F1F4] max-w-5xl">
           <div className="mb-5">
             <h3 className="text-textColor text-[17px] font-semibold">
               Product Stats

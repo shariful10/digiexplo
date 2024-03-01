@@ -3,11 +3,12 @@ import React from "react";
 
 const sendMessagePage = () => {
 	return (
-		<div>
-			<h1 className="text-xl text-center font-semibold mt-5 md:mt-0">
+		<div className="w-full md:max-w-5xl mt-5 md:mt-10 px-5 md:px-10">
+			<h2 className="text-xl font-semibold mb-5">
 				Message to admin
-			</h1>
-			<ChatPage />
+			</h2>
+      <h4>Comming soon...</h4>
+			{/* <ChatPage /> */}
 		</div>
 	);
 };

@@ -82,9 +82,9 @@ const ImageCard = ({ product }: { product: IProduct }) => {
       <div className="mt-5 text-textColor px-1.5">
         <div className="flex justify-between">
           <p className="font-bold">{productName}</p>
-          <span className="text-primary font-bold">
+          <div className="text-primary font-bold">
             <FormattedPrice amount={price} />
-          </span>
+          </div>
         </div>
         <p className="text-neutral-400">
           by{" "}

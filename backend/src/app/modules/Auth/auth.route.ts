@@ -13,7 +13,7 @@ router.post(
   AuthControllers.loginUser
 );
 
-router.post('/change-password',auth(USER_ROLE.USER,USER_ROLE.VENDOR), validateRequest(AuthZodValidation.changePasswordValidation),
+router.put('/change-password',auth(USER_ROLE.USER,USER_ROLE.VENDOR), validateRequest(AuthZodValidation.changePasswordValidation),
 AuthControllers.changePassword)
 
 router.post(

@@ -1,16 +1,14 @@
 "use client";
 
+import axios from "axios";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { BASE_URL } from "../helper";
+import { FaUser } from "react-icons/fa";
 import React, { useState } from "react";
 import { IoMail } from "react-icons/io5";
-import { IoIosLock } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
-import Link from "next/link";
-import { FaUser } from "react-icons/fa";
-import { auth } from "@/lib/auth";
-import { Axios } from "@/lib/axios";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { BASE_URL } from "../helper";
+import { IoIosLock } from "react-icons/io";
 import { TbFidgetSpinner } from "react-icons/tb";
 
 const SignUp = () => {

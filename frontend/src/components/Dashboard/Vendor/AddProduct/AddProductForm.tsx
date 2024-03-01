@@ -243,7 +243,7 @@ const AddProductForm = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-600 py-3 px-5 rounded-md text-white mt-5 cursor-pointer"
+          className="bg-blue-600 py-3 px-5 rounded-md text-white mt-5 cursor-pointer w-full max-w-[160px]"
         >
           {loading ? (
             <TbFidgetSpinner className="m-auto animate-spin" size={24} />

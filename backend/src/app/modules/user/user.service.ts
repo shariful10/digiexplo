@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import httpStatus from "http-status";
+import { AppError } from "../../errors/AppError";
 import { CategoryModel } from "../category/category.model";
 import { uploadFile } from "../uploadFile/awsUpload";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import { Express } from "express";
+import { OrderModel } from "../order/order.model";
 
 const createUser = async ({
   body,
@@ -41,10 +44,23 @@ const getUser = async (userId: string) => {
     .populate({
       path: "cart",
       populate: { path: "products" },
-    })
-    .populate("buyedProducts");
+    });
 
   return user;
+};
+
+const getOrderedItems = async (userId: string) => {
+  const isUserExist = await User.userExists(userId);
+
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "User does not exist");
+  }
+
+  const orderedItems = await OrderModel.find({ user: userId }).populate(
+    "product"
+  );
+
+  return orderedItems;
 };
 
 const getCategory = async () => {
@@ -57,4 +73,5 @@ export const UserServices = {
   createUser,
   getUser,
   getCategory,
+  getOrderedItems,
 };

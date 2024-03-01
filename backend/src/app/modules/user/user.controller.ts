@@ -81,7 +81,20 @@ const getCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Categories retrieved successful",
+    message: "Categories retrieved successfully",
+    data: result,
+  });
+});
+
+const getOrderedItems = catchAsync(async (req, res) => {
+  const userId = req.user.id;
+
+  const result = await UserServices.getOrderedItems(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Order history retrieved successfully",
     data: result,
   });
 });
@@ -91,4 +104,5 @@ export const UserController = {
   getUser,
   // getCart,
   getCategory,
+  getOrderedItems,
 };

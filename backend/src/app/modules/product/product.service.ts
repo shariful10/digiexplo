@@ -148,6 +148,7 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
     success_url: "http://localhost:5000/payment-success",
     cancel_url: "http://localhost:5000/payment-cancel",
   });
+
   return session;
 };
 
@@ -193,7 +194,8 @@ const stripeHook = async (body: any, sig: string) => {
     const vendorEarning = product.price / vendor?.commissionPercentage;
 
     await VendorModel.findByIdAndUpdate(product?.vendor, {
-      $push: { soldProducts: order._id, wallet: vendorEarning },
+      $push: { soldProducts: order._id },
+      wallet: vendorEarning,
     });
   }
 };

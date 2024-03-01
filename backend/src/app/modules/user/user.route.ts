@@ -21,11 +21,11 @@ router.get(
   UserController.getUser
 );
 
-router.get(
-  "/get-cart",
-  auth(USER_ROLE.USER, USER_ROLE.VENDOR, USER_ROLE.ADMIN),
-  UserController.getCart
-);
+// router.get(
+//   "/get-cart",
+//   auth(USER_ROLE.USER, USER_ROLE.VENDOR, USER_ROLE.ADMIN),
+//   UserController.getCart
+// );
 
 router.get("/get-categories", UserController.getCategory);
 

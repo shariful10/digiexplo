@@ -4,3 +4,6 @@
 04 => User login stats will be handled from backend and AuthProvider will not be used
 05 => sidebar responsive small sidebar on small devices
 06 => use react skeleton for content loading
+07 => cart remove
+07 => refetch on add to cart
+08 => add to cart on product details page

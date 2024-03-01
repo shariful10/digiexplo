@@ -28,5 +28,6 @@ export default {
   aws_region: process.env.AWS_REGION,
   aws_bucket_name: process.env.AWS_BUCKET_NAME,
 
-  base_url: process.env.BASE_URL,
+  live_url: process.env.LIVE_URL,
+  local_url: process.env.LOCAL_URL,
 };

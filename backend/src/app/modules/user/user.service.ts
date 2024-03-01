@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CartModel } from "../cart/cart.model";
 import { CategoryModel } from "../category/category.model";
 import { uploadFile } from "../uploadFile/awsUpload";
 import { IUser } from "./user.interface";
@@ -35,15 +34,16 @@ const createUser = async ({
 };
 
 const getUser = async (userId: string) => {
-  const user = await User.findById(userId).select(
-    "firstName lastName name  profileImg  email  role  phone"
-  );
+  const user = await User.findById(userId)
+    .select(
+      "firstName lastName name  profileImg  email  role  phone cart, buyedProducts"
+    )
+    .populate({
+      path: "cart",
+      populate: { path: "products" },
+    })
+    .populate("buyedProducts");
 
-  return user;
-};
-
-const getCart = async (userId: string) => {
-  const user = await CartModel.findOne({ user: userId }).populate("products");
   return user;
 };
 
@@ -56,6 +56,5 @@ const getCategory = async () => {
 export const UserServices = {
   createUser,
   getUser,
-  getCart,
   getCategory,
 };

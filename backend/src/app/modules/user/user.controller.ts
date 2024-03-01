@@ -50,7 +50,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const user = await UserServices.getUser(userId);
 
   sendResponse(res, {
@@ -63,17 +63,17 @@ const getUser = catchAsync(async (req, res) => {
 
 //get cart
 
-const getCart = catchAsync(async (req, res) => {
-  const userId = req.user._id;
-  const cart = await UserServices.getCart(userId);
+// const getCart = catchAsync(async (req, res) => {
+//   const userId = req.user.id;
+//   const cart = await UserServices.getCart(userId);
 
-  sendResponse(res, {
-    data: cart,
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "cart get successful",
-  });
-});
+//   sendResponse(res, {
+//     data: cart,
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: "cart get successful",
+//   });
+// });
 
 const getCategory = catchAsync(async (req, res) => {
   const result = await UserServices.getCategory();
@@ -89,6 +89,6 @@ const getCategory = catchAsync(async (req, res) => {
 export const UserController = {
   createUser,
   getUser,
-  getCart,
+  // getCart,
   getCategory,
 };

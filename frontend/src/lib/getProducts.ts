@@ -75,6 +75,8 @@ export function useGetApprovedProducts(query?: QueryParams) {
     refetch,
   } = useQuery<IProduct[]>(["products"], () => fetchApprovedProducts(query));
 
+  console.log("isLoading:", isLoading);
+
   return {
     data,
     isLoading,

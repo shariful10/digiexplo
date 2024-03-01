@@ -3,12 +3,11 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import config from "./app/config";
+import morgan from "morgan";
 import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-import morgan from "morgan";
 
 const app: Application = express();
 
@@ -26,7 +25,7 @@ app.use(morgan("dev"));
 // app.use(express.json())
 app.use(
   cors({
-    origin: config.base_url,
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );

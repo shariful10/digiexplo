@@ -12,6 +12,14 @@ export interface OrderItemsProps {
   }[];
 }
 
+export interface ICart {
+  _id: string;
+  products: IProduct[];
+  user: IUser;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IUser {
   _id: string;
   lastName: string;
@@ -26,13 +34,8 @@ export interface IUser {
   status: string;
   isDeleted: boolean;
   vendor: string;
-  cart: string;
+  cart: ICart;
   buyedProducts: [];
-}
-
-export interface ICart {
-  user: string;
-  products: [];
 }
 
 export interface CategoryType {
@@ -88,4 +91,12 @@ export interface QueryParams {
   category?: string;
   limit?: number;
   page?: number;
+}
+
+export interface IOrder {
+  _id: string;
+  product: string;
+  user: string;
+  createdAt: string;
+  updatedAt: string;
 }

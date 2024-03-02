@@ -30,4 +30,6 @@ export default {
 
   live_url: process.env.LIVE_URL,
   local_url: process.env.LOCAL_URL,
+
+  backend_url : process.env.BACKEND_URL
 };

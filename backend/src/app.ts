@@ -8,7 +8,7 @@ import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-
+import path from 'path'
 const app: Application = express();
 
 // Parser
@@ -31,8 +31,8 @@ app.use(
 );
 app.use(cookieParser());
 
-// const static_folder = path.join(__dirname, "..", "public");
-// app.use(express.static(static_folder));
+const static_folder = path.join(__dirname, "..", "public");
+app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
 

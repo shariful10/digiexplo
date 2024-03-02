@@ -4,6 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { ProductServices } from "./product.service";
 import { Types } from "mongoose";
 import { Express } from "express";
+
 // import { VendorModel } from "../vendor/vendor.model";
 
 // const createProduct = catchAsync(async (req, res) => {
@@ -37,9 +38,7 @@ const createProduct = catchAsync(async (req, res) => {
   const file = req.files as { [fieldname: string]: Express.Multer.File[] };
   const thumbnail = file?.thumbnail[0];
   const productFile = file?.file[0];
-
   const userId = req.user._id;
-
   const { product, profile_not_update } = await ProductServices.createProduct(
     req.body,
     userId,

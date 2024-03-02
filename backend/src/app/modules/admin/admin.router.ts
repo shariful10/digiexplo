@@ -50,7 +50,7 @@ router.post(
 );
 
 router.put(
-  "/update-category",
+  "/update-category/:categoryId",
   auth(USER_ROLE.ADMIN),
   validateRequest(CategoryValidation.CreateCategoryValidation),
   CategoryControllers.updateCategory

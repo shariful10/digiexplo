@@ -15,14 +15,16 @@ const createCategory = async (payload: ICategory) => {
   return result;
 };
 
-const updateCategory = async (categoryId: string, payload: string) => {
+const updateCategory = async (categoryId: string, payload: ICategory) => {
   const isCategoryExist = await CategoryModel.findById(categoryId);
 
   if (!isCategoryExist) {
     throw new AppError(httpStatus.NOT_FOUND, "Category not found");
   }
 
-  const result = await CategoryModel.findByIdAndUpdate({ title: payload });
+  const result = await CategoryModel.findByIdAndUpdate(categoryId, {
+    title: payload.title,
+  });
 
   return result;
 };

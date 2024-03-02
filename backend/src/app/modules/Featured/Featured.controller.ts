@@ -30,6 +30,8 @@ const getFeaturedProduct = catchAsync(async (req, res) => {
 const deleteFeaturedProduct = catchAsync(async (req, res) => {
   const featuredId = req.params.featuredId;
 
+  console.log(featuredId);
+
   const result = await FeaturedServices.deleteFeaturedProduct(featuredId);
 
   return sendResponse(res, {

@@ -66,7 +66,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                     width={40}
                     height={40}
                     onClick={() => setOpen(!open)}
-                    className="rounded-full object-cover h-10 w-10 cursor-pointer border-2"
+                    className="rounded-full object-cover h-10 w-10 cursor-pointer border-2 border-primary"
                     alt="ProfileImage"
                   />
                   <ProfileMenu
@@ -85,7 +85,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                 </Link>
               )}
             </div>
-            <div className="md:hidden">
+            <div className="xl:hidden">
               {!show && (
                 <RxHamburgerMenu onClick={() => setShow(true)} size={24} />
               )}

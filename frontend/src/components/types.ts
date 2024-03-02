@@ -100,3 +100,8 @@ export interface IOrder {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IFeaturedProduct {
+  _id: string;
+  product: IProduct;
+}

@@ -14,6 +14,8 @@ const ImageCard = ({ product }: { product: IProduct }) => {
     return null;
   }
 
+  // console.log(product);
+
   const handleAddToCart = async (productId: string) => {
     try {
       const res = await Axios.post(`product/add-cart/${productId}`);

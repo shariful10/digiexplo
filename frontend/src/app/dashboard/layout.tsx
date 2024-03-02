@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import DashboardNavbar from "@/components/Dashboard/DashboardNavbar";
 import DashboardSidebar from "@/components/Dashboard/DashboardSidebar";
@@ -7,7 +7,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen lg:flex">
+    <div className="relative min-h-screen min-[1200px]:flex">
       <DashboardSidebar open={open} setOpen={setOpen} />
       <div className="flex-1">
         <DashboardNavbar open={open} setOpen={setOpen} />

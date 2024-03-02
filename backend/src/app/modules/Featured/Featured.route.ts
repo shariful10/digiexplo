@@ -6,7 +6,7 @@ import { USER_ROLE } from "../user/user.constant";
 const router = express.Router();
 
 router.post(
-  "/add-featured-product",
+  "/add-featured-product/:productId",
   auth(USER_ROLE.ADMIN),
   FeaturedControllers.addFeaturedProduct
 );
@@ -14,7 +14,7 @@ router.post(
 router.get("/get-featured-product", FeaturedControllers.getFeaturedProduct);
 
 router.delete(
-  "/delete-featured-product",
+  "/delete-featured-product/:featuredId",
   auth(USER_ROLE.ADMIN),
   FeaturedControllers.deleteFeaturedProduct
 );

@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import { FaCirclePlus, FaGear } from "react-icons/fa6";
+import { FaCirclePlus, FaGear, FaUsers, FaUsersGear } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdNewLabel, MdOutlineShoppingCart } from "react-icons/md";
 import { BsBoxFill } from "react-icons/bs";
 import { VscHome } from "react-icons/vsc";
 import { useQuery } from "react-query";
@@ -18,6 +18,8 @@ import {
   FaUserCog,
 } from "react-icons/fa";
 import { auth } from "@/lib/auth";
+import { IoCheckbox, IoHome, IoLogOut } from "react-icons/io5";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const dashboardUserItems = [
   {
@@ -30,7 +32,7 @@ const dashboardUserItems = [
     id: 2,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: FaGear,
+    Icon: RiLockPasswordFill,
   },
   {
     id: 3,
@@ -51,7 +53,7 @@ const dashboardVendorItems = [
     id: 3,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: FaGear,
+    Icon: RiLockPasswordFill,
   },
   {
     id: 4,
@@ -72,7 +74,7 @@ const dashboardAdminItems = [
     id: 2,
     title: "All Vendor Request",
     url: "/dashboard/all-vendor-request",
-    Icon: FaUser,
+    Icon: FaUsers,
   },
   {
     id: 6,
@@ -81,16 +83,28 @@ const dashboardAdminItems = [
     Icon: BsBoxFill,
   },
   {
+    id: 8,
+    title: "All Products",
+    url: "/dashboard/all-products",
+    Icon: IoCheckbox,
+  },
+  {
+    id: 7,
+    title: "Featured Products",
+    url: "/dashboard/featured-products",
+    Icon: MdNewLabel,
+  },
+  {
     id: 3,
     title: "All Vendors",
     url: "/dashboard/all-vendors",
-    Icon: FaUserCog,
+    Icon: FaUsersGear,
   },
   {
     id: 4,
     title: "Change Password",
     url: "/dashboard/change-password",
-    Icon: FaGear,
+    Icon: RiLockPasswordFill,
   },
 ];
 
@@ -111,7 +125,9 @@ const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
     <div className="w-64">
       <div
         className={`fixed top-0 bg-[#2D3748] h-screen w-64 ${
-          open ? "left-0 duration-500" : "-left-[500px] lg:left-0 duration-500"
+          open
+            ? "left-0 duration-500"
+            : "-left-[500px] min-[1200px]:left-0 duration-500"
         } py-10 z-20 flex flex-col justify-between`}
       >
         <div>
@@ -171,7 +187,7 @@ const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
                       : "text-[#9a9cae]"
                   } px-10`}
                 >
-                  <Icon className="text-xl" />
+                  <Icon className="text-xl text-white" />
                   <span className="">{title}</span>
                 </Link>
               ))}
@@ -189,7 +205,7 @@ const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
               href="/"
               className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
             >
-              <VscHome className="text-xl" />
+              <IoHome className="text-xl text-white" />
               <span className="">Home</span>
             </Link>
             <Link href="/">
@@ -197,7 +213,7 @@ const DashboardSidebar = ({ open, setOpen }: DashboardNavbarProps) => {
                 onClick={logoutUser}
                 className="flex items-center gap-2 text-[#9a9cae] hover:text-[#f5f5f5] py-2 px-5 w-full"
               >
-                <HiOutlineLogout className="text-xl" />
+                <IoLogOut className="text-xl text-white" />
                 <span className="">Logout</span>
               </button>
             </Link>

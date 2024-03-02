@@ -129,7 +129,7 @@ const updateProductCategory = async (productId: string, category: string) => {
 
 const buyProductPaymentIntend = async (userId: string, productId: string) => {
   const product = await ProductModel.findById(productId).select(
-    "thumbnail productName price _id"
+    "thumbnail productName price _id vendor"
   );
   const customer = await stripe.customers.create({
     metadata: {
@@ -159,10 +159,9 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
     ],
     customer: customer.id,
     mode: "payment",
-    success_url: "http://localhost:5000/payment-success",
+    success_url: "http://localhost:3000/dashboard",
     cancel_url: "http://localhost:5000/payment-cancel",
   });
-
   return session;
 };
 
@@ -187,12 +186,14 @@ const stripeHook = async (body: any, sig: string) => {
     const userId = JSON.parse(customerInfo.metadata.userId);
     const product = JSON.parse(customerInfo.metadata.product);
     // console.log({ userId: userId, productId: product });
+
     const order = await OrderModel.create({
       user: userId,
       product: product._id,
       paymentStatus: data.payment_status,
       orderStatus: "Delivered",
     });
+
     await User.findByIdAndUpdate(order.user, {
       $push: { buyedProducts: order._id },
     });

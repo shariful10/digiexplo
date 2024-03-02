@@ -9,46 +9,46 @@ import Loader from "@/components/Loader/Loader";
 import AllVendorTable from "./AllVendorTable";
 
 const AllVendor = () => {
-	const {
-		data: vendors = [],
-		refetch,
-		isLoading,
-	} = useQuery(["vendors"], async () => {
-		try {
-			const res = await Axios.get(`admin/get-approved-vendors`);
-			return res?.data?.data;
-		} catch (error: any) {
-			if (error.response.data.success === false) {
-				toast.error(error.response.data.errorMessage);
-			}
-			console.log("add category error", error.response.data);
-		}
-	});
+  const {
+    data: vendors = [],
+    refetch,
+    isLoading,
+  } = useQuery(["vendors"], async () => {
+    try {
+      const res = await Axios.get(`admin/get-approved-vendors`);
+      return res?.data?.data;
+    } catch (error: any) {
+      if (error.response.data.success === false) {
+        toast.error(error.response.data.errorMessage);
+      }
+      console.log("Fetch vendor error", error.response.data);
+    }
+  });
 
-	return (
-		<div className="relative">
-			<DashboardHeader
-				url="dashboard"
-				currentPage="all vendor"
-				title="All vendor"
-			/>
-			<div className="px-7 md:px-10">
-				{isLoading ? (
-					<Loader />
-				) : vendors.length > 0 ? (
-					<div className="rounded-md box-shadow border border-[#F1F1F4] max-w-[1350px] w-full">
-						<AllVendorTable
-							refetch={refetch}
-							vendorData={vendors}
-							isLoading={isLoading}
-						/>
-					</div>
-				) : (
-					<p>No Approve Vendor</p>
-				)}
-			</div>
-		</div>
-	);
+  return (
+    <div className="relative">
+      <DashboardHeader
+        url="dashboard"
+        currentPage="all vendor"
+        title="All vendor"
+      />
+      <div className="px-7 md:px-10">
+        {isLoading ? (
+          <Loader />
+        ) : vendors.length > 0 ? (
+          <div className="rounded-md box-shadow border border-[#F1F1F4] max-w-[1350px] w-full">
+            <AllVendorTable
+              refetch={refetch}
+              vendorData={vendors}
+              isLoading={isLoading}
+            />
+          </div>
+        ) : (
+          <p>No Approve Vendor</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default AllVendor;

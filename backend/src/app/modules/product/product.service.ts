@@ -106,6 +106,20 @@ const getCartProducts = async (userId: Types.ObjectId) => {
   return cart;
 };
 
+const updateProductCategory = async (productId: string, category: string) => {
+  const isProductExists = await ProductModel.findById(productId);
+
+  if (!isProductExists) {
+    throw new AppError(httpStatus.NOT_FOUND, "Product Not Found");
+  }
+
+  const result = await ProductModel.findByIdAndUpdate(productId, {
+    category: category,
+  });
+
+  return result;
+};
+
 // delete the cart
 // const deleteCart = async (cartItemId: Types.ObjectId) => {
 
@@ -207,6 +221,7 @@ export const ProductServices = {
   // cart related function export
   addProductToCart,
   getCartProducts,
+  updateProductCategory,
 
   // buy product related function export
   buyProductPaymentIntend,

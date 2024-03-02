@@ -8,7 +8,7 @@ import { Express } from "express";
 const becomeVendor = catchAsync(async (req, res) => {
   const verificationImg = req.file as Express.Multer.File;
   const userId = req.user?.id;
-  
+
   if (!userId) {
     throw new AppError(
       httpStatus.UNAUTHORIZED,
@@ -20,7 +20,7 @@ const becomeVendor = catchAsync(async (req, res) => {
     req.body,
     verificationImg
   );
-  
+
   // if(vendor_exist) {
   //   return  sendResponse(res, {
   //     statusCode: httpStatus.CONFLICT,
@@ -56,7 +56,24 @@ const getVendor = catchAsync(async (req, res) => {
   });
 });
 
+const updateVendorCommission = catchAsync(async (req, res) => {
+  const vendorId = req.params.vendorId;
+
+  const result = await VendorServices.updateVendorCommission(
+    vendorId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Vendor Commission Updated",
+    data: result,
+  });
+});
+
 export const VendorController = {
-	becomeVendor,
-	getVendor,
+  becomeVendor,
+  getVendor,
+  updateVendorCommission,
 };

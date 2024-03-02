@@ -6,6 +6,8 @@ import validateRequest from "../../middleware/validateRequest";
 import { VendorValidation } from "../vendor/vendor.validation";
 import { CategoryControllers } from "../category/category.controller";
 import { CategoryValidation } from "../category/category.validation";
+import { VendorController } from "../vendor/vendor.controller";
+import { ProductControllers } from "../product/product.controller";
 
 const router = Router();
 
@@ -64,6 +66,19 @@ router.get(
   "/get-approved-vendors",
   auth(USER_ROLE.ADMIN),
   AdminController.getApprovedVendor
+);
+
+router.put(
+  "/update-vendor-commission",
+  auth(USER_ROLE.ADMIN),
+  validateRequest(VendorValidation.UpdateVendorProfile),
+  VendorController.updateVendorCommission
+);
+
+router.put(
+  "/update-product-category",
+  auth(USER_ROLE.ADMIN),
+  ProductControllers.updateProductCategory
 );
 
 export const AdminRoutes = router;

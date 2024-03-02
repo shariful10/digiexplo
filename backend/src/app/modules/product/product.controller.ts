@@ -116,13 +116,29 @@ const getCartProducts = catchAsync(async (req, res) => {
   });
 });
 
+const updateProductCategory = catchAsync(async (req, res) => {
+  const productId = req.params.productId;
+
+  const result = await ProductServices.updateProductCategory(
+    productId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Category Updated successfully",
+    data: result,
+  });
+});
+
 // product buy related function
 
 const buyProductPaymentIntend = catchAsync(async (req, res) => {
   const userId = req.user.id;
   const productId = req.params.productId;
 
-  console.log("productId", productId);
+  // console.log("productId", productId);
 
   const session = await ProductServices.buyProductPaymentIntend(
     userId,
@@ -152,6 +168,7 @@ export const ProductControllers = {
   // cart related function
   addProductToCart,
   getCartProducts,
+  updateProductCategory,
 
   // product by related function
   buyProductPaymentIntend,

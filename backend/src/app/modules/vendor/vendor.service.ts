@@ -4,6 +4,8 @@ import { VendorModel } from "./vendor.model";
 import { uploadFile } from "../uploadFile/awsUpload";
 import { VENDOR_STATUS } from "./vendor.constant";
 import { Express } from "express";
+import { AppError } from "../../errors/AppError";
+import httpStatus from "http-status";
 
 const becomeVendor = async (
   userId: Types.ObjectId,
@@ -22,7 +24,7 @@ const becomeVendor = async (
       vendor_pending: true,
     };
   }
-  
+
   const uploadVerificationImg = await uploadFile(verificationImg, "vendor");
   const result = await new VendorModel({
     address: payload.address,
@@ -44,4 +46,22 @@ const getVendor = async (vendorId: string) => {
   return vendor;
 };
 
-export const VendorServices = { becomeVendor, getVendor };
+const updateVendorCommission = async (vendorId: string, payload: string) => {
+  const isVendorExists = await VendorModel.findById(vendorId);
+
+  if (!isVendorExists) {
+    throw new AppError(httpStatus.NOT_FOUND, "Vendor not found");
+  }
+
+  const result = await VendorModel.findByIdAndUpdate({
+    commissionPercentage: payload,
+  });
+
+  return result;
+};
+
+export const VendorServices = {
+  becomeVendor,
+  getVendor,
+  updateVendorCommission,
+};

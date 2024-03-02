@@ -12,7 +12,7 @@ import { useGetApprovedProducts } from "@/lib/getProducts";
 import Loader from "../Loader/Loader";
 
 const FeaturedItems = () => {
-	const { data: products = [], isLoading, refetch } = useGetApprovedProducts();
+	const { data: products = [], isLoading } = useGetApprovedProducts();
 
 	return (
 		<div className="my-16">

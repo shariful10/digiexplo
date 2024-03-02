@@ -198,18 +198,20 @@ const stripeHook = async (body: any, sig: string) => {
     });
 
     const vendor = await VendorModel.findById(product?.vendor);
-    if (!vendor) {
+    if (!vendor || vendor.wallet === undefined) {
       throw new AppError(
         httpStatus.NOT_FOUND,
         "Vendor not found: stripeHook()"
       );
     }
 
-    const vendorEarning = product.price / vendor?.commissionPercentage;
+    const vendorCommission =
+      (product.price / 100) * vendor?.commissionPercentage;
+    const vendorWallet = vendorCommission + vendor?.wallet;
 
     await VendorModel.findByIdAndUpdate(product?.vendor, {
       $push: { soldProducts: order._id },
-      wallet: vendorEarning,
+      wallet: vendorWallet,
     });
   }
 };

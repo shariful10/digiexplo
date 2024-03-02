@@ -28,7 +28,7 @@ router.get(
 // );
 
 router.get(
-  "/get-order-history/",
+  "/get-order-history",
   auth(USER_ROLE.USER, USER_ROLE.VENDOR, USER_ROLE.ADMIN),
   UserController.getOrderedItems
 );

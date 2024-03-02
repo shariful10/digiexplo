@@ -87,7 +87,7 @@ const getCategory = catchAsync(async (req, res) => {
 });
 
 const getOrderedItems = catchAsync(async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
 
   const result = await UserServices.getOrderedItems(userId);
 

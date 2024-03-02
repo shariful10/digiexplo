@@ -1,19 +1,19 @@
 "use client";
-import logo from "@/images/logo.webp";
-import { Axios } from "@/lib/axios";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import CartIcon from "./CartIcon";
+import CartPage from "./CartPage";
+import { auth } from "@/lib/auth";
+import Container from "./Container";
+import { Axios } from "@/lib/axios";
+import logo from "@/images/logo.webp";
+import { useQuery } from "react-query";
+import ProfileMenu from "./ProfileMenu";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useQuery } from "react-query";
-import CartIcon from "./CartIcon";
-import CartPage from "./CartPage";
-import Container from "./Container";
-import ProfileMenu from "./ProfileMenu";
-import { auth } from "@/lib/auth";
 
 interface Props {
   show: boolean;
@@ -25,9 +25,8 @@ interface Props {
 const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
-  // console.log(user)
 
-  const { data: user = [], refetch } = useQuery(["user"], async () => {
+  const { data: user = [] } = useQuery(["user"], async () => {
     const res = await Axios.get(`/users/get-user`);
     return res?.data?.data;
   });
@@ -59,7 +58,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <CartIcon setShowCart={setShowCart} user={user} />
+              {/* <CartIcon setShowCart={setShowCart} user={user} /> */}
               {user.profileImg ? (
                 <div>
                   <Image
@@ -67,14 +66,14 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                     width={40}
                     height={40}
                     onClick={() => setOpen(!open)}
-                    className="rounded-full object-cover h-10 w-10 cursor-pointer"
+                    className="rounded-full object-cover h-10 w-10 cursor-pointer border-2"
                     alt="ProfileImage"
                   />
                   <ProfileMenu
-                    logoutUser={logoutUser}
                     open={open}
                     user={user}
                     setOpen={setOpen}
+                    logoutUser={logoutUser}
                   />
                 </div>
               ) : (

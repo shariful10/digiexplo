@@ -2,14 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/images/logo.png";
-import { CgClose } from "react-icons/cg";
-import { usePathname } from "next/navigation";
-import { MdOutlineQueueMusic } from "react-icons/md";
-import { LuUser2 } from "react-icons/lu";
 import { Axios } from "@/lib/axios";
+import logo from "@/images/logo.png";
 import { useQuery } from "react-query";
 import { CategoryType } from "./types";
+import { CgClose } from "react-icons/cg";
+import { LuUser2 } from "react-icons/lu";
+import { usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -37,6 +36,11 @@ const Sidebar = ({ show, setShow }: Props) => {
 			}
 		}
 	);
+
+	const { data: user = [] } = useQuery(["user"], async () => {
+		const res = await Axios.get(`/users/get-user`);
+		return res?.data?.data;
+	});
 
 	const categoryToUrl = (title: string) => {
 		const splitUrl = title.split(" ");
@@ -90,7 +94,9 @@ const Sidebar = ({ show, setShow }: Props) => {
 											pathName === categoryToUrl(title) && "text-primary"
 										} hover:text-primary capitalize text-lg font-medium`}
 									>
-										<Link href={`/category/${categoryToUrl(title)}`}>{title}</Link>
+										<Link href={`/category/${categoryToUrl(title)}`}>
+											{title}
+										</Link>
 									</li>
 								</ul>
 							))}
@@ -116,12 +122,14 @@ const Sidebar = ({ show, setShow }: Props) => {
 							Become a Vendor
 						</button>
 					</Link>
-					<Link href="/login" onClick={() => setShow(false)}>
-						<button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-700 py-2 px-5 rounded-md font-semibold text-white flex justify-center items-center gap-2 w-full">
-							<LuUser2 />
-							Login
-						</button>
-					</Link>
+					{!user && (
+						<Link href="/login" onClick={() => setShow(false)}>
+							<button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-700 py-2 px-5 rounded-md font-semibold text-white flex justify-center items-center gap-2 w-full">
+								<LuUser2 />
+								Login
+							</button>
+						</Link>
+					)}
 				</div>
 			</div>
 		</div>

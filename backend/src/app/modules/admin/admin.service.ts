@@ -26,10 +26,10 @@ const updateVendorRequest = async (vendorId: string, status: string) => {
     };
   }
 
-  await VendorModel.findByIdAndUpdate(vendorId, {
-    status,
-    commissionPercentage: 70,
-  });
+	await VendorModel.findByIdAndUpdate(vendorId, {
+		status,
+		commissionPercentage: 70,
+	});
 
   await User.findOneAndUpdate(
     { _id: findVendor?.user },

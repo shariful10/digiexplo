@@ -47,6 +47,13 @@ router.post(
   CategoryControllers.createCategory
 );
 
+router.put(
+  "/update-category",
+  auth(USER_ROLE.ADMIN),
+  validateRequest(CategoryValidation.CreateCategoryValidation),
+  CategoryControllers.updateCategory
+);
+
 router.post(
   "/delete-category/:categoryId",
   auth(USER_ROLE.ADMIN),

@@ -15,6 +15,18 @@ const createCategory = async (payload: ICategory) => {
   return result;
 };
 
+const updateCategory = async (categoryId: string, payload: string) => {
+  const isCategoryExist = await CategoryModel.findById(categoryId);
+
+  if (!isCategoryExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Category not found");
+  }
+
+  const result = await CategoryModel.findByIdAndUpdate({ title: payload });
+
+  return result;
+};
+
 const deleteCategory = async (payload: string) => {
   const isCategoryExist = await CategoryModel.findById(payload);
 
@@ -27,4 +39,8 @@ const deleteCategory = async (payload: string) => {
   return result;
 };
 
-export const CategoryServices = { createCategory, deleteCategory };
+export const CategoryServices = {
+  createCategory,
+  updateCategory,
+  deleteCategory,
+};

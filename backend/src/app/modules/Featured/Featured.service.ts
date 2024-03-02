@@ -18,7 +18,7 @@ const addFeaturedProduct = async (productId: string) => {
 const getFeaturedProduct = async () => {
   const result = await FeaturedModel.find().populate({
     path: "product",
-    populate: { path: "vendor" },
+    populate: { path: "vendor", populate: {path: "user"} },
   });
 
   return result;

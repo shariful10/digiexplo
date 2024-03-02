@@ -54,7 +54,7 @@ const Table = () => {
 											</tr>
 										</thead>
 										<tbody>
-											{orderHistory?.map((item) => (
+											{orderHistory?.map((item: any) => (
 												<tr
 													key={item?.product?._id}
 													className="bg-white border-b last:border-none hover:bg-gray-50"

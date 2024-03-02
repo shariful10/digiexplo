@@ -3,7 +3,7 @@ import { IFeatured } from "./Featured.interface";
 
 const FeaturedSchema = new Schema<IFeatured>(
   {
-    product: { type: Schema.Types.ObjectId, required: true },
+    product: { type: Schema.Types.ObjectId, required: true, ref: "Product" },
   },
   {
     timestamps: true,

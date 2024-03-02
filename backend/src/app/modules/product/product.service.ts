@@ -12,9 +12,8 @@ import { uploadFile, uploadWithWaterMark } from "../uploadFile/awsUpload";
 import { Express } from "express";
 import { AppError } from "../../errors/AppError";
 import httpStatus from "http-status";
-import fs from "fs";
 import Jimp from "jimp";
-// @ts-ignore
+
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 

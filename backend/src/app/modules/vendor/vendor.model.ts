@@ -21,7 +21,7 @@ const VendorSchema = new Schema<IVendor>(
     products: [
       {
         type: Schema.Types.ObjectId,
-        ref: "product",
+        ref: "Product",
         // unique: true,
       },
     ],

@@ -21,7 +21,7 @@ export default {
   cookie_expire: process.env.COOKIE_EXPIER,
 
   stripe_secret_key: process.env.STRIPE_SECRET_KEY,
-  stripe_endpoing_secret: process.env.STRIPE_ENDPOING_SECRET,
+  stripe_endpoint_secret: process.env.STRIPE_ENDPOINT_SECRET,
 
   aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
   aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
@@ -30,6 +30,6 @@ export default {
 
   live_url: process.env.LIVE_URL,
   local_url: process.env.LOCAL_URL,
-
+  base_url : process.env.BASE_URL,
   backend_url : process.env.BACKEND_URL
 };

@@ -10,7 +10,7 @@ import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
 import path from 'path'
 const app: Application = express();
-
+import config from './app/config'
 // Parser
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
@@ -25,7 +25,7 @@ app.use(morgan("dev"));
 // app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: config.base_url,
     credentials: true,
   })
 );

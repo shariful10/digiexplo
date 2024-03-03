@@ -185,8 +185,8 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
 };
 
 let endpointSecret: string;
-if (config.stripe_endpoing_secret) {
-  endpointSecret = config.stripe_endpoing_secret;
+if (config.stripe_endpoint_secret) {
+  endpointSecret = config.stripe_endpoint_secret;
 }
 const stripeHook = async (body: any, sig: string) => {
   let data;

@@ -1,6 +1,8 @@
 import { S3 } from "aws-sdk";
 import multer from "multer";
 import { Express } from "express";
+import { Buffer } from 'buffer';
+
 import config from "../../config";
 const s3 = new S3({
   accessKeyId: config.aws_access_key_id,
@@ -28,6 +30,7 @@ export const uploadFile = async (file: Express.Multer.File, path: string) => {
     ContentType: file.mimetype,
     // Add Content-Disposition header to force download
     ContentDisposition: "attachment",
+    
   };
   const upload = await s3
     .upload({
@@ -36,7 +39,31 @@ export const uploadFile = async (file: Express.Multer.File, path: string) => {
       Body: params.Body,
       ContentType: params.ContentType,
       ContentDisposition: params.ContentDisposition,
+      
     })
     .promise();
   return upload;
 };
+
+export const uploadWithWaterMark = async ({path='product',originalname,buffer,mimetype}: {path:string,originalname:string,buffer:Buffer,mimetype:string}) => {
+  const randomValue = generateRandomValue(10);
+  const params = {
+    Bucket: config.aws_bucket_name as string,
+    Key: `${path}/${randomValue}-${originalname}`,
+    Body: buffer,
+    ContentType: mimetype,
+    // Add Content-Disposition header to force download
+    ContentDisposition: "attachment", 
+  };
+  const upload = await s3
+  .upload({
+    Bucket: params.Bucket,
+    Key: params.Key,
+    Body: params.Body,
+    ContentType: params.ContentType,
+    ContentDisposition: params.ContentDisposition,
+  })
+  .promise();
+return upload;
+}
+

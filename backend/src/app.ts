@@ -8,10 +8,9 @@ import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-import config from "./app/config";
-
+import path from "path";
 const app: Application = express();
-
+import config from "./app/config";
 // Parser
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
@@ -32,8 +31,9 @@ app.use(
 );
 app.use(cookieParser());
 
-// const static_folder = path.join(__dirname, "..", "public");
-// app.use(express.static(static_folder));
+// eslint-disable-next-line no-undef
+const static_folder = path.join(__dirname, "..", "public");
+app.use(express.static(static_folder));
 // application routes
 app.use("/api/v1", router);
 

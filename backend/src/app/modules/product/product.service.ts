@@ -8,10 +8,11 @@ import { User } from "../user/user.model";
 import Stripe from "stripe";
 import config from "../../config";
 import { OrderModel } from "../order/order.model";
-import { uploadFile } from "../uploadFile/awsUpload";
+import { uploadFile, uploadWithWaterMark } from "../uploadFile/awsUpload";
 import { Express } from "express";
 import { AppError } from "../../errors/AppError";
 import httpStatus from "http-status";
+import Jimp from "jimp";
 
 const stripe = new Stripe(config.stripe_secret_key as string);
 
@@ -28,7 +29,23 @@ const createProduct = async (
       profile_not_update: true,
     };
   }
-  const thumbnailUpload = await uploadFile(thumbnail, "product");
+  const thumbnailBuffer = await Jimp.read(thumbnail?.buffer);
+  const watermark = await Jimp.read(`${config.backend_url}/logo.png`);
+  const x = (thumbnailBuffer.bitmap.width - watermark.bitmap.width) / 2;
+  const y = (thumbnailBuffer.bitmap.height - watermark.bitmap.height) / 2;
+
+  thumbnailBuffer.composite(watermark, x, y, {
+    mode: Jimp.BLEND_DESTINATION_OVER,
+    opacitySource: 0.98,
+    opacityDest: 0.95,
+  });
+  const modifiedBuffer = await thumbnailBuffer.getBufferAsync(Jimp.MIME_PNG);
+  const thumbnailUpload = await uploadWithWaterMark({
+    buffer: modifiedBuffer,
+    mimetype: thumbnail.mimetype,
+    originalname: thumbnail.originalname,
+    path: "product",
+  });
   const fileUpload = await uploadFile(productFile, "product");
   const product = await new ProductModel({
     productName: payload.productName,
@@ -166,8 +183,8 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
 };
 
 let endpointSecret: string;
-if (config.stripe_endpoing_secret) {
-  endpointSecret = config.stripe_endpoing_secret;
+if (config.stripe_endpoint_secret) {
+  endpointSecret = config.stripe_endpoint_secret;
 }
 const stripeHook = async (body: any, sig: string) => {
   let data;

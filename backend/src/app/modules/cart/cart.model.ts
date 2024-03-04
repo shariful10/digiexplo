@@ -13,7 +13,7 @@ const cartSchema = new Schema<ICart>(
     user: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "user",
+      ref: "User",
     },
   },
   { timestamps: true }

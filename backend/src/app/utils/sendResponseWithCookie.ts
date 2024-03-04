@@ -25,8 +25,9 @@ const sendResponseWithCookie = (
           : null,
       {
         expires: cookieExpires,
-        secure: true,
-        sameSite: "none",
+        // secure: true,
+        sameSite: "strict",
+        httpOnly:true
       }
     )
     .json({

@@ -9,9 +9,7 @@ const createProduct = catchAsync(async (req, res) => {
   const file = req.files as { [fieldname: string]: Express.Multer.File[] };
   const thumbnail = file?.thumbnail[0];
   const productFile = file?.file[0];
-
   const userId = req.user._id;
-
   const { product, profile_not_update } = await ProductServices.createProduct(
     req.body,
     userId,

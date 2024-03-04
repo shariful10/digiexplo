@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [show, setShow] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [listShown, setListShown] = useState(false);
 
   return (
     <div className={`flex`}>
@@ -19,9 +20,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           setShow={setShow}
           showCart={showCart}
           setShowCart={setShowCart}
+          listShown={listShown}
+          setListShown={setListShown}
         />
         <div
           className={`bg-[#FEFFFF] md:px-10 ${showCart && "overflow-hidden"}`}
+          onClick={() => setListShown(false)}
         >
           {children}
         </div>

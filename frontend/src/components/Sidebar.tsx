@@ -76,10 +76,10 @@ const Sidebar = ({ show, setShow }: Props) => {
               <Skeleton className="mb-4" height={35} count={7 + 2} />
             </div>
           ) : (
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-y-1">
               <Link
                 href="/"
-                className={`px-10 py-[13px] cursor-pointer ${
+                className={`px-10 cursor-pointer ${
                   pathName === "/" && "text-primary"
                 } hover:text-primary capitalize text-lg font-medium`}
               >
@@ -89,7 +89,7 @@ const Sidebar = ({ show, setShow }: Props) => {
                 <ul key={_id} className="my-2">
                   <li
                     onClick={() => setShow(false)}
-                    className={`px-10 py-[10px] cursor-pointer ${
+                    className={`px-10 cursor-pointer ${
                       pathName === categoryToUrl(title) && "text-primary"
                     } hover:text-primary capitalize text-lg font-medium`}
                   >
@@ -101,7 +101,7 @@ const Sidebar = ({ show, setShow }: Props) => {
               ))}
               <Link
                 href="/blogs"
-                className={`px-10 py-[13px] cursor-pointer ${
+                className={`px-10 cursor-pointer ${
                   pathName === "/blogs" && "text-primary"
                 } hover:text-primary capitalize text-lg font-medium`}
               >

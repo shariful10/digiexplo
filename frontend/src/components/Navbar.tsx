@@ -3,7 +3,7 @@ import logo from "@/images/logo.png";
 import { auth } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,27 +12,53 @@ import { useUser } from "./AuthProvider";
 import CartPage from "./CartPage";
 import Container from "./Container";
 import ProfileMenu from "./ProfileMenu";
+import SearchInput from "./SearchInput";
+import { useGetApprovedProducts } from "@/lib/getProducts";
+import { IoClose } from "react-icons/io5";
+import { IProduct } from "./types";
 
 interface Props {
   show: boolean;
   showCart: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
+  setListShown: React.Dispatch<React.SetStateAction<boolean>>;
+  listShown: boolean;
 }
 
-const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
+const Navbar = ({
+  show,
+  setShow,
+  showCart,
+  setShowCart,
+  listShown,
+  setListShown,
+}: Props) => {
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [items, setItems] = useState<IProduct[]>([]);
+  const { data: products = [], isLoading } = useGetApprovedProducts();
 
   const { user } = useUser();
 
-  console.log(user);
+  useEffect(() => {
+    if (search) {
+      const filtered = products.filter((item) =>
+        item.productName.toLowerCase().includes(search.toLowerCase())
+      );
+
+      setItems(filtered);
+    } else {
+      setItems([]);
+    }
+  }, [search]);
 
   return (
     <div className="md:px-10 py-5 bg-white">
       <Container>
         <div className="flex justify-between items-center">
-          <div className="hidden md:flex items-center gap-1">
+          {/* <div className="hidden md:flex items-center gap-1">
             <input
               type="search"
               className="border border-textColor outline-none py-2 px-4 rounded-lg"
@@ -43,7 +69,54 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
             <button className="bg-primary text-white py-[10px] px-4 rounded-lg">
               <RiSearchLine size={20} />
             </button>
+          </div> */}
+
+          {/* New sidebar */}
+          <div className="flex flex-col gap-4 relative w-full search-list">
+            <SearchInput setSearch={setSearch} setListShown={setListShown} />
+            {/* searched items */}
+            {items.length > 0 && listShown && (
+              <ul className="absolute top-11 bg-white py-5 z-50 max-w-lg w-full shadow-md rounded-md">
+                {items.map((item, index) => (
+                  <li key={index} className="hover:bg-secondary">
+                    <Link
+                      href={`/product/${item._id}`}
+                      onClick={() => setListShown(false)}
+                    >
+                      <div className="flex justify-between py-2 items-center p-8">
+                        <div className="flex gap-4 items-center">
+                          <p>{index + 1}.</p>
+                          <Image
+                            className="rounded h-10 w-10 object-cover"
+                            src={item.thumbnail}
+                            width={40}
+                            height={40}
+                            alt={item.productName}
+                          />
+                          {item.productName}
+                        </div>
+                        <div className="flex items-center gap-8">
+                          <div
+                            className={`${
+                              item.status === "active"
+                                ? "bg-[#2AB7DD21]"
+                                : "bg-darkGray text-white"
+                            } text-xs px-4 py-1 rounded-3xl`}
+                          ></div>
+                          {/* <button>
+                            <IoClose size={20} />
+                          </button> */}
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {/* searched items End*/}
           </div>
+          {/* New sidebar End */}
+
           <Link href="/" className="md:hidden">
             <Image
               src={logo}

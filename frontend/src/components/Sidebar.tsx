@@ -72,11 +72,11 @@ const Sidebar = ({ show, setShow }: Props) => {
         </div>
         <div className="my-[30px]">
           {isLoading ? (
-            <div className="flex flex-col gap-4 px-10">
-              <Skeleton className="mb-4" height={35} count={7 + 2} />
+            <div className="flex flex-col px-10">
+              <Skeleton className="mb-4" height={35} count={8} />
             </div>
           ) : (
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col">
               <Link
                 href="/"
                 className={`px-10 cursor-pointer ${

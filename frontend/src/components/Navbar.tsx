@@ -1,17 +1,17 @@
 "use client";
-import logo from "@/images/logo.png";
-import { auth } from "@/lib/auth";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import CartPage from "./CartPage";
+import { auth } from "@/lib/auth";
+import Container from "./Container";
+import logo from "@/images/logo.png";
+import ProfileMenu from "./ProfileMenu";
 import { LuUser2 } from "react-icons/lu";
+import { useUser } from "./AuthProvider";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useUser } from "./AuthProvider";
-import CartPage from "./CartPage";
-import Container from "./Container";
-import ProfileMenu from "./ProfileMenu";
 
 interface Props {
   show: boolean;
@@ -82,7 +82,7 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
                 </Link>
               )}
             </div>
-            <div className="xl:hidden">
+            <div className="xl:hidden cursor-pointer">
               {!show && (
                 <RxHamburgerMenu onClick={() => setShow(true)} size={24} />
               )}

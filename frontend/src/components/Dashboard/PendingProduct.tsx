@@ -156,7 +156,11 @@ const PendingProduct = () => {
             </div>
           </div>
         ) : (
-          <p>No Pending Products</p>
+          <div className="min-h-[200px] flex flex-col justify-center max-w-4xl rounded-2xl box-shadow border border-gray-100 my-16">
+						<p className="text-2xl font-semibold text-center">
+							No pending products! 😊
+						</p>
+					</div>
         )}
       </div>
 

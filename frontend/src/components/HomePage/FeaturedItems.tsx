@@ -43,7 +43,11 @@ const FeaturedItems = () => {
           )}
         </div>
       ) : (
-        ""
+        <div className="min-h-[200px] flex flex-col justify-center max-w-4xl mx-auto rounded-2xl box-shadow border border-gray-100 my-16">
+					<p className="text-2xl font-semibold text-center">
+						No featured Product! 😔
+					</p>
+				</div>
       )}
     </>
   );

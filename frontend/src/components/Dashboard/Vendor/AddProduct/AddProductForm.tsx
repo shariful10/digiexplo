@@ -1,14 +1,13 @@
 "use client";
-import { categoriesItems } from "@/components/data";
-import { BASE_URL } from "@/components/helper";
 import axios from "axios";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { Axios } from "@/lib/axios";
+import { useQuery } from "react-query";
+import React, { useState } from "react";
+import { BASE_URL } from "@/components/helper";
 import CountrySelector from "./CountrySelector";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { useQuery } from "react-query";
-import { Axios } from "@/lib/axios";
 
 interface Country {
   value: string;
@@ -239,6 +238,7 @@ const AddProductForm = () => {
             >
               Choose file
             </label>
+            <label className="text-sm text-slate-500">Upload File</label>
           </div>
         </div>
         <button

@@ -1,17 +1,17 @@
 "use client";
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Axios } from "@/lib/axios";
 import logo from "@/images/logo.png";
 import { useQuery } from "react-query";
 import { CategoryType } from "./types";
+import { useUser } from "./AuthProvider";
 import { CgClose } from "react-icons/cg";
 import { LuUser2 } from "react-icons/lu";
-import { usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
+import { usePathname } from "next/navigation";
 import "react-loading-skeleton/dist/skeleton.css";
-import { UserProvider, useUser } from "./AuthProvider";
 
 interface Props {
   show: boolean;
@@ -90,7 +90,8 @@ const Sidebar = ({ show, setShow }: Props) => {
                   <li
                     onClick={() => setShow(false)}
                     className={`px-10 cursor-pointer ${
-                      pathName === categoryToUrl(title) && "text-primary"
+                      pathName === `/category/${categoryToUrl(title)}` &&
+                      "text-primary"
                     } hover:text-primary capitalize text-lg font-medium`}
                   >
                     <Link href={`/category/${categoryToUrl(title)}`}>

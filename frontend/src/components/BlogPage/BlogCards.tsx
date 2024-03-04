@@ -17,7 +17,7 @@ interface BlogCardsProps {
 
 const BlogCards = ({ items }: BlogCardsProps) => {
 	return (
-		<div className="grid md:grid-cols-2 gap-6 mt-10 justify-center">
+		<div className="grid lg:grid-cols-2 gap-6 mt-10 justify-center">
 			{items?.map((item) => (
 				<div
 					key={item?.id}

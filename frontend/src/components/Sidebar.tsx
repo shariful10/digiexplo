@@ -90,7 +90,7 @@ const Sidebar = ({ show, setShow }: Props) => {
                   <li
                     onClick={() => setShow(false)}
                     className={`px-10 cursor-pointer ${
-                      pathName === categoryToUrl(title) && "text-primary"
+                      pathName === `/category/${categoryToUrl(title)}` && "text-primary"
                     } hover:text-primary capitalize text-lg font-medium`}
                   >
                     <Link href={`/category/${categoryToUrl(title)}`}>

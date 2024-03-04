@@ -1,19 +1,17 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import CartIcon from "./CartIcon";
-import CartPage from "./CartPage";
+import logo from "@/images/logo.png";
 import { auth } from "@/lib/auth";
-import Container from "./Container";
-import { Axios } from "@/lib/axios";
-import logo from "@/images/logo.webp";
-import { useQuery } from "react-query";
-import ProfileMenu from "./ProfileMenu";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { LuUser2 } from "react-icons/lu";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useUser } from "./AuthProvider";
+import CartPage from "./CartPage";
+import Container from "./Container";
+import ProfileMenu from "./ProfileMenu";
 
 interface Props {
   show: boolean;
@@ -26,10 +24,9 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
   const { logoutUser } = auth;
   const [open, setOpen] = useState(false);
 
-  const { data: user = [] } = useQuery(["user"], async () => {
-    const res = await Axios.get(`/users/get-user`);
-    return res?.data?.data;
-  });
+  const { user } = useUser();
+
+  console.log(user);
 
   return (
     <div className="md:px-10 py-5 bg-white">
@@ -59,10 +56,10 @@ const Navbar = ({ show, setShow, showCart, setShowCart }: Props) => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
               {/* <CartIcon setShowCart={setShowCart} user={user} /> */}
-              {user.profileImg ? (
-                <div>
+              {user?.profileImg ? (
+                <div className="relative">
                   <Image
-                    src={user.profileImg}
+                    src={user?.profileImg}
                     width={40}
                     height={40}
                     onClick={() => setOpen(!open)}

@@ -8,6 +8,7 @@ import "./app/mail/sendMail";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
+import config from "./app/config";
 
 const app: Application = express();
 
@@ -25,7 +26,7 @@ app.use(morgan("dev"));
 // app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: config.base_url,
     credentials: true,
   })
 );
@@ -85,8 +86,8 @@ app.get("/", (req: Request, res: Response) => {
   </head>
   <body>
     <div class="container">
-      <h1>Welcome <br /> Digiexplo</h1>
-      <p>Who do we have here? 😊😊</p>
+      <h1>Welcome </h1>
+      <h3>DigiExplo Server</h3>
     </div>
   </body>
   </html>`);

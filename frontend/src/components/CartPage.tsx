@@ -1,18 +1,15 @@
 "use client";
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { IProduct, IUser } from "./types";
-import { Axios } from "@/lib/axios";
-import { productItems } from "./data";
-import { useQuery } from "react-query";
+import Link from "next/link";
+import React from "react";
 import { CgClose } from "react-icons/cg";
 import FormattedPrice from "./FormattedPrice";
+import { IProduct, IUser } from "./types";
 
 interface CartPageProps {
   showCart: boolean;
   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
-  user: IUser;
+  user: IUser | null;
 }
 
 const CartPage = ({ showCart, setShowCart, user }: CartPageProps) => {
@@ -27,7 +24,7 @@ const CartPage = ({ showCart, setShowCart, user }: CartPageProps) => {
     <div>
       <div
         className={`${
-          user?.cart?.products?.length > 0
+          user?.cart?.products?.length! > 0
             ? "w-[300px] md:w-[400px]"
             : "w-[300px]"
         }  bg-white h-screen p-5 fixed top-0 z-[99999] ${
@@ -52,7 +49,7 @@ const CartPage = ({ showCart, setShowCart, user }: CartPageProps) => {
             className="cursor-pointer text-xl md:text-2xl"
           />
         </div>
-        {user?.cart?.products?.length > 0 ? (
+        {user?.cart?.products?.length! > 0 ? (
           <div className="flex flex-col gap-4">
             {user?.cart?.products?.map(
               ({ _id, thumbnail, productName, price }: IProduct) => (
@@ -87,7 +84,7 @@ const CartPage = ({ showCart, setShowCart, user }: CartPageProps) => {
         ) : (
           <h4 className="text-lg text-[#1b2430] mt-10">Your cart is empty!</h4>
         )}
-        {user?.cart?.products?.length > 0 ? (
+        {user?.cart?.products?.length! > 0 ? (
           <>
             <div className="text-lg font-semibold mt-5 flex justify-between items-center">
               <h4 className="">Total Price:</h4>

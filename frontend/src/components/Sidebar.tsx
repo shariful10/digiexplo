@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Axios } from "@/lib/axios";
@@ -11,6 +11,7 @@ import { LuUser2 } from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { UserProvider, useUser } from "./AuthProvider";
 
 interface Props {
   show: boolean;
@@ -31,16 +32,12 @@ const Sidebar = ({ show, setShow }: Props) => {
         const res = await Axios.get(`users/get-categories`);
         return res?.data?.data;
       } catch (error) {
-        console.log(error);
         throw new Error("Failed to fetch category data");
       }
     }
   );
 
-  const { data: user = [] } = useQuery(["user"], async () => {
-    const res = await Axios.get(`/users/get-user`);
-    return res?.data?.data;
-  });
+  const { user } = useUser();
 
   const categoryToUrl = (title: string) => {
     const splitUrl = title.split(" ");
@@ -113,26 +110,26 @@ const Sidebar = ({ show, setShow }: Props) => {
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-2 mx-5 small:hidden">
-          <Link
-            href="/signup"
-            onClick={() => {
-              setShow(false), handleVendorRequestBtn();
-            }}
-          >
-            <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2.5 px-5 rounded-md font-semibold text-white w-full">
-              Become a Vendor
-            </button>
-          </Link>
-          {!user && (
+        {!user && user === null && (
+          <div className="flex flex-col gap-2 mx-5 small:hidden">
+            <Link
+              href="/signup"
+              onClick={() => {
+                setShow(false), handleVendorRequestBtn();
+              }}
+            >
+              <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-500 py-2.5 px-5 rounded-md font-semibold text-white w-full">
+                Become a Vendor
+              </button>
+            </Link>
             <Link href="/login" onClick={() => setShow(false)}>
               <button className="bg-primary hover:bg-[#316dce] transition-all ease-in-out duration-700 py-2 px-5 rounded-md font-semibold text-white flex justify-center items-center gap-2 w-full">
                 <LuUser2 />
                 Login
               </button>
             </Link>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

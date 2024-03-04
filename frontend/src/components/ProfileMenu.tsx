@@ -12,8 +12,8 @@ interface ProfileMenuProps {
 const ProfileMenu = ({ open, setOpen, user, logoutUser }: ProfileMenuProps) => {
   return (
     <div
-      className={`fixed  right-10 ${
-        open ? "top-16 z-20" : "-top-10 -z-40"
+      className={`absolute  right-0 ${
+        open ? "top-12 z-20" : "-top-10 -z-40"
       } duration-500`}
     >
       <div

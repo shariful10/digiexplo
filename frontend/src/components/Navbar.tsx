@@ -14,6 +14,7 @@ import { IProduct } from "./types";
 import { auth } from "@/lib/auth";
 import Image from "next/image";
 import logo from "@/images/logo.png";
+import FormattedPrice from "./FormattedPrice";
 
 interface Props {
   show: boolean;
@@ -74,36 +75,35 @@ const Navbar = ({
             <SearchInput setSearch={setSearch} setListShown={setListShown} />
             {/* searched items */}
             {items.length > 0 && listShown && (
-              <ul className="absolute top-11 bg-white py-5 z-50 max-w-lg w-full shadow-md rounded-md">
+              <ul className="absolute top-12 bg-white z-50 max-w-lg w-full shadow-md rounded-md">
                 {items.map((item, index) => (
                   <li key={index} className="hover:bg-secondary">
                     <Link
                       href={`/product/${item._id}`}
                       onClick={() => setListShown(false)}
                     >
-                      <div className="flex justify-between py-2 items-center p-8">
-                        <div className="flex gap-4 items-center">
-                          <p>{index + 1}.</p>
+                      <div className="flex justify-between py-5 items-center px-8">
+                        <div className="flex gap-4 items-center justify-between w-full">
                           <Image
-                            className="rounded h-10 w-10 object-cover"
+                            className="rounded h-[100px] w-[100px] object-cover border-2 border-gray-400"
                             src={item.thumbnail}
-                            width={40}
-                            height={40}
+                            width={100}
+                            height={100}
                             alt={item.productName}
                           />
-                          {item.productName}
-                        </div>
-                        <div className="flex items-center gap-8">
-                          <div
-                            className={`${
-                              item.status === "active"
-                                ? "bg-[#2AB7DD21]"
-                                : "bg-darkGray text-white"
-                            } text-xs px-4 py-1 rounded-3xl`}
-                          ></div>
-                          {/* <button>
-                            <IoClose size={20} />
-                          </button> */}
+                          <div className="flex justify-between w-full">
+                            <div className="flex flex-col">
+                              <h4 className="text-lg font-semibold">
+                                {item.productName}
+                              </h4>
+                              <p className="text-sm">
+                                {item?.vendor?.ownerName}
+                              </p>
+                            </div>
+                            <h4 className="font-semibold text-right text-primary">
+                              <FormattedPrice amount={item?.price} />
+                            </h4>
+                          </div>
                         </div>
                       </div>
                     </Link>

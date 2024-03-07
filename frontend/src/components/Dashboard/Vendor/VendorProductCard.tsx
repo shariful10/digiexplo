@@ -48,14 +48,19 @@ const VendorProductCard = ({ product }: { product: IProduct }) => {
           <h4 className="text-sm font-semibold">${product?.price}</h4>
         </div>
       </div>
-      <div>
-        <Link
-          href=""
-          className="bg-primary text-sm px-3 py-2 text-white rounded-md mt-8 flex items-center gap-2 max-w-[100px] justify-center"
-        >
-          Preview <PiEye />
-        </Link>
-      </div>
+      {product?.status !== "Pending" || "Reject" || "Cancel" ? (
+        <div>
+          <Link
+            href={`/product/${product?._id}`}
+            target="_blank"
+            className="bg-primary text-sm px-3 py-2 text-white rounded-md mt-8 flex items-center gap-2 max-w-[100px] justify-center"
+          >
+            Preview <PiEye />
+          </Link>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

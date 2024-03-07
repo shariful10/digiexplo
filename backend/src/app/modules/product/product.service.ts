@@ -176,7 +176,7 @@ const buyProductPaymentIntend = async (userId: string, productId: string) => {
     ],
     customer: customer.id,
     mode: "payment",
-    success_url: "https://digiexplo.vercel.app/dashboard",
+    success_url: `${config.base_url}/dashboard`,
     cancel_url: "http://localhost:5000/payment-cancel",
   });
   return session;
@@ -216,6 +216,10 @@ const stripeHook = async (body: any, sig: string) => {
     });
 
     const vendor = await VendorModel.findById(product?.vendor);
+
+    console.log("vendorId", product?.vendor);
+    console.log("stripeHook", vendor);
+
     if (!vendor || vendor.wallet === undefined) {
       throw new AppError(
         httpStatus.NOT_FOUND,

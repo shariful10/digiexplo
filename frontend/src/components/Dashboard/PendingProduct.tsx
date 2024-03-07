@@ -113,7 +113,7 @@ const PendingProduct = () => {
                       </td>
                       <td className="px-8 py-5 md:px-10">
                         <p className="whitespace-nowrap capitalize">
-                          {product?.productName}
+                          {product?.productName.slice(0, 25)}
                         </p>
                       </td>
                       <td className="px-8 py-2.5 md:px-10">
@@ -157,10 +157,10 @@ const PendingProduct = () => {
           </div>
         ) : (
           <div className="min-h-[200px] flex flex-col justify-center max-w-4xl rounded-2xl box-shadow border border-gray-100 my-16">
-						<p className="text-2xl font-semibold text-center">
-							No pending products! 😊
-						</p>
-					</div>
+            <p className="text-2xl font-semibold text-center">
+              No pending products! 😊
+            </p>
+          </div>
         )}
       </div>
 

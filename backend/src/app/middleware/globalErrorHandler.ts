@@ -11,6 +11,7 @@ import { handleValidationError } from "../errors/handleValidationError";
 import { handleZodError } from "../errors/handleZodError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.log(err);
   // setting default values
   let statusCode = 500;
   let message = "Something went wrong";

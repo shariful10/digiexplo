@@ -24,6 +24,19 @@ const ProductDetailsComponent = () => {
   const { data: products = [], isLoading } = useGetApprovedProducts();
   const product = products.find((product) => product._id === id);
 
+  const handleBuyProduct = async (productId: string) => {
+    try {
+      const res = await Axios.post(`/product/buy-product-intend/${productId}`);
+
+      if (res.status === 200) {
+        window.location.href = res?.data?.url;
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!product) {
     return null;
   }
@@ -79,7 +92,10 @@ const ProductDetailsComponent = () => {
                     <FaDownload size={16} /> <span>Download</span>
                   </Link>
                 ) : (
-                  <button className="text-black hover:text-white capitalize bg-gray-100 hover:bg-primary duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold">
+                  <button
+                    className="text-black hover:text-white capitalize bg-gray-100 hover:bg-primary duration-300 transition-all ease-in-out py-3 min-w-[40px] max-w-[150px] w-full rounded-lg text-base font-semibold"
+                    onClick={() => handleBuyProduct(product?._id)}
+                  >
                     Purchase
                   </button>
                 )}
